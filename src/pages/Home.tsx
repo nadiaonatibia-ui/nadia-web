@@ -1,1 +1,130 @@
-import { Link } from 'react-router-dom'; import type { Language } from '../../types'; interface HomeProps {language: Language;}; export const Home = ({ language }: HomeProps) => {const content = {es: {title: 'Nadia Oñatibia', subtitle: 'Senior Project Manager', tagline: 'Cultura como infraestructura democrática', description: 'Con más de 10 años de experiencia en gestión de proyectos internacionales, producción cultural y fundraising europeo. Especializada en espacios de diálogo y transformación social.', cta_portfolio: 'Ver Portfolio', cta_contact: 'Contactar', recent_projects: 'Proyectos Destacados'}, en: {title: 'Nadia Oñatibia', subtitle: 'Senior Project Manager', tagline: 'Culture as democratic infrastructure', description: 'With more than 10 years of experience in international project management, cultural production and European fundraising. Specialized in dialogue spaces and social transformation.', cta_portfolio: 'View Portfolio', cta_contact: 'Get in Touch', recent_projects: 'Featured Projects'}, ca: {title: 'Nadia Oñatibia', subtitle: 'Senior Project Manager', tagline: 'Cultura com infraestructura democràtica', description: 'Amb més de 10 anys d\'experiència en gestió de projectes internacionals, producció cultural i finançament europeu. Especialitzada en espais de diàleg i transformació social.', cta_portfolio: 'Veure Portafoli', cta_contact: 'Contactar', recent_projects: 'Projectes Destacats'}}; const t = content[language]; return (<main><section className="min-h-screen bg-gradient-to-br from-purpura via-purpura-vino to-purpura text-white flex items-center"><div className="container-wide py-20"><div className="max-w-3xl"><h1 className="text-6xl md:text-7xl font-anton mb-4 text-amarillo">{t.title}</h1><p className="text-2xl md:text-3xl mb-6 font-dancing text-rosa-pastel">{t.subtitle}</p><p className="text-xl mb-8 opacity-90">{t.tagline}</p><p className="text-lg mb-12 max-w-2xl leading-relaxed opacity-90">{t.description}</p><div className="flex gap-4 flex-wrap"><Link to="/portfolio" className="btn btn-primary">{t.cta_portfolio}</Link><Link to="/contact" className="btn btn-secondary">{t.cta_contact}</Link></div></div></div></section><section className="section-padding bg-white"><div className="container-wide"><h2 className="text-4xl mb-8 text-center">{language === 'es' ? 'Qué Creo' : language === 'en' ? 'What I Believe' : 'Que Crec'}</h2><div className="max-w-3xl mx-auto bg-rosa-pastel/10 p-8 rounded-lg border-l-4 border-purpura-vino"><p className="text-lg leading-relaxed mb-4">{language === 'es' ? 'La cultura no es un lujo ni un sector económico aislado. Es infraestructura democrática. Produce las condiciones para que la convivencia sea posible.' : language === 'en' ? 'Culture is not a luxury or an isolated economic sector. It is democratic infrastructure. It produces the conditions for coexistence to be possible.' : 'La cultura no és un luxe ni un sector econòmic aïllat. És infraestructura democràtica. Produeix les condicions perquè la convivència sigui possible.'}</p><p className="text-lg leading-relaxed">{language === 'es' ? 'Mi trabajo busca generar espacios donde el conflicto se trasforma en potencia, donde las diferencias se reconocen como riqueza, y donde la participación es genuina.' : language === 'en' ? 'My work seeks to generate spaces where conflict transforms into power, where differences are recognized as wealth, and where participation is genuine.' : 'El meu treball cerca generar espais on el conflicte es transforma en potència, on les diferències es reconeixen com a riquesa, i on la participació és genuïna.'}</p></div></div></section><section className="section-padding bg-gradient-to-r from-amarillo/5 to-teal/5"><div className="container-wide"><h2 className="text-4xl mb-12 text-center">{t.recent_projects}</h2><div className="grid grid-cols-1 md:grid-cols-2 gap-8"><div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"><h3 className="text-2xl font-anton mb-3 text-purpura-vino">{language === 'es' ? 'Proyectos' : language === 'en' ? 'Projects' : 'Projectes'}</h3><p className="text-purpura/70 mb-4">{language === 'es' ? 'Explorando temas de migración, género, patrimonio y transformación social.' : language === 'en' ? 'Exploring themes of migration, gender, heritage and social transformation.' : 'Explorant temes de migració, gènere, patrimoni i transformació social.'}</p><Link to="/portfolio" className="text-amarillo font-medium hover:text-purpura-vino">{language === 'es' ? 'Ver todos →' : language === 'en' ? 'View all →' : 'Veure tots →'}</Link></div><div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow"><h3 className="text-2xl font-anton mb-3 text-purpura-vino">{language === 'es' ? 'Pensamiento' : language === 'en' ? 'Thinking' : 'Pensament'}</h3><p className="text-purpura/70 mb-4">{language === 'es' ? 'Papers y reflexiones sobre gestión cultural y democracia.' : language === 'en' ? 'Papers and reflections on cultural management and democracy.' : 'Articles i reflexions sobre gestió cultural i democràcia.'}</p><Link to="/blog" className="text-amarillo font-medium hover:text-purpura-vino">{language === 'es' ? 'Leer más →' : language === 'en' ? 'Read more →' : 'Llegir més →'}</Link></div></div></div></section><section className="section-padding bg-purpura text-white text-center"><div className="container-wide"><h2 className="text-4xl mb-6">{language === 'es' ? '¿Querés conversar?' : language === 'en' ? 'Want to talk?' : 'Vols conversar?'}</h2><p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">{language === 'es' ? 'Estoy disponible para colaboraciones, consultoría y nuevos proyectos en cultura, educación y cooperación internacional.' : language === 'en' ? 'I\'m available for collaborations, consulting and new projects in culture, education and international cooperation.' : 'Estic disponible per a col·laboracions, consultoria i nous projectes en cultura, educació i cooperació internacional.'}</p><Link to="/contact" className="btn btn-primary inline-block">{language === 'es' ? 'Contactar' : language === 'en' ? 'Get in Touch' : 'Contactar'}</Link></div></section></main>);};
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import type { Language } from '../../types';
+
+interface HomeProps { language: Language; }
+
+const manifiestoParagraphs = [
+  'Creo en los proyectos que abren espacios para que más personas puedan reconocerse como productoras de sentido y de cultura, con voz propia para contar su historia, cuestionar lo dado y disputar un lugar en la conversación pública. Ese pasaje necesita relato, pero también producción: alguien que transforme una intuición en un proyecto, una conversación en una alianza, una idea en un presupuesto, un cronograma, un equipo y, finalmente, una experiencia compartida.',
+  'En los últimos años trabajé en contextos atravesados por la migración, la fractura generacional, el discurso de odio en redes y la fragmentación religiosa. En todos aprendí lo mismo: la democracia no se debilita porque exista el conflicto. Se debilita cuando dejamos de crear espacios capaces de sostenerlo, de escucharlo y de transformarlo en acción colectiva.',
+  'Ahí es donde encuentro mi lugar. Me apasiona producir las condiciones para que las cosas sucedan. Diseñar proyectos, coordinar equipos, conseguir recursos, articular alianzas, acompañar procesos creativos y hacer que una visión llegue a existir sin perder su sentido en el camino.',
+  'Porque entendí que producir no es solo organizar. Es crear las condiciones para que una idea encuentre las personas, los recursos, el tiempo y la estructura necesarios para convertirse en algo que deje una huella.',
+  'Gestionar un proyecto cultural y subirme a un escenario nunca fueron dos oficios distintos. Son dos maneras de participar de la misma práctica: construir las condiciones para que algo significativo ocurra.',
+];
+
+const registros = [
+  {
+    number: '01',
+    title: 'PROJECT MANAGER',
+    body: 'Planificación y coordinación de proyectos multi-partner bajo marcos europeos: Erasmus+, Creative Europe, CERV. Con conocimiento directo también de la escena cultural latinoamericana, desde mi trayectoria en Argentina. Gestión de presupuesto, reporting a financiadores públicos y privados, cumplimiento y documentación. Coordinación de equipos internacionales, alineando timelines y entregables entre países y continentes.',
+  },
+  {
+    number: '02',
+    title: 'FACILITADORA — ARTS-BASED',
+    body: 'Actriz y profesora de arte. Diseño y facilitación de procesos participativos con teatro comunitario, teatro del oprimido y teatro fórum. Formación a jóvenes, educadores y trabajadores comunitarios. De la sesión íntima de taller al proceso de varias semanas con grupos en contextos de vulnerabilidad.',
+  },
+  {
+    number: '03',
+    title: 'PRODUCTORA',
+    body: 'Logística y coordinación multi-sede de programación cultural. Producción de contenido en distintos formatos: presencial, digital, editorial. De un taller de una tarde a un festival internacional o un congreso con múltiples stakeholders.',
+  },
+];
+
+const chips = [
+  { label: 'COOPERACIÓN', className: 'bg-rojo text-hueso' },
+  { label: 'FACILITACIÓN', className: 'bg-hueso text-ink' },
+  { label: 'GESTIÓN', className: 'bg-vino text-hueso' },
+  { label: 'PRODUCCIÓN', className: 'bg-teal text-hueso' },
+];
+
+export const Home = ({ language }: HomeProps) => {
+  const [openAccordion, setOpenAccordion] = useState<number | null>(null);
+
+  const cta = {
+    es: { portfolio: 'Ver Portfolio', contact: 'Contactar' },
+    en: { portfolio: 'View Portfolio', contact: 'Get in Touch' },
+    ca: { portfolio: 'Veure Portafoli', contact: 'Contactar' },
+  }[language];
+
+  return (
+    <main>
+      {/* HERO */}
+      <section className="section-padding bg-crudo pt-12">
+        <div className="container-wide grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="eyebrow-mono mb-4">(se abre el telón)</p>
+            <h1 className="text-5xl md:text-7xl leading-none mb-6 text-vino">NADIA<br />OÑATIBIA</h1>
+            <p className="text-lg mb-8 max-w-xl text-ink">Gestión cultural, facilitación de metodologías arts-based y producción de eventos. Desde la oficina y desde el escenario.</p>
+            <div className="flex gap-3 flex-wrap">
+              {chips.map((chip) => (
+                <span key={chip.label} className={`px-4 py-2 rounded-full text-sm font-medium ${chip.className}`}>{chip.label}</span>
+              ))}
+            </div>
+          </div>
+          <div className="gingham-rosa rounded-lg p-10 md:p-16 flex items-center justify-center relative min-h-[320px]">
+            <div className="polaroid -rotate-3 w-48 md:w-64">
+              <div className="polaroid-photo w-full aspect-[3/4]">foto</div>
+            </div>
+            <div className="polaroid rotate-6 w-24 md:w-32 absolute -bottom-4 -right-2 md:right-4">
+              <div className="polaroid-photo w-full aspect-square">foto</div>
+            </div>
+            <div className="polaroid -rotate-12 w-20 md:w-28 absolute top-2 left-0 md:-left-6">
+              <div className="polaroid-photo w-full aspect-square">foto</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MANIFIESTO */}
+      <section className="section-padding bg-crudo">
+        <div className="container-wide max-w-3xl mx-auto">
+          <p className="eyebrow-mono mb-4">(monólogo)</p>
+          <h2 className="text-4xl mb-10 text-vino">LO QUE CREO</h2>
+          <p className="text-2xl md:text-3xl font-anton normal-case tracking-normal leading-snug text-vino mb-8">
+            Trabajo con la convicción de que la cultura no es solo un sector: es infraestructura democrática.
+          </p>
+          <div className="space-y-6">
+            {manifiestoParagraphs.map((p, i) => (
+              <p key={i} className="text-lg leading-relaxed text-ink">{p}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TRES REGISTROS */}
+      <section className="section-padding bg-crudo">
+        <div className="container-wide max-w-3xl mx-auto">
+          <p className="eyebrow-mono mb-4">(cambio de escena)</p>
+          <h2 className="text-4xl mb-10 text-vino">TRES REGISTROS, UN MISMO OFICIO</h2>
+          <div className="space-y-4">
+            {registros.map((r, i) => {
+              const isOpen = openAccordion === i;
+              return (
+                <div key={r.number} className="accordion-item">
+                  <button className="accordion-header" onClick={() => setOpenAccordion(isOpen ? null : i)}>
+                    <span className="text-hueso">
+                      <span className="text-rojo font-anton mr-3">{r.number}</span>
+                      <span className="font-anton uppercase tracking-wide">{r.title}</span>
+                    </span>
+                    <span className={`accordion-toggle ${isOpen ? 'open' : ''}`}>+</span>
+                  </button>
+                  <div className={`accordion-body ${isOpen ? 'open' : ''}`}>
+                    <p className="text-hueso/90 leading-relaxed">{r.body}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section-padding bg-vino text-center">
+        <div className="container-wide flex gap-4 flex-wrap justify-center">
+          <Link to="/portfolio" className="btn bg-hueso text-ink hover:bg-rosa">{cta.portfolio}</Link>
+          <Link to="/contact" className="btn bg-rojo text-hueso hover:bg-vino-2">{cta.contact}</Link>
+        </div>
+      </section>
+    </main>
+  );
+};

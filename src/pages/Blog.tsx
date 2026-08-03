@@ -1,1 +1,97 @@
-import { useState, useEffect } from 'react'; import type { Language } from '../../types'; import type { BlogPost } from '../../types'; import { supabase } from '../lib/supabase'; interface BlogProps {language: Language;}; export const Blog = ({ language }: BlogProps) => {const [posts, setPosts] = useState<BlogPost[]>([]); const [loading, setLoading] = useState(true); const [selectedCategory, setSelectedCategory] = useState<string | null>(null); useEffect(() => {fetchPosts()}, []); const fetchPosts = async () => {try {const { data, error } = await supabase.from('blog_posts').select('*').eq('published', true).order('created_at', { ascending: false }); if (error) throw error; setPosts(data || [])} catch (error) {console.error('Error fetching posts:', error)} finally {setLoading(false)}}; const categories = ['Gestión de Proyectos', 'Cultura', 'Producción', 'Fundraising']; const filtered = selectedCategory ? posts.filter((p) => p.category === selectedCategory) : posts; const labels = {es: {title: 'Blog', categories: 'Categorías', all: 'Todos', noPosts: 'No hay artículos aún', readMore: 'Leer más'}, en: {title: 'Blog', categories: 'Categories', all: 'All', noPosts: 'No articles yet', readMore: 'Read more'}, ca: {title: 'Blog', categories: 'Categories', all: 'Tots', noPosts: 'Sense articles', readMore: 'Llegir més'}}; const t = labels[language]; const formatDate = (dateString: string) => {const date = new Date(dateString); return language === 'es' ? date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' }) : date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}; return (<main className="min-h-screen pt-20"><section className="section-padding bg-gradient-to-br from-purpura to-purpura-vino text-white"><div className="container-wide"><h1 className="text-5xl font-anton mb-4">{t.title}</h1><p className="text-lg opacity-90">{language === 'es' ? 'Reflexiones sobre gestión cultural, producción y transformación social' : language === 'en' ? 'Reflections on cultural management, production and social transformation' : 'Reflexions sobre gestió cultural, producció i transformació social'}</p></div></section><section className="section-padding"><div className="container-wide"><div className="mb-12"><h3 className="text-lg font-medium mb-4">{t.categories}</h3><div className="flex flex-wrap gap-3"><button onClick={() => setSelectedCategory(null)} className={`px-4 py-2 rounded-lg font-medium transition-all ${selectedCategory === null ? 'bg-amarillo text-purpura' : 'bg-gray-200 text-purpura hover:bg-gray-300'}`}>{t.all}</button>{categories.map((category) => (<button key={category} onClick={() => setSelectedCategory(category)} className={`px-4 py-2 rounded-lg font-medium transition-all ${selectedCategory === category ? 'bg-amarillo text-purpura' : 'bg-gray-200 text-purpura hover:bg-gray-300'}`}>{category}</button>))}</div></div>{loading ? (<div className="text-center py-12"><p className="text-gray-500">{language === 'es' ? 'Cargando...' : 'Loading...'}</p></div>) : filtered.length === 0 ? (<div className="text-center py-12"><p className="text-gray-500">{t.noPosts}</p></div>) : (<div className="max-w-2xl mx-auto space-y-8">{filtered.map((post) => (<article key={post.id} className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow border-l-4 border-purpura-vino"><div className="flex items-start justify-between mb-4"><span className="inline-block bg-amarillo/20 text-purpura-vino px-3 py-1 rounded text-sm font-medium">{post.category}</span><time className="text-gray-500 text-sm">{formatDate(post.created_at)}</time></div><h2 className="text-3xl font-anton mb-4">{language === 'es' ? post.title_es : post.title_en}</h2><p className="text-gray-600 mb-6 line-clamp-3">{language === 'es' ? post.content_es : post.content_en}</p><button className="text-amarillo font-medium hover:text-purpura-vino">{t.readMore} →</button></article>))}</div>)}</div></section></main>);};
+import { useState, useEffect } from 'react';
+import type { Language } from '../../types';
+import type { BlogPost } from '../../types';
+import { supabase } from '../lib/supabase';
+
+interface BlogProps { language: Language; }
+
+const reflexiones = [
+  '¿Sabías que un cuadro puede ser una herramienta de mediación cultural?',
+  'Eventos culturales sostenibles',
+  'Estrategias para proyectos de mediación cultural',
+  'El futuro de la mediación cultural',
+  'Creatividad en campañas culturales',
+  'Reflexión sobre el consumo cultural',
+  '¿Por qué el arte urbano es la voz de las ciudades?',
+  '5 consejos para fomentar la innovación en proyectos culturales',
+];
+
+export const Blog = ({ language }: BlogProps) => {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+
+  useEffect(() => { fetchPosts(); }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const { data, error } = await supabase.from('blog_posts').select('*').eq('published', true).order('created_at', { ascending: false });
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
+
+  const labels = {
+    es: { readPaper: 'Leer el paper (PDF, inglés) →', slides: 'slides', recent: 'Actualizaciones recientes' },
+    en: { readPaper: 'Read the paper (PDF, English) →', slides: 'slides', recent: 'Recent updates' },
+    ca: { readPaper: 'Llegir el paper (PDF, anglès) →', slides: 'slides', recent: 'Actualitzacions recents' },
+  }[language];
+
+  const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  return (
+    <main className="min-h-screen pt-8 bg-crudo">
+      <section className="section-padding pb-8">
+        <div className="container-wide">
+          <p className="eyebrow-mono mb-4">(hoja aparte)</p>
+          <h1 className="text-5xl mb-4 text-vino">PAPERS &amp; REFLEXIONES</h1>
+        </div>
+      </section>
+
+      <section className="section-padding pt-0">
+        <div className="container-wide max-w-3xl mx-auto">
+          <div className="bg-crudo-alt rounded-lg p-8 md:p-10">
+            <p className="eyebrow-mono mb-3">febrero 2026 · barcelona</p>
+            <h2 className="text-3xl mb-2 text-rosa">CULTURE AS DEMOCRATIC INFRASTRUCTURE</h2>
+            <p className="subtitle text-hueso mb-6">"Participatory Practice and Culture as a Public Right"</p>
+            <p className="text-hueso/90 leading-relaxed mb-8">Un ensayo breve sobre la cultura participativa como infraestructura democrática, a partir de cuatro procesos reales: Rassif, SMASH, MIRETAGE y Beyond Gender. Sostiene que la democracia no se debilita porque exista el conflicto, sino cuando no quedan espacios capaces de sostenerlo.</p>
+            <button disabled className="text-hueso font-medium opacity-60 cursor-not-allowed">{labels.readPaper}</button>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding pt-0">
+        <div className="container-wide max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {reflexiones.map((title) => (
+              <div key={title} className="bg-white/60 rounded-lg p-6 flex flex-col justify-between">
+                <h3 className="text-lg font-medium text-ink mb-4 normal-case tracking-normal">{title}</h3>
+                <span className="eyebrow-mono">5 {labels.slides}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {posts.length > 0 && (
+        <section className="section-padding pt-0">
+          <div className="container-wide max-w-3xl mx-auto">
+            <h2 className="text-3xl mb-8 text-vino">{labels.recent}</h2>
+            <div className="space-y-8">
+              {posts.map((post) => (
+                <article key={post.id} className="bg-crudo-alt p-8 rounded-lg">
+                  <div className="flex items-start justify-between mb-4">
+                    <span className="inline-block bg-rosa/20 text-ink px-3 py-1 rounded text-sm font-medium">{post.category}</span>
+                    <time className="text-hueso/70 text-sm">{formatDate(post.created_at)}</time>
+                  </div>
+                  <h3 className="text-2xl mb-4 text-rosa">{language === 'es' ? post.title_es : post.title_en}</h3>
+                  <p className="text-hueso/90">{language === 'es' ? post.content_es : post.content_en}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </main>
+  );
+};
