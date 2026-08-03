@@ -1,6 +1,6 @@
 # Nadia Oñatibia — Web personal — Documento maestro de cierre
 
-Última actualización: 2026-08-03 · commit `3a16668` en `main`
+Última actualización: 2026-08-03 · commit `2a34506` en `main`
 
 ## 1. Qué es esto
 
@@ -18,7 +18,7 @@ Deployada en Vercel, con dominio actual `https://nadia-web-theta.vercel.app`.
 - Vite 5 + TypeScript (`tsc -b && vite build`)
 - Tailwind CSS 3 + `@tailwindcss/forms`
 - Supabase (`@supabase/supabase-js`) — proyecto `heabqkigomppqgwfzgvj.supabase.co`, credenciales en `.env.local` (NO está en git, está en `.gitignore`, hay que configurarlas también en Vercel como env vars si no están)
-- Deploy: Vercel, sin `vercel.json` (se removió a pedido; build command y output dir se configuran directamente en el dashboard de Vercel, no en el repo)
+- Deploy: Vercel, con `vercel.json` (buildCommand + outputDirectory + rewrites SPA, restaurado tras confirmar que faltaba)
 
 ### Tablas de Supabase en uso
 - `contact_messages` — el formulario de contacto inserta acá (nombre, email, mensaje). Funcionando.
@@ -47,7 +47,7 @@ Componentes CSS custom: `.eyebrow-mono`, `.logo-pill`, `.gingham-rosa`/`.gingham
 - **Contact**: fondo vino con marco gingham teal, "Hablemos" en Dancing Script, formulario conectado a Supabase (`contact_messages`) funcionando.
 - **Navbar/Footer**: restilizados con logo pill y paleta nueva.
 
-Multiidioma: estructura ES/EN/CA existe en todos los componentes, pero el contenido real (textos del rediseño) solo está cargado en español. EN/CA usan el mismo texto ES temporalmente — pendiente que Nadia revise traducciones.
+Multiidioma: **completo**. Home, Portfolio, CV, Blog y Contact tienen contenido real en ES/EN/CA (traducciones provistas por Nadia, cargadas en objetos `content`/`labels` por página). Navbar ya tenía sus 3 idiomas de antes. Footer no se traduce (decisión del brief original).
 
 ## 4. PDFs ya conectados (recién hecho)
 
@@ -61,14 +61,16 @@ Multiidioma: estructura ES/EN/CA existe en todos los componentes, pero el conten
 1. **Fotos reales del hero** — hay un brief detallado ya escrito (`Brief_Fotos_Hero.md` en la carpeta de outputs de la sesión de agente local, no en el repo). Resumen: 1 foto principal vertical (mín. 1200×1500px) + 2 fotos secundarias (mín. 800×1000px), luz natural cálida, nada corporativo. Cuando Nadia las tenga, hay que:
    - Subirlas a `public/images/` (crear la carpeta) con nombres tipo `hero-main.jpg`, `hero-secondary-1.jpg`, `hero-secondary-2.jpg`.
    - En `src/pages/Home.tsx`, reemplazar los 3 `<div className="polaroid-photo">foto</div>` por `<img src="/images/..." alt="..." className="w-full h-full object-cover" />` dentro de cada `.polaroid`.
-2. **Traducciones EN/CA reales** — todo el contenido del rediseño (Home, Portfolio, CV, Blog, Contact) está en español únicamente. Falta traducir y separar los objetos de contenido por idioma en cada página.
+2. ~~Traducciones EN/CA reales~~ — **hecho** (commit `2a34506`). Todo el contenido de Home, Portfolio, CV, Blog y Contact tiene textos reales en los 3 idiomas, verificado navegando cada página con el toggle.
 3. **Revisión de contenido de los PDFs** — el CV y el paper fueron generados como borrador con ReportLab (scripts `build_cv.py` / `build_paper.py` en la sesión de agente local, no en el repo). Nadia debería revisar el contenido y, si quiere cambios de texto/diseño del PDF en sí (no del link), hay que regenerarlos y reemplazar los archivos en `public/documents/` con el mismo nombre (o actualizar el link si cambia el nombre).
-4. **Variables de entorno en Vercel** — confirmar que `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` estén configuradas en el dashboard de Vercel (Project Settings → Environment Variables), ya que `.env.local` no se sube a git y Vercel no las tiene automáticamente a menos que se hayan cargado ahí manualmente en algún momento anterior.
+4. **Variables de entorno en Vercel** — confirmar que `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` estén configuradas en el dashboard de Vercel (Project Settings → Environment Variables). No pude verificarlo desde este entorno (sin acceso a la CLI de Vercel autenticada ni al dashboard). **Pendiente que Rodrigo/Nadia lo confirmen manualmente.**
 5. **Confirmar visualmente en producción** — no pude verificar el sitio en `https://nadia-web-theta.vercel.app` desde este entorno (el navegador de este entorno no tiene acceso a dominios externos). Falta que alguien lo revise directamente en el navegador real, en especial:
-   - Que el redeploy de Vercel haya tomado el último push (`3a16668`).
+   - Que el redeploy de Vercel haya tomado el último push (`2a34506`).
    - Que los dos PDFs abran bien desde el sitio en vivo.
+   - Que las rutas `/portfolio`, `/blog`, `/cv`, `/contact` no den 404 al entrar directo o recargar (ahora que `vercel.json` con `rewrites` está de vuelta, debería estar resuelto, pero falta la confirmación real).
    - Look & feel general en mobile real (se verificó sin overflow horizontal en un viewport simulado de 375px, pero no en un dispositivo real).
-6. **Rewrite de rutas SPA** — se removió `vercel.json` a pedido explícito en una iteración anterior. Esto significa que si alguien entra directo a una URL tipo `nadia-web-theta.vercel.app/portfolio` (no navegando desde `/`) o recarga la página en esa ruta, es probable que dé 404, salvo que Vercel esté manejando el fallback de otra forma (frameworks preset de Vite en Vercel a veces lo resuelve automático, pero no está garantizado sin el rewrite explícito). **Confirmar si esto es un problema real en producción** y, si lo es, decidir si se vuelve a agregar un `vercel.json` con el bloque `rewrites`.
+   - Que el toggle ES/EN/CA funcione igual que en local.
+6. ~~Rewrite de rutas SPA~~ — **hecho** (commit `2a34506`). Se restauró `vercel.json` con `buildCommand`, `outputDirectory` y el bloque `rewrites` que redirige todo a `/index.html` para que el routing de React Router funcione en rutas directas y al recargar.
 
 ## 6. Cosas importantes para la próxima conversación (contexto operativo)
 
