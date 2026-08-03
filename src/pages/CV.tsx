@@ -118,8 +118,7 @@ export const CV = ({ language }: CVProps) => {
             ))}
           </div>
           <div className="text-center">
-            <button disabled className="btn btn-primary opacity-60 cursor-not-allowed">{labels.download}</button>
-            <p className="text-ink/60 text-sm mt-2">({labels.downloadComing})</p>
+            <a href="/documents/CV_Nadia_Onatibia.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-primary">{labels.download}</a>
           </div>
         </div>
       </section>

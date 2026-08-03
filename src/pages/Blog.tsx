@@ -55,7 +55,7 @@ export const Blog = ({ language }: BlogProps) => {
             <h2 className="text-3xl mb-2 text-rosa">CULTURE AS DEMOCRATIC INFRASTRUCTURE</h2>
             <p className="subtitle text-hueso mb-6">"Participatory Practice and Culture as a Public Right"</p>
             <p className="text-hueso/90 leading-relaxed mb-8">Un ensayo breve sobre la cultura participativa como infraestructura democrática, a partir de cuatro procesos reales: Rassif, SMASH, MIRETAGE y Beyond Gender. Sostiene que la democracia no se debilita porque exista el conflicto, sino cuando no quedan espacios capaces de sostenerlo.</p>
-            <button disabled className="text-hueso font-medium opacity-60 cursor-not-allowed">{labels.readPaper}</button>
+            <a href="/documents/Paper_Culture_as_Democratic_Infrastructure.pdf" target="_blank" rel="noopener noreferrer" className="text-hueso font-medium hover:text-rosa">{labels.readPaper}</a>
           </div>
         </div>
       </section>
