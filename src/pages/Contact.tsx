@@ -11,9 +11,9 @@ export const Contact = ({ language }: ContactProps) => {
   const [error, setError] = useState<string | null>(null);
 
   const labels = {
-    es: { intro: 'Disponible para proyectos de gestión cultural, facilitación de procesos participativos y producción de eventos, en Barcelona o en remoto.', name: 'Nombre', email: 'Email', message: 'Mensaje', send: 'Enviar', sending: 'Enviando...', success: 'Mensaje enviado correctamente', successMessage: 'Te contactaré pronto.', errorMessage: 'Error al enviar el mensaje. Intenta de nuevo.', namePlaceholder: 'Tu nombre', emailPlaceholder: 'tu@email.com', messagePlaceholder: 'Tu mensaje...' },
-    en: { intro: 'Available for cultural management projects, facilitation of participatory processes and event production, in Barcelona or remotely.', name: 'Name', email: 'Email', message: 'Message', send: 'Send', sending: 'Sending...', success: 'Message sent successfully', successMessage: 'I\'ll get back to you soon.', errorMessage: 'Error sending message. Please try again.', namePlaceholder: 'Your name', emailPlaceholder: 'your@email.com', messagePlaceholder: 'Your message...' },
-    ca: { intro: 'Disponible per a projectes de gestió cultural, facilitació de processos participatius i producció d\'esdeveniments, a Barcelona o en remot.', name: 'Nom', email: 'Email', message: 'Missatge', send: 'Enviar', sending: 'Enviant...', success: 'Missatge enviat correctament', successMessage: 'Em posarè en contacte aviat.', errorMessage: 'Error en enviar el missatge. Intenta de nou.', namePlaceholder: 'El teu nom', emailPlaceholder: 'el_teu@email.com', messagePlaceholder: 'El teu missatge...' },
+    es: { eyebrow: '(telón final)', heading: 'Hablemos', intro: 'Disponible para proyectos de gestión cultural, facilitación de procesos participativos y producción de eventos, en Barcelona o en remoto.', name: 'Nombre', email: 'Email', message: 'Mensaje', send: 'Enviar', sending: 'Enviando...', success: 'Mensaje enviado correctamente', successMessage: 'Te contactaré pronto.', errorMessage: 'Error al enviar el mensaje. Intenta de nuevo.', namePlaceholder: 'Tu nombre', emailPlaceholder: 'tu@email.com', messagePlaceholder: 'Tu mensaje...' },
+    en: { eyebrow: '(final curtain)', heading: "Let's talk", intro: 'Available for cultural management projects, facilitation of participatory processes and event production, in Barcelona or remotely.', name: 'Name', email: 'Email', message: 'Message', send: 'Send', sending: 'Sending...', success: 'Message sent successfully', successMessage: 'I\'ll get back to you soon.', errorMessage: 'Error sending message. Please try again.', namePlaceholder: 'Your name', emailPlaceholder: 'your@email.com', messagePlaceholder: 'Your message...' },
+    ca: { eyebrow: '(teló final)', heading: 'Parlem', intro: 'Disponible per a projectes de gestió cultural, facilitació de processos participatius i producció d\'esdeveniments, a Barcelona o en remot.', name: 'Nom', email: 'Email', message: 'Missatge', send: 'Enviar', sending: 'Enviant...', success: 'Missatge enviat correctament', successMessage: 'Em posarè en contacte aviat.', errorMessage: 'Error en enviar el missatge. Intenta de nou.', namePlaceholder: 'El teu nom', emailPlaceholder: 'el_teu@email.com', messagePlaceholder: 'El teu missatge...' },
   };
   const t = labels[language];
 
@@ -43,8 +43,8 @@ export const Contact = ({ language }: ContactProps) => {
     <main className="min-h-screen bg-vino">
       <section className="section-padding gingham-teal border-y-8 border-vino">
         <div className="container-wide max-w-2xl mx-auto text-center">
-          <p className="eyebrow-mono mb-4">(telón final)</p>
-          <h1 className="font-dancing text-6xl md:text-7xl mb-8 text-hueso">Hablemos</h1>
+          <p className="eyebrow-mono mb-4">{t.eyebrow}</p>
+          <h1 className="font-dancing text-6xl md:text-7xl mb-8 text-hueso">{t.heading}</h1>
           <p className="text-ink text-lg mb-8 max-w-xl mx-auto">{t.intro}</p>
           <a href="mailto:nadiaonatibia@gmail.com" className="block text-2xl md:text-3xl font-medium text-vino hover:text-vino-2 mb-4">nadiaonatibia@gmail.com</a>
           <div className="flex justify-center gap-3 text-ink">
