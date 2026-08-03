@@ -1,6 +1,6 @@
 # Nadia Oñatibia — Web personal — Documento maestro de cierre
 
-Última actualización: 2026-08-03 · commit `2a34506` en `main`
+Última actualización: 2026-08-03 · commit `a4f2b21` en `main`
 
 ## 1. Qué es esto
 
@@ -40,8 +40,8 @@ Fuentes: Anton (títulos), Dancing Script (subtítulos/Hablemos), Caveat (logo p
 Componentes CSS custom: `.eyebrow-mono`, `.logo-pill`, `.gingham-rosa`/`.gingham-teal`, `.polaroid`/`.polaroid-photo`, `.timeline`/`.timeline-item`, `.accordion-*`, `.modal-overlay`/`.modal-card`.
 
 ### Páginas
-- **Home**: hero con polaroids (fotos placeholder con texto "foto" — ver pendientes), manifiesto "Lo que creo", 3 acordeones "Tres Registros", CTA final.
-- **Portfolio**: 6 proyectos reales (Rassif, SMASH, Miretage, Beyond Gender, Reignite, EDI Go) con filtro por sector y modal de detalle. Datos hardcodeados en `Portfolio.tsx`.
+- **Home**: hero con polaroids y **fotos reales de Nadia** (`public/images/01_headshot_principal.jpg`, `02_escenario_patheatry.jpg`, `03_panel_miretage_horizontal.jpg` — la tercera es horizontal, montada con `object-cover object-[50%_35%]` para encuadrar cara/torso dentro del marco cuadrado), manifiesto "Lo que creo", 3 acordeones "Tres Registros", CTA final.
+- **Portfolio**: **7 proyectos reales** (Rassif, SMASH, Miretage, Beyond Gender, Reignite, EDI Go, **EMPATHEATRY**) con filtro por sector y modal de detalle. Datos hardcodeados en `Portfolio.tsx`. El contenido de EMPATHEATRY (tag/bullets/descripción) fue redactado por Claude a partir de búsqueda web pública sobre el proyecto (no provisto directamente por Nadia) — aprobado por Rodrigo antes de subir, pero **Nadia debería revisarlo** por si quiere ajustar el texto con más precisión sobre el proyecto real.
 - **CV**: timeline de 6 "actos" (trayectoria), formación, idiomas. Botón de descarga del CV **ya activo** → `/documents/CV_Nadia_Onatibia.pdf`.
 - **Blog**: paper destacado con botón **ya activo** → `/documents/Paper_Culture_as_Democratic_Infrastructure.pdf`, + 8 reflexiones estáticas, + sección dinámica opcional desde Supabase si hay posts.
 - **Contact**: fondo vino con marco gingham teal, "Hablemos" en Dancing Script, formulario conectado a Supabase (`contact_messages`) funcionando.
@@ -49,28 +49,23 @@ Componentes CSS custom: `.eyebrow-mono`, `.logo-pill`, `.gingham-rosa`/`.gingham
 
 Multiidioma: **completo**. Home, Portfolio, CV, Blog y Contact tienen contenido real en ES/EN/CA (traducciones provistas por Nadia, cargadas en objetos `content`/`labels` por página). Navbar ya tenía sus 3 idiomas de antes. Footer no se traduce (decisión del brief original).
 
-## 4. PDFs ya conectados (recién hecho)
+## 4. PDFs y assets conectados
 
-- `public/documents/CV_Nadia_Onatibia.pdf` (5118 bytes) — generado con ReportLab, colores de marca. Linkeado desde CV.tsx.
-- `public/documents/Paper_Culture_as_Democratic_Infrastructure.pdf` (9840 bytes) — ensayo en inglés sobre los 4 proyectos (Rassif, SMASH, Miretage, Beyond Gender). Linkeado desde Blog.tsx.
-- Se agregó `.gitattributes` con `*.pdf binary` para evitar que Git (con `core.autocrlf=true` en esta máquina Windows) corrompiera los PDFs al convertir saltos de línea. Verificado byte a byte que los blobs commiteados coinciden exactamente con los archivos originales.
-- Ambos links verificados en local: `fetch()` devuelve `200` y `content-type: application/pdf` para ambas rutas.
+- `public/documents/CV_Nadia_Onatibia.pdf` (5118 bytes) — generado con ReportLab, colores de marca. Linkeado desde CV.tsx. Sigue siendo el borrador original, no reemplazado todavía.
+- `public/documents/Paper_Culture_as_Democratic_Infrastructure.pdf` (135316 bytes) — **reemplazado por el paper real escrito por Nadia** (el anterior era un borrador de ReportLab). Mismo nombre de archivo, no hubo que tocar el link en Blog.tsx.
+- `public/images/01_headshot_principal.jpg`, `02_escenario_patheatry.jpg`, `03_panel_miretage_horizontal.jpg` — fotos reales del hero, verificadas cargando con las dimensiones correctas.
+- `.gitattributes` con `*.pdf binary` evita que Git (con `core.autocrlf=true` en esta máquina Windows) corrompa los PDFs al convertir saltos de línea. Las imágenes JPG no mostraron el mismo riesgo (Git las detecta como binarias automáticamente), pero se verificó igual byte a byte que todos los blobs commiteados coinciden con los archivos originales.
+- Todos los links y fetches verificados en local: `200` y content-type correcto.
 
 ## 5. Pendientes explícitos (lo que falta para considerar el sitio "terminado")
 
-1. **Fotos reales del hero** — hay un brief detallado ya escrito (`Brief_Fotos_Hero.md` en la carpeta de outputs de la sesión de agente local, no en el repo). Resumen: 1 foto principal vertical (mín. 1200×1500px) + 2 fotos secundarias (mín. 800×1000px), luz natural cálida, nada corporativo. Cuando Nadia las tenga, hay que:
-   - Subirlas a `public/images/` (crear la carpeta) con nombres tipo `hero-main.jpg`, `hero-secondary-1.jpg`, `hero-secondary-2.jpg`.
-   - En `src/pages/Home.tsx`, reemplazar los 3 `<div className="polaroid-photo">foto</div>` por `<img src="/images/..." alt="..." className="w-full h-full object-cover" />` dentro de cada `.polaroid`.
+1. ~~Fotos reales del hero~~ — **hecho** (commit `a4f2b21`). Las 3 fotos ya están en `public/images/` y montadas en `Home.tsx`.
 2. ~~Traducciones EN/CA reales~~ — **hecho** (commit `2a34506`). Todo el contenido de Home, Portfolio, CV, Blog y Contact tiene textos reales en los 3 idiomas, verificado navegando cada página con el toggle.
-3. **Revisión de contenido de los PDFs** — el CV y el paper fueron generados como borrador con ReportLab (scripts `build_cv.py` / `build_paper.py` en la sesión de agente local, no en el repo). Nadia debería revisar el contenido y, si quiere cambios de texto/diseño del PDF en sí (no del link), hay que regenerarlos y reemplazar los archivos en `public/documents/` con el mismo nombre (o actualizar el link si cambia el nombre).
+3. **Revisión de contenido del CV en PDF** — el `CV_Nadia_Onatibia.pdf` sigue siendo el borrador generado con ReportLab (script `build_cv.py`, no en el repo). El paper ya se reemplazó por el real; el CV todavía no. Si Nadia quiere reemplazarlo, mismo procedimiento: nuevo archivo con el mismo nombre en `public/documents/`.
 4. **Variables de entorno en Vercel** — confirmar que `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` estén configuradas en el dashboard de Vercel (Project Settings → Environment Variables). No pude verificarlo desde este entorno (sin acceso a la CLI de Vercel autenticada ni al dashboard). **Pendiente que Rodrigo/Nadia lo confirmen manualmente.**
-5. **Confirmar visualmente en producción** — no pude verificar el sitio en `https://nadia-web-theta.vercel.app` desde este entorno (el navegador de este entorno no tiene acceso a dominios externos). Falta que alguien lo revise directamente en el navegador real, en especial:
-   - Que el redeploy de Vercel haya tomado el último push (`2a34506`).
-   - Que los dos PDFs abran bien desde el sitio en vivo.
-   - Que las rutas `/portfolio`, `/blog`, `/cv`, `/contact` no den 404 al entrar directo o recargar (ahora que `vercel.json` con `rewrites` está de vuelta, debería estar resuelto, pero falta la confirmación real).
-   - Look & feel general en mobile real (se verificó sin overflow horizontal en un viewport simulado de 375px, pero no en un dispositivo real).
-   - Que el toggle ES/EN/CA funcione igual que en local.
-6. ~~Rewrite de rutas SPA~~ — **hecho** (commit `2a34506`). Se restauró `vercel.json` con `buildCommand`, `outputDirectory` y el bloque `rewrites` que redirige todo a `/index.html` para que el routing de React Router funcione en rutas directas y al recargar.
+5. **Revisión del texto de EMPATHEATRY** — el tag, los 3 bullets y la descripción del modal de este 7° proyecto los redactó Claude a partir de resultados de búsqueda web pública (el sitio empatheatry.eu bloquea el scraping directo con 403), no a partir de contenido provisto por Nadia. Rodrigo aprobó el texto antes de subirlo, pero como no viene de la fuente original, **conviene que Nadia lo revise** y corrija cualquier imprecisión.
+6. **Confirmar visualmente en producción los últimos cambios** — Rodrigo ya confirmó en una iteración anterior que home, `/portfolio` sin 404, y los PDFs viejos andaban bien en `https://nadia-web-theta.vercel.app`. Falta la misma confirmación para lo último: las 3 fotos del hero, el paper nuevo, y el 7° proyecto EMPATHEATRY con su link. No pude verificarlo yo mismo (sin acceso a dominios externos desde este entorno).
+7. ~~Rewrite de rutas SPA~~ — **hecho y confirmado en producción** (commit `2a34506`).
 
 ## 6. Cosas importantes para la próxima conversación (contexto operativo)
 
