@@ -99,13 +99,19 @@ export const Home = ({ language }: HomeProps) => {
           </div>
           <div className="gingham-rosa rounded-lg p-10 md:p-16 flex items-center justify-center relative min-h-[320px]">
             <div className="polaroid -rotate-3 w-48 md:w-64">
-              <div className="polaroid-photo w-full aspect-[3/4]">foto</div>
+              <div className="polaroid-photo w-full aspect-[3/4] overflow-hidden">
+                <img src="/images/01_headshot_principal.jpg" alt="Nadia Oñatibia" className="w-full h-full object-cover" />
+              </div>
             </div>
             <div className="polaroid rotate-6 w-24 md:w-32 absolute -bottom-4 -right-2 md:right-4">
-              <div className="polaroid-photo w-full aspect-square">foto</div>
+              <div className="polaroid-photo w-full aspect-square overflow-hidden">
+                <img src="/images/02_escenario_patheatry.jpg" alt="Nadia Oñatibia facilitando en escena" className="w-full h-full object-cover" />
+              </div>
             </div>
             <div className="polaroid -rotate-12 w-20 md:w-28 absolute top-2 left-0 md:-left-6">
-              <div className="polaroid-photo w-full aspect-square">foto</div>
+              <div className="polaroid-photo w-full aspect-square overflow-hidden">
+                <img src="/images/03_panel_miretage_horizontal.jpg" alt="Nadia Oñatibia en panel de MIRETAGE" className="w-full h-full object-cover object-[50%_35%]" />
+              </div>
             </div>
           </div>
         </div>

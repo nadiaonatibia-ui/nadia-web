@@ -3,7 +3,7 @@ import type { Language } from '../../types';
 
 interface PortfolioProps { language: Language; }
 
-type SectorKey = 'migracion' | 'discurso-odio' | 'patrimonio' | 'genero' | 'inclusion55' | 'edi';
+type SectorKey = 'migracion' | 'discurso-odio' | 'patrimonio' | 'genero' | 'inclusion55' | 'edi' | 'empatia';
 
 interface Project {
   id: string;
@@ -20,14 +20,15 @@ const projects: Project[] = [
   { id: 'beyond-gender', title: 'BEYOND GENDER', sectorKey: 'genero', tagClassName: 'bg-lila text-ink', link: 'https://www.laxixateatre.org/es/beyondgender' },
   { id: 'reignite', title: 'REIGNITE', sectorKey: 'inclusion55', tagClassName: 'bg-vino text-hueso', link: 'https://reignite-project.eu/' },
   { id: 'edi-go', title: 'EDI GO', sectorKey: 'edi', tagClassName: 'bg-teal text-hueso', link: 'https://edi-go.eu/' },
+  { id: 'empatheatry', title: 'EMPATHEATRY', sectorKey: 'empatia', tagClassName: 'bg-rojo text-hueso', link: 'https://empatheatry.eu/' },
 ];
 
-const sectorKeys: SectorKey[] = ['migracion', 'discurso-odio', 'patrimonio', 'genero', 'inclusion55', 'edi'];
+const sectorKeys: SectorKey[] = ['migracion', 'discurso-odio', 'patrimonio', 'genero', 'inclusion55', 'edi', 'empatia'];
 
 const sectorLabels: Record<Language, Record<SectorKey, string>> = {
-  es: { migracion: 'Migración', 'discurso-odio': 'Discurso de odio', patrimonio: 'Patrimonio', genero: 'Género', inclusion55: 'Inclusión 55+', edi: 'EDI' },
-  en: { migracion: 'Migration', 'discurso-odio': 'Hate speech', patrimonio: 'Heritage', genero: 'Gender', inclusion55: 'Inclusion 55+', edi: 'EDI' },
-  ca: { migracion: 'Migració', 'discurso-odio': "Discurs d'odi", patrimonio: 'Patrimoni', genero: 'Gènere', inclusion55: 'Inclusió 55+', edi: 'EDI' },
+  es: { migracion: 'Migración', 'discurso-odio': 'Discurso de odio', patrimonio: 'Patrimonio', genero: 'Género', inclusion55: 'Inclusión 55+', edi: 'EDI', empatia: 'Empatía' },
+  en: { migracion: 'Migration', 'discurso-odio': 'Hate speech', patrimonio: 'Heritage', genero: 'Gender', inclusion55: 'Inclusion 55+', edi: 'EDI', empatia: 'Empathy' },
+  ca: { migracion: 'Migració', 'discurso-odio': "Discurs d'odi", patrimonio: 'Patrimoni', genero: 'Gènere', inclusion55: 'Inclusió 55+', edi: 'EDI', empatia: 'Empatia' },
 };
 
 const projectContent: Record<string, Record<Language, { bullets: string[]; description: string }>> = {
@@ -113,6 +114,20 @@ const projectContent: Record<string, Record<Language, { bullets: string[]; descr
     ca: {
       bullets: ['Enfortiment de pràctiques EDI en organitzacions juvenils', 'Grups focals amb joves i treballadors juvenils', 'Toolbox, autoavaluació i Charter Mark'],
       description: "Vam treballar per enfortir les pràctiques d'equitat, diversitat i inclusió dins d'organitzacions juvenils. Vam fer grups focals i entrevistes amb joves i treballadors juvenils, i vam desenvolupar eines pràctiques: una toolbox, un procés d'autoavaluació i un Charter Mark, a més de materials de formació per a la implementació d'EDI.",
+    },
+  },
+  empatheatry: {
+    es: {
+      bullets: ['Teatro inclusivo para jóvenes con menos oportunidades', 'Empoderamiento de facilitadores y profesionales de teatro', 'Metodologías de taller interdisciplinarias, cofinanciado por Erasmus+'],
+      description: 'Un proyecto de dos años, cofinanciado por el programa Erasmus+ de la Unión Europea, que reunió a socios de Eslovenia, España, Bélgica e Irlanda para explorar cómo el teatro puede fomentar la empatía, la inclusión y el empoderamiento en jóvenes con menos oportunidades. El foco estuvo puesto en mejorar el acceso al teatro para jóvenes en situación de desventaja, fortalecer a educadores y profesionales del teatro, y desarrollar metodologías de taller inclusivas mediante colaboración interdisciplinaria. El proyecto dejó recomendaciones de política pública para hacer el teatro y las artes más accesibles y empoderadores para jóvenes con menos oportunidades.',
+    },
+    en: {
+      bullets: ['Inclusive theatre for young people with fewer opportunities', 'Empowering facilitators and theatre professionals', 'Interdisciplinary workshop methodologies, co-funded by Erasmus+'],
+      description: 'A two-year project, co-funded by the Erasmus+ programme of the European Union, that brought together partners from Slovenia, Spain, Belgium and Ireland to explore how theatre can foster empathy, inclusion and empowerment among young people with fewer opportunities. The focus was on improving access to theatre for disadvantaged youth, empowering educators and theatre professionals, and developing inclusive workshop methodologies through interdisciplinary collaboration. The project produced policy recommendations to make theatre and the arts more accessible and empowering for young people with fewer opportunities.',
+    },
+    ca: {
+      bullets: ['Teatre inclusiu per a joves amb menys oportunitats', 'Empoderament de facilitadors i professionals del teatre', 'Metodologies de taller interdisciplinàries, cofinançat per Erasmus+'],
+      description: "Un projecte de dos anys, cofinançat pel programa Erasmus+ de la Unió Europea, que va reunir socis d'Eslovènia, Espanya, Bèlgica i Irlanda per explorar com el teatre pot fomentar l'empatia, la inclusió i l'empoderament en joves amb menys oportunitats. El focus va ser millorar l'accés al teatre per a joves en situació de desavantatge, enfortir educadors i professionals del teatre, i desenvolupar metodologies de taller inclusives mitjançant col·laboració interdisciplinària. El projecte va deixar recomanacions de política pública per fer el teatre i les arts més accessibles i empoderadores per a joves amb menys oportunitats.",
     },
   },
 };
