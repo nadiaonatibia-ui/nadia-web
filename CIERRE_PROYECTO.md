@@ -1,6 +1,6 @@
 # Nadia Oñatibia — Web personal — Documento maestro de cierre
 
-Última actualización: 2026-08-03 · commit `a4f2b21` en `main`
+Última actualización: 2026-08-03 · commit `d27d22e` en `main`
 
 ## 1. Qué es esto
 
@@ -67,14 +67,52 @@ Multiidioma: **completo**. Home, Portfolio, CV, Blog y Contact tienen contenido 
 6. **Confirmar visualmente en producción los últimos cambios** — Rodrigo ya confirmó en una iteración anterior que home, `/portfolio` sin 404, y los PDFs viejos andaban bien en `https://nadia-web-theta.vercel.app`. Falta la misma confirmación para lo último: las 3 fotos del hero, el paper nuevo, y el 7° proyecto EMPATHEATRY con su link. No pude verificarlo yo mismo (sin acceso a dominios externos desde este entorno).
 7. ~~Rewrite de rutas SPA~~ — **hecho y confirmado en producción** (commit `2a34506`).
 
-## 6. Cosas importantes para la próxima conversación (contexto operativo)
+## 6. Auditoría completa (2026-08-03, commit `d27d22e`)
+
+Se hizo una auditoría en 4 partes, documento completo en [`AUDITORIA_2026-08-03.md`](AUDITORIA_2026-08-03.md). Resumen:
+
+**Parte 1 (navegación/botones) — arreglado:**
+- Bug real: React Router no reseteaba el scroll al cambiar de página (afectaba toda la navegación). Se agregó `ScrollToTop` en `App.tsx`.
+- Logo del navbar ahora funcional: lleva a Home, o hace scroll suave arriba si ya estás en Home (antes no tenía efecto visible en ese segundo caso).
+- Favicon roto (`/vite.svg`, 404 en producción porque el archivo nunca existió) — eliminada la referencia en `index.html`.
+- **Pendiente que requiere info tuya:** el link de LinkedIn (`linkedin.com/in/nadiaoñatibia`, en Footer.tsx y Contact.tsx) es casi seguro inválido — LinkedIn no permite `ñ` en URLs de perfil. Falta el handle real para corregirlo.
+
+**Parte 2 (Supabase) — solo reporte, nada tocado:**
+- Las 4 tablas (`contact_messages`, `blog_posts`, `portfolio_projects`, `cv_content`) devuelven 0 filas vía anon key, pero **es ambiguo**: no se puede distinguir desde el cliente si están vacías o si RLS bloquea correctamente la lectura pública. **Falta que alguien revise el Table Editor del dashboard de Supabase directamente** para confirmar si hay mensajes de contacto sin leer — esto es lo más urgente pendiente de todo el proyecto.
+- `portfolio_projects` y `cv_content` están huérfanas (el sitio ya no las lee) pero siguen aceptando INSERT del rol `anon` a nivel de grant — no es grave pero es basura/superficie innecesaria.
+- Nunca se probó el envío real del formulario de contacto end-to-end (para no ensuciar la bandeja real con un mensaje de prueba).
+
+**Parte 3 (código) — solo reporte:**
+- Build limpio, 0 warnings.
+- Código muerto: `PortfolioProject`, `CVContent`, `ContactMessage` en `types/index.ts` ya no se usan en ningún lado.
+- **Hallazgo real de accesibilidad:** `text-rosa` sobre `bg-crudo-alt` (títulos de las 7 tarjetas de Portfolio + sus modales + título del paper en Blog) tiene contraste ~1.7:1 — falla WCAG AA gravemente (se necesita 4.5:1). `text-hueso/90` sobre el mismo fondo da ~3:1, también insuficiente para texto normal. Es un problema real de legibilidad, no solo un tecnicismo.
+- Las 3 fotos del hero pesan ~1.05 MB combinadas, sirviendo 4-6x más resolución de la que se muestra en pantalla — sin compresión, sin WebP, sin `loading="lazy"`.
+- Sin `robots.txt`, `sitemap.xml`, tags Open Graph, ni `<title>`/`<meta description>` por página.
+
+**Parte 4 (propuestas, sin implementar) — de mayor a menor prioridad recomendada:**
+1. Panel admin simple (leer mensajes de contacto + publicar blog posts sin entrar a Supabase a mano) — alto impacto, esfuerzo alto.
+2. Arreglar el contraste rosa/verde-oliva en Portfolio — alto impacto, esfuerzo bajo.
+3. Comprimir/optimizar las 3 fotos del hero + lazy loading — alto impacto, esfuerzo bajo.
+4. `robots.txt` + `sitemap.xml` + meta/OG por página — impacto medio, esfuerzo bajo.
+5. Favicon real de marca + `og:image` — impacto medio, esfuerzo bajo.
+6. Analytics básico (Vercel Analytics o Plausible) — impacto medio, esfuerzo bajo.
+7. Animaciones de scroll + transición entre páginas — impacto bajo/medio, esfuerzo medio.
+8. Escape + focus trap en el modal de Portfolio, loading state en fetch de blog dinámico — pulido menor.
+
+**Decisiones pendientes del usuario tras la auditoría** (no se avanzó porque requieren input de Rodrigo/Nadia):
+- Handle real de LinkedIn.
+- Confirmar en Supabase dashboard si hay mensajes de contacto sin leer.
+- Qué hacer con `portfolio_projects`/`cv_content` (dejar o eliminar).
+- Con cuál propuesta de la Parte 4 seguir primero.
+
+## 7. Cosas importantes para la próxima conversación (contexto operativo)
 
 - **NUNCA pegar tokens/contraseñas de GitHub (u otro servicio) en el chat.** Ya pasó dos veces en este proyecto con un PAT (`ghp_...`) que tuvo que ser rechazado y se recomendó revocar. El acceso de push ya está resuelto vía colaborador de GitHub (`rodrigoalexiscelaoviedo-netizen`), no hace falta ningún token para seguir trabajando.
 - El repo remoto empezó vacío (solo un `.gitignore` genérico autogenerado por GitHub) — todo el código se subió desde esta máquina en la sesión de rediseño.
 - Antes de cualquier `npm run build` local, si aparecen archivos `.js`/`.d.ts`/`.tsbuildinfo` sueltos en `src/` o en la raíz (residuos de builds fallidos anteriores), borrarlos — ya pasó una vez y rompía el build de Vite. Están cubiertos por `.gitignore` (`*.tsbuildinfo`, `vite.config.js`, `vite.config.d.ts`) pero pueden ensuciar el árbol de trabajo local igual.
 - `tsconfig.json` requiere `"jsx":"react-jsx"` y `"noEmit":true` — si algún cambio futuro los toca sin querer, el build se rompe con errores de TS crípticos (ya pasó, quedó documentado acá para no perder tiempo repitiendo el diagnóstico).
 
-## 7. Cómo retomar en una conversación nueva
+## 8. Cómo retomar en una conversación nueva
 
 Si volvés a este proyecto en otra sesión de Claude Code, decile a Claude:
 
