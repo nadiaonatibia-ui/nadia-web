@@ -1,45 +1,209 @@
-@tailwind base;@tailwind components;@tailwind utilities;
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',system-ui,sans-serif;background-color:#fafafa;color:#241129;line-height:1.6}
-:root{--crudo:#D8D45A;--crudo-alt:#898E46;--ink:#241129;--vino:#7A1440;--vino-2:#611033;--rojo:#D2491F;--teal:#1B7A6B;--lila:#A8AD6E;--rosa:#F29CC3;--hueso:#F3EFC2}
-h1,h2,h3,h4,h5,h6{font-family:'Anton',sans-serif;text-transform:uppercase;font-weight:700;letter-spacing:0.05em}
-.subtitle{font-family:'Dancing Script',cursive;font-size:1.3rem;font-style:italic;color:var(--vino)}
-.brand{font-family:'Caveat',cursive;font-size:1.5rem;font-weight:700}
-.container-wide{max-width:1200px;margin:0 auto;padding:0 1.5rem}
-.section-padding{padding:6rem 1.5rem}
-.btn{@apply px-6 py-3 rounded-lg font-medium transition-all duration-300 cursor-pointer inline-block}
-.btn-primary{@apply bg-vino text-hueso hover:bg-vino-2 shadow-lg hover:shadow-xl}
-.btn-secondary{@apply bg-ink text-hueso hover:bg-vino-2 shadow-lg hover:shadow-xl}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.eyebrow-mono{font-family:'IBM Plex Mono',monospace;color:var(--rojo);text-transform:lowercase;letter-spacing:0.05em;font-size:0.95rem;font-weight:500}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
-.logo-pill{font-family:'Caveat',cursive;font-size:1.7rem;font-weight:700;background:var(--hueso);border:2px solid var(--ink);border-radius:999px;padding:0.35rem 1.5rem;color:var(--ink);display:inline-block;line-height:1}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #F5F0E8;
+  color: #241129;
+  line-height: 1.6;
+}
 
-.gingham-rosa{background-color:var(--crudo);background-image:repeating-linear-gradient(45deg,rgba(242,156,195,0.55) 0 10px,transparent 10px 20px),repeating-linear-gradient(-45deg,rgba(242,156,195,0.55) 0 10px,transparent 10px 20px)}
-.gingham-teal{background-color:var(--hueso);background-image:repeating-linear-gradient(45deg,rgba(27,122,107,0.35) 0 10px,transparent 10px 20px),repeating-linear-gradient(-45deg,rgba(27,122,107,0.35) 0 10px,transparent 10px 20px)}
+:root {
+  --crudo: #F5F0E8;
+  --crudo-dark: #1A1A2E;
+  --ink: #241129;
+  --vino: #7A1440;
+  --vino-2: #611033;
+  --rojo: #D2491F;
+  --coral: #E8794E;
+  --teal: #39B98E;
+  --rosa: #F29CC3;
+  --hueso: #F3EFC2;
+  --gray-warm: #6B6B6B;
+}
 
-.polaroid{background:#fff;padding:10px 10px 34px 10px;box-shadow:0 12px 28px rgba(36,17,41,0.3);display:inline-block}
-.polaroid-photo{background:var(--crudo-alt);display:flex;align-items:center;justify-content:center;color:var(--hueso);font-family:'IBM Plex Mono',monospace;font-size:0.85rem}
+/* TYPOGRAPHY — Inter only, no cursive fonts */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
 
-.timeline{position:relative}
-.timeline-item{position:relative;padding-left:2.5rem;padding-bottom:2.75rem}
-.timeline-item:last-child{padding-bottom:0}
-.timeline-item::before{content:'';position:absolute;left:0.15rem;top:0.3rem;width:14px;height:14px;border-radius:50%;background:var(--rojo);z-index:1}
-.timeline-item:not(:last-child)::after{content:'';position:absolute;left:0.7rem;top:1.6rem;bottom:-0.5rem;border-left:2px dotted var(--rojo)}
+.container-wide { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+.container-full { max-width: 100%; padding: 0; }
+.section-padding { padding: 6rem 1.5rem; }
 
-.accordion-item{background:var(--crudo-alt);border-radius:0.75rem;overflow:hidden}
-.accordion-header{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.5rem;cursor:pointer;width:100%;text-align:left;background:transparent;border:none}
-.accordion-toggle{font-family:'Inter',sans-serif;font-size:1.75rem;color:var(--hueso);transition:transform 0.3s ease;line-height:1;flex-shrink:0}
-.accordion-toggle.open{transform:rotate(45deg)}
-.accordion-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease;padding:0 1.5rem}
-.accordion-body.open{max-height:600px;padding-bottom:1.5rem}
+.eyebrow-mono {
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--coral);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
 
-.modal-overlay{position:fixed;inset:0;background:rgba(36,17,41,0.72);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:100;padding:1.5rem}
-.modal-card{background:var(--crudo-alt);color:var(--hueso);max-width:640px;width:100%;border-radius:1rem;padding:2.5rem;max-height:85vh;overflow-y:auto;position:relative}
+.btn {
+  @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 cursor-pointer inline-block;
+}
 
-@media(max-width:768px){.section-padding{padding:4rem 1rem}h1{font-size:2rem}h2{font-size:1.5rem}}
-::-webkit-scrollbar{width:10px}
-::-webkit-scrollbar-track{background:#f1f1f1}
-::-webkit-scrollbar-thumb{background:var(--vino);border-radius:5px}
-::-webkit-scrollbar-thumb:hover{background:var(--vino-2)}
+/* ROLE CARDS — photo-first grid */
+.role-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 0.75rem;
+  aspect-ratio: 16/10;
+}
+.role-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease, filter 0.6s ease;
+}
+.role-card:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.7);
+}
+.role-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26,26,46,0.85) 0%, rgba(26,26,46,0.2) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  transition: background 0.4s ease;
+}
+.role-card:hover .role-card-overlay {
+  background: linear-gradient(to top, rgba(26,26,46,0.95) 0%, rgba(26,26,46,0.4) 60%, transparent 100%);
+}
+.role-card-number {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--coral);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.role-card-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 1.75rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+.role-card-cta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--teal);
+  letter-spacing: 0.1em;
+  margin-top: 0.75rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.3s ease;
+}
+.role-card:hover .role-card-cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* MODAL — full screen overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 26, 46, 0.88);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1.5rem;
+  animation: fadeIn 0.3s ease;
+}
+.modal-card {
+  background: var(--crudo);
+  color: var(--ink);
+  max-width: 800px;
+  width: 100%;
+  border-radius: 1rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.4s ease;
+}
+.modal-card-header {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: 1rem 1rem 0 0;
+}
+.modal-card-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.modal-card-header-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26,26,46,0.7) 0%, transparent 50%);
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem;
+}
+.modal-card-body {
+  padding: 2.5rem;
+}
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
+  border: none;
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 10;
+}
+.modal-close:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--crudo); }
+::-webkit-scrollbar-thumb { background: var(--vino); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--vino-2); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .section-padding { padding: 3rem 1rem; }
+  .role-card { aspect-ratio: 4/3; }
+  .role-card-title { font-size: 1.25rem; }
+  .modal-card-body { padding: 1.5rem; }
+}

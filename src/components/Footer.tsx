@@ -1,1 +1,32 @@
-export const Footer = () => {const currentYear = new Date().getFullYear(); return (<footer className="bg-ink text-hueso py-8"><div className="container-wide"><div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8"><div><h3 className="text-rosa mb-4">Contacto</h3><a href="mailto:nadiaonatibia@gmail.com" className="hover:text-rosa transition-colors">nadiaonatibia@gmail.com</a></div><div><h3 className="text-rosa mb-4">Redes</h3><a href="https://linkedin.com/in/nadiaoñatibia" target="_blank" rel="noopener noreferrer" className="hover:text-rosa transition-colors">LinkedIn</a></div><div><h3 className="text-rosa mb-4">Ubicación</h3><p>Poblenou, Barcelona</p></div></div><div className="border-t border-hueso/20 pt-8 text-center text-hueso/70"><p>&copy; {currentYear} Nadia Oñatibia.</p></div></div></footer>);};
+import type { Language } from '../../types';
+
+interface FooterProps {
+  language: Language;
+}
+
+export const Footer = ({ language }: FooterProps) => {
+  const year = new Date().getFullYear();
+  return (
+    <footer className="bg-crudo-dark text-white/50 py-8">
+      <div className="container-wide flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+        <span>&copy; {year} Nadia Onatibia</span>
+        <div className="flex gap-6">
+          <a
+            href="https://linkedin.com/in/nadiaoñatibia"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white transition-colors"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="mailto:nadiaonatibia@gmail.com"
+            className="hover:text-white transition-colors"
+          >
+            {language === 'es' ? 'Email' : language === 'en' ? 'Email' : 'Correu'}
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+};

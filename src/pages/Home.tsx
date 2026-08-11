@@ -2,169 +2,301 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Language } from '../../types';
 
-interface HomeProps { language: Language; }
+interface HomeProps {
+  language: Language;
+}
 
 const content = {
   es: {
-    heroEyebrow: '(se abre el telón)',
-    heroText: 'Gestión cultural, facilitación de metodologías arts-based y producción de eventos. Desde la oficina y desde el escenario.',
-    chips: ['COOPERACIÓN', 'FACILITACIÓN', 'GESTIÓN', 'PRODUCCIÓN'],
-    manifiestoEyebrow: '(monólogo)',
-    manifiestoTitle: 'LO QUE CREO',
+    heroTagline: 'Gestión cultural · Facilitación arts-based · Producción',
+    heroLocation: 'Barcelona — Buenos Aires',
+    manifiestoEyebrow: 'MANIFIESTO',
+    manifiestoTitle: 'Cultura como infraestructura democrática',
     manifiestoLead: 'Trabajo con la convicción de que la cultura no es solo un sector: es infraestructura democrática.',
     manifiestoParagraphs: [
       'Creo en los proyectos que abren espacios para que más personas puedan reconocerse como productoras de sentido y de cultura, con voz propia para contar su historia, cuestionar lo dado y disputar un lugar en la conversación pública. Ese pasaje necesita relato, pero también producción: alguien que transforme una intuición en un proyecto, una conversación en una alianza, una idea en un presupuesto, un cronograma, un equipo y, finalmente, una experiencia compartida.',
       'En los últimos años trabajé en contextos atravesados por la migración, la fractura generacional, el discurso de odio en redes y la fragmentación religiosa. En todos aprendí lo mismo: la democracia no se debilita porque exista el conflicto. Se debilita cuando dejamos de crear espacios capaces de sostenerlo, de escucharlo y de transformarlo en acción colectiva.',
       'Ahí es donde encuentro mi lugar. Me apasiona producir las condiciones para que las cosas sucedan. Diseñar proyectos, coordinar equipos, conseguir recursos, articular alianzas, acompañar procesos creativos y hacer que una visión llegue a existir sin perder su sentido en el camino.',
-      'Porque entendí que producir no es solo organizar. Es crear las condiciones para que una idea encuentre las personas, los recursos, el tiempo y la estructura necesarios para convertirse en algo que deje una huella.',
       'Gestionar un proyecto cultural y subirme a un escenario nunca fueron dos oficios distintos. Son dos maneras de participar de la misma práctica: construir las condiciones para que algo significativo ocurra.',
     ],
-    registrosEyebrow: '(cambio de escena)',
-    registrosTitle: 'TRES REGISTROS, UN MISMO OFICIO',
-    registros: [
-      { number: '01', title: 'PROJECT MANAGER', body: 'Planificación y coordinación de proyectos multi-partner bajo marcos europeos: Erasmus+, Creative Europe, CERV. Con conocimiento directo también de la escena cultural latinoamericana, desde mi trayectoria en Argentina. Gestión de presupuesto, reporting a financiadores públicos y privados, cumplimiento y documentación. Coordinación de equipos internacionales, alineando timelines y entregables entre países y continentes.' },
-      { number: '02', title: 'FACILITADORA — ARTS-BASED', body: 'Actriz y profesora de arte. Diseño y facilitación de procesos participativos con teatro comunitario, teatro del oprimido y teatro fórum. Formación a jóvenes, educadores y trabajadores comunitarios. De la sesión íntima de taller al proceso de varias semanas con grupos en contextos de vulnerabilidad.' },
-      { number: '03', title: 'PRODUCTORA', body: 'Logística y coordinación multi-sede de programación cultural. Producción de contenido en distintos formatos: presencial, digital, editorial. De un taller de una tarde a un festival internacional o un congreso con múltiples stakeholders.' },
+    rolesEyebrow: 'LO QUE HAGO',
+    rolesTitle: 'Tres registros, un mismo oficio',
+    roles: [
+      {
+        number: '01',
+        title: 'Project\nManager',
+        image: '/images/pm-presentation.jpg',
+        secondImage: '/images/pm-panel.jpg',
+        body: 'Planificación y coordinación de proyectos multi-partner bajo marcos europeos: Erasmus+, Creative Europe, CERV. Con conocimiento directo también de la escena cultural latinoamericana, desde mi trayectoria en Argentina. Gestión de presupuesto, reporting a financiadores públicos y privados, cumplimiento y documentación. Coordinación de equipos internacionales, alineando timelines y entregables entre países y continentes.',
+        cta: 'Explorar →',
+      },
+      {
+        number: '02',
+        title: 'Facilitadora\nArts-Based',
+        image: '/images/facilitadora-teatro.jpg',
+        secondImage: '/images/facilitadora-beyond-gender.jpg',
+        body: 'Actriz y profesora de arte. Diseño y facilitación de procesos participativos con teatro comunitario, teatro del oprimido y teatro fórum. Formación a jóvenes, educadores y trabajadores comunitarios. De la sesión íntima de taller al proceso de varias semanas con grupos en contextos de vulnerabilidad.',
+        cta: 'Explorar →',
+      },
+      {
+        number: '03',
+        title: 'Productora\nCultural',
+        image: '/images/productora-patheatry.jpg',
+        secondImage: '/images/productora-collage.jpg',
+        body: 'Logística y coordinación multi-sede de programación cultural. Producción de contenido en distintos formatos: presencial, digital, editorial. De un taller de una tarde a un festival internacional o un congreso con múltiples stakeholders.',
+        cta: 'Explorar →',
+      },
     ],
-    cta: { portfolio: 'Ver Portfolio', contact: 'Contactar' },
+    ctaPortfolio: 'Ver proyectos',
+    ctaContact: 'Contactar',
   },
   en: {
-    heroEyebrow: '(curtain up)',
-    heroText: 'Cultural management, arts-based facilitation and event production. From the office and from the stage.',
-    chips: ['COOPERATION', 'FACILITATION', 'MANAGEMENT', 'PRODUCTION'],
-    manifiestoEyebrow: '(monologue)',
-    manifiestoTitle: 'WHAT I BELIEVE',
+    heroTagline: 'Cultural management · Arts-based facilitation · Production',
+    heroLocation: 'Barcelona — Buenos Aires',
+    manifiestoEyebrow: 'MANIFESTO',
+    manifiestoTitle: 'Culture as democratic infrastructure',
     manifiestoLead: 'I work with the conviction that culture is not just a sector: it is democratic infrastructure.',
     manifiestoParagraphs: [
       "I believe in projects that open spaces for more people to recognize themselves as producers of meaning and culture, with a voice of their own to tell their story, question what is given, and claim a place in the public conversation. That shift needs narrative, but it also needs production: someone who turns an intuition into a project, a conversation into an alliance, an idea into a budget, a schedule, a team and, finally, a shared experience.",
       "In recent years I've worked in contexts shaped by migration, generational fracture, online hate speech and religious fragmentation. In all of them I learned the same thing: democracy doesn't weaken because conflict exists. It weakens when we stop creating spaces capable of holding it, listening to it, and turning it into collective action.",
       "That's where I find my place. I'm passionate about producing the conditions for things to happen: designing projects, coordinating teams, securing resources, building alliances, accompanying creative processes, and making a vision come into existence without losing its meaning along the way.",
-      'Because I understood that producing is not just organizing. It\'s creating the conditions for an idea to find the people, the resources, the time and the structure it needs to become something that leaves a mark.',
       "Managing a cultural project and stepping onto a stage were never two different trades. They're two ways of taking part in the same practice: building the conditions for something meaningful to happen.",
     ],
-    registrosEyebrow: '(scene change)',
-    registrosTitle: 'THREE REGISTERS, ONE CRAFT',
-    registros: [
-      { number: '01', title: 'PROJECT MANAGER', body: 'Planning and coordination of multi-partner projects under European frameworks: Erasmus+, Creative Europe, CERV. With direct knowledge of the Latin American cultural scene too, from my background in Argentina. Budget management, reporting to public and private funders, compliance and documentation. Coordination of international teams, aligning timelines and deliverables across countries and continents.' },
-      { number: '02', title: 'FACILITATOR — ARTS-BASED', body: 'Actress and art teacher. Design and facilitation of participatory processes using community theatre, Theatre of the Oppressed and forum theatre. Training for young people, educators and community workers. From an intimate workshop session to a multi-week process with groups in vulnerable contexts.' },
-      { number: '03', title: 'PRODUCER', body: 'Logistics and multi-venue coordination of cultural programming. Content production in different formats: in-person, digital, editorial. From a one-afternoon workshop to an international festival or a congress with multiple stakeholders.' },
+    rolesEyebrow: 'WHAT I DO',
+    rolesTitle: 'Three registers, one craft',
+    roles: [
+      {
+        number: '01',
+        title: 'Project\nManager',
+        image: '/images/pm-presentation.jpg',
+        secondImage: '/images/pm-panel.jpg',
+        body: 'Planning and coordination of multi-partner projects under European frameworks: Erasmus+, Creative Europe, CERV. With direct knowledge of the Latin American cultural scene too, from my background in Argentina. Budget management, reporting to public and private funders, compliance and documentation. Coordination of international teams, aligning timelines and deliverables across countries and continents.',
+        cta: 'Explore →',
+      },
+      {
+        number: '02',
+        title: 'Facilitator\nArts-Based',
+        image: '/images/facilitadora-teatro.jpg',
+        secondImage: '/images/facilitadora-beyond-gender.jpg',
+        body: 'Actress and art teacher. Design and facilitation of participatory processes using community theatre, Theatre of the Oppressed and forum theatre. Training for young people, educators and community workers. From an intimate workshop session to a multi-week process with groups in vulnerable contexts.',
+        cta: 'Explore →',
+      },
+      {
+        number: '03',
+        title: 'Cultural\nProducer',
+        image: '/images/productora-patheatry.jpg',
+        secondImage: '/images/productora-collage.jpg',
+        body: 'Logistics and multi-venue coordination of cultural programming. Content production in different formats: in-person, digital, editorial. From a one-afternoon workshop to an international festival or a congress with multiple stakeholders.',
+        cta: 'Explore →',
+      },
     ],
-    cta: { portfolio: 'View Portfolio', contact: 'Get in Touch' },
+    ctaPortfolio: 'View projects',
+    ctaContact: 'Get in touch',
   },
   ca: {
-    heroEyebrow: "(s'obre el teló)",
-    heroText: "Gestió cultural, facilitació de metodologies arts-based i producció d'esdeveniments. Des de l'oficina i des de l'escenari.",
-    chips: ['COOPERACIÓ', 'FACILITACIÓ', 'GESTIÓ', 'PRODUCCIÓ'],
-    manifiestoEyebrow: '(monòleg)',
-    manifiestoTitle: 'EL QUE CREC',
-    manifiestoLead: 'Treballo amb la convicció que la cultura no és només un sector: és infraestructura democràtica.',
+    heroTagline: "Gestio cultural · Facilitacio arts-based · Produccio",
+    heroLocation: 'Barcelona — Buenos Aires',
+    manifiestoEyebrow: 'MANIFEST',
+    manifiestoTitle: "La cultura com a infraestructura democratica",
+    manifiestoLead: "Treballo amb la conviccio que la cultura no es nomes un sector: es infraestructura democratica.",
     manifiestoParagraphs: [
-      "Crec en els projectes que obren espais perquè més persones puguin reconèixer-se com a productores de sentit i de cultura, amb veu pròpia per explicar la seva història, qüestionar el que es dona per fet i disputar un lloc en la conversa pública. Aquest pas necessita relat, però també producció: algú que transformi una intuïció en un projecte, una conversa en una aliança, una idea en un pressupost, un cronograma, un equip i, finalment, una experiència compartida.",
-      "En els últims anys he treballat en contextos travessats per la migració, la fractura generacional, el discurs d'odi a les xarxes i la fragmentació religiosa. En tots vaig aprendre el mateix: la democràcia no s'afebleix perquè existeixi el conflicte. S'afebleix quan deixem de crear espais capaços de sostenir-lo, d'escoltar-lo i de transformar-lo en acció col·lectiva.",
-      "Aquí és on trobo el meu lloc. M'apassiona produir les condicions perquè les coses passin: dissenyar projectes, coordinar equips, aconseguir recursos, articular aliances, acompanyar processos creatius i fer que una visió arribi a existir sense perdre el seu sentit pel camí.",
-      "Perquè vaig entendre que produir no és només organitzar. És crear les condicions perquè una idea trobi les persones, els recursos, el temps i l'estructura necessaris per convertir-se en alguna cosa que deixi petjada.",
-      'Gestionar un projecte cultural i pujar a un escenari mai van ser dos oficis diferents. Són dues maneres de participar de la mateixa pràctica: construir les condicions perquè alguna cosa significativa passi.',
+      "Crec en els projectes que obren espais perque mes persones puguin reconeixer-se com a productores de sentit i de cultura, amb veu propia per explicar la seva historia, questionar el que es dona per fet i disputar un lloc en la conversa publica. Aquest pas necessita relat, pero tambe produccio: algu que transformi una intuicio en un projecte, una conversa en una alianca, una idea en un pressupost, un cronograma, un equip i, finalment, una experiencia compartida.",
+      "En els ultims anys he treballat en contextos travessats per la migracio, la fractura generacional, el discurs d'odi a les xarxes i la fragmentacio religiosa. En tots vaig aprendre el mateix: la democracia no s'afebleix perque existeixi el conflicte. S'afebleix quan deixem de crear espais capacos de sostenir-lo, d'escoltar-lo i de transformar-lo en accio col·lectiva.",
+      "Aqui es on trobo el meu lloc. M'apassiona produir les condicions perque les coses passin: dissenyar projectes, coordinar equips, aconseguir recursos, articular aliances, acompanyar processos creatius i fer que una visio arribi a existir sense perdre el seu sentit pel cami.",
+      "Gestionar un projecte cultural i pujar a un escenari mai van ser dos oficis diferents. Son dues maneres de participar de la mateixa practica: construir les condicions perque alguna cosa significativa passi.",
     ],
-    registrosEyebrow: "(canvi d'escena)",
-    registrosTitle: 'TRES REGISTRES, UN MATEIX OFICI',
-    registros: [
-      { number: '01', title: 'PROJECT MANAGER', body: "Planificació i coordinació de projectes multi-partner sota marcs europeus: Erasmus+, Creative Europe, CERV. Amb coneixement directe també de l'escena cultural llatinoamericana, des de la meva trajectòria a l'Argentina. Gestió de pressupost, reporting a finançadors públics i privats, compliment i documentació. Coordinació d'equips internacionals, alineant terminis i lliurables entre països i continents." },
-      { number: '02', title: 'FACILITADORA — ARTS-BASED', body: "Actriu i professora d'art. Disseny i facilitació de processos participatius amb teatre comunitari, teatre de l'oprimit i teatre fòrum. Formació a joves, educadors i treballadors comunitaris. De la sessió íntima d'un taller a un procés de diverses setmanes amb grups en contextos de vulnerabilitat." },
-      { number: '03', title: 'PRODUCTORA', body: "Logística i coordinació multi-seu de programació cultural. Producció de contingut en diferents formats: presencial, digital, editorial. D'un taller d'una tarda a un festival internacional o un congrés amb múltiples stakeholders." },
+    rolesEyebrow: 'EL QUE FAIG',
+    rolesTitle: 'Tres registres, un mateix ofici',
+    roles: [
+      {
+        number: '01',
+        title: 'Project\nManager',
+        image: '/images/pm-presentation.jpg',
+        secondImage: '/images/pm-panel.jpg',
+        body: "Planificacio i coordinacio de projectes multi-partner sota marcs europeus: Erasmus+, Creative Europe, CERV. Amb coneixement directe tambe de l'escena cultural llatinoamericana, des de la meva trajectoria a l'Argentina. Gestio de pressupost, reporting a financadors publics i privats, compliment i documentacio. Coordinacio d'equips internacionals, alineant terminis i lliurables entre paisos i continents.",
+        cta: 'Explorar →',
+      },
+      {
+        number: '02',
+        title: 'Facilitadora\nArts-Based',
+        image: '/images/facilitadora-teatro.jpg',
+        secondImage: '/images/facilitadora-beyond-gender.jpg',
+        body: "Actriu i professora d'art. Disseny i facilitacio de processos participatius amb teatre comunitari, teatre de l'oprimit i teatre forum. Formacio a joves, educadors i treballadors comunitaris. De la sessio intima d'un taller a un proces de diverses setmanes amb grups en contextos de vulnerabilitat.",
+        cta: 'Explorar →',
+      },
+      {
+        number: '03',
+        title: 'Productora\nCultural',
+        image: '/images/productora-patheatry.jpg',
+        secondImage: '/images/productora-collage.jpg',
+        body: "Logistica i coordinacio multi-seu de programacio cultural. Produccio de contingut en diferents formats: presencial, digital, editorial. D'un taller d'una tarda a un festival internacional o un congres amb multiples stakeholders.",
+        cta: 'Explorar →',
+      },
     ],
-    cta: { portfolio: 'Veure Portafoli', contact: 'Contactar' },
+    ctaPortfolio: 'Veure projectes',
+    ctaContact: 'Contactar',
   },
 };
 
-const chipClassNames = ['bg-rojo text-hueso', 'bg-hueso text-ink', 'bg-vino text-hueso', 'bg-teal text-hueso'];
-
 export const Home = ({ language }: HomeProps) => {
-  const [openAccordion, setOpenAccordion] = useState<number | null>(null);
+  const [selectedRole, setSelectedRole] = useState<number | null>(null);
   const t = content[language];
 
   return (
     <main>
-      {/* HERO */}
-      <section className="section-padding bg-crudo pt-12">
-        <div className="container-wide grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* ===== HERO — DARK/CINEMATIC ===== */}
+      <section className="relative bg-crudo-dark min-h-[85vh] flex items-center overflow-hidden">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-crudo-dark via-crudo-dark to-vino/20" />
+
+        <div className="container-wide relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
+          {/* Left: Text */}
           <div>
-            <p className="eyebrow-mono mb-4">{t.heroEyebrow}</p>
-            <h1 className="text-5xl md:text-7xl leading-none mb-6 text-vino">NADIA<br />OÑATIBIA</h1>
-            <p className="text-lg mb-8 max-w-xl text-ink">{t.heroText}</p>
-            <div className="flex gap-3 flex-wrap">
-              {t.chips.map((chip, i) => (
-                <span key={chip} className={`px-4 py-2 rounded-full text-sm font-medium ${chipClassNames[i]}`}>{chip}</span>
-              ))}
+            <p className="eyebrow-mono mb-6">{t.heroLocation}</p>
+            <h1 className="text-6xl md:text-8xl font-extrabold text-white leading-none tracking-tight mb-6">
+              NADIA<br />ONATIBIA
+            </h1>
+            <p className="text-lg md:text-xl text-white/70 max-w-lg leading-relaxed">
+              {t.heroTagline}
+            </p>
+            <div className="flex gap-4 mt-10">
+              <Link
+                to="/portfolio"
+                className="btn bg-white text-crudo-dark hover:bg-white/90 font-semibold"
+              >
+                {t.ctaPortfolio}
+              </Link>
+              <Link
+                to="/contact"
+                className="btn border border-white/30 text-white hover:bg-white/10 font-medium"
+              >
+                {t.ctaContact}
+              </Link>
             </div>
           </div>
-          <div className="gingham-rosa rounded-lg p-10 md:p-16 flex items-center justify-center relative min-h-[320px]">
-            <div className="polaroid -rotate-3 w-48 md:w-64">
-              <div className="polaroid-photo w-full aspect-[3/4] overflow-hidden">
-                <img src="/images/01_headshot_principal.jpg" alt="Nadia Oñatibia" className="w-full h-full object-cover" />
-              </div>
-            </div>
-            <div className="polaroid rotate-6 w-24 md:w-32 absolute -bottom-4 -right-2 md:right-4">
-              <div className="polaroid-photo w-full aspect-square overflow-hidden">
-                <img src="/images/02_escenario_patheatry.jpg" alt="Nadia Oñatibia facilitando en escena" className="w-full h-full object-cover" />
-              </div>
-            </div>
-            <div className="polaroid -rotate-12 w-20 md:w-28 absolute top-2 left-0 md:-left-6">
-              <div className="polaroid-photo w-full aspect-square overflow-hidden">
-                <img src="/images/03_panel_miretage_horizontal.jpg" alt="Nadia Oñatibia en panel de MIRETAGE" className="w-full h-full object-cover object-[50%_35%]" />
-              </div>
+
+          {/* Right: Hero Photo */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="relative w-72 md:w-96">
+              <img
+                src="/images/hero-headshot.jpg"
+                alt="Nadia Onatibia"
+                className="w-full rounded-2xl shadow-2xl"
+              />
+              {/* Accent decoration */}
+              <div className="absolute -bottom-4 -left-4 w-24 h-24 border-2 border-coral/40 rounded-2xl -z-10" />
+              <div className="absolute -top-4 -right-4 w-16 h-16 border-2 border-teal/30 rounded-full -z-10" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* MANIFIESTO */}
+      {/* ===== MANIFIESTO — LIGHT ===== */}
       <section className="section-padding bg-crudo">
         <div className="container-wide max-w-3xl mx-auto">
           <p className="eyebrow-mono mb-4">{t.manifiestoEyebrow}</p>
-          <h2 className="text-4xl mb-10 text-vino">{t.manifiestoTitle}</h2>
-          <p className="text-2xl md:text-3xl font-anton normal-case tracking-normal leading-snug text-vino mb-8">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-ink mb-8 leading-tight">
+            {t.manifiestoTitle}
+          </h2>
+          <p className="text-xl md:text-2xl text-vino font-medium leading-snug mb-10">
             {t.manifiestoLead}
           </p>
           <div className="space-y-6">
             {t.manifiestoParagraphs.map((p, i) => (
-              <p key={i} className="text-lg leading-relaxed text-ink">{p}</p>
+              <p key={i} className="text-base md:text-lg leading-relaxed text-gray-warm">
+                {p}
+              </p>
             ))}
           </div>
         </div>
       </section>
 
-      {/* TRES REGISTROS */}
+      {/* ===== TRES REGISTROS — PHOTO CARDS ===== */}
       <section className="section-padding bg-crudo">
-        <div className="container-wide max-w-3xl mx-auto">
-          <p className="eyebrow-mono mb-4">{t.registrosEyebrow}</p>
-          <h2 className="text-4xl mb-10 text-vino">{t.registrosTitle}</h2>
-          <div className="space-y-4">
-            {t.registros.map((r, i) => {
-              const isOpen = openAccordion === i;
-              return (
-                <div key={r.number} className="accordion-item">
-                  <button className="accordion-header" onClick={() => setOpenAccordion(isOpen ? null : i)}>
-                    <span className="text-hueso">
-                      <span className="text-rojo font-anton mr-3">{r.number}</span>
-                      <span className="font-anton uppercase tracking-wide">{r.title}</span>
-                    </span>
-                    <span className={`accordion-toggle ${isOpen ? 'open' : ''}`}>+</span>
-                  </button>
-                  <div className={`accordion-body ${isOpen ? 'open' : ''}`}>
-                    <p className="text-hueso/90 leading-relaxed">{r.body}</p>
-                  </div>
+        <div className="container-wide">
+          <p className="eyebrow-mono mb-4">{t.rolesEyebrow}</p>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-ink mb-12 leading-tight">
+            {t.rolesTitle}
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {t.roles.map((role, i) => (
+              <div
+                key={role.number}
+                className="role-card"
+                onClick={() => setSelectedRole(i)}
+              >
+                <img src={role.image} alt={role.title.replace('\n', ' ')} />
+                <div className="role-card-overlay">
+                  <span className="role-card-number">{role.number}</span>
+                  <h3 className="role-card-title whitespace-pre-line">{role.title}</h3>
+                  <span className="role-card-cta">{role.cta}</span>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-padding bg-vino text-center">
-        <div className="container-wide flex gap-4 flex-wrap justify-center">
-          <Link to="/portfolio" className="btn bg-hueso text-ink hover:bg-rosa">{t.cta.portfolio}</Link>
-          <Link to="/contact" className="btn bg-rojo text-hueso hover:bg-vino-2">{t.cta.contact}</Link>
+      {/* ===== ROLE MODAL ===== */}
+      {selectedRole !== null && (
+        <div className="modal-overlay" onClick={() => setSelectedRole(null)}>
+          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setSelectedRole(null)}>
+              ✕
+            </button>
+
+            {/* Modal header image */}
+            <div className="modal-card-header">
+              <img
+                src={t.roles[selectedRole].secondImage}
+                alt={t.roles[selectedRole].title.replace('\n', ' ')}
+              />
+              <div className="modal-card-header-overlay">
+                <div>
+                  <span className="text-coral font-mono text-xs tracking-widest uppercase">
+                    {t.roles[selectedRole].number}
+                  </span>
+                  <h3 className="text-3xl font-extrabold text-white whitespace-pre-line">
+                    {t.roles[selectedRole].title}
+                  </h3>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal body */}
+            <div className="modal-card-body">
+              <p className="text-base md:text-lg leading-relaxed text-gray-warm">
+                {t.roles[selectedRole].body}
+              </p>
+              <div className="mt-8">
+                <Link
+                  to="/portfolio"
+                  className="btn bg-vino text-white hover:bg-vino-2 font-medium"
+                  onClick={() => setSelectedRole(null)}
+                >
+                  {t.ctaPortfolio}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ===== CTA FINAL ===== */}
+      <section className="py-20 bg-crudo-dark text-center">
+        <div className="container-wide">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-8">
+            {language === 'es' ? 'Hablemos' : language === 'en' ? "Let's talk" : 'Parlem'}
+          </h2>
+          <div className="flex gap-4 flex-wrap justify-center">
+            <Link to="/portfolio" className="btn bg-white text-crudo-dark hover:bg-white/90 font-semibold">
+              {t.ctaPortfolio}
+            </Link>
+            <Link to="/contact" className="btn border border-white/30 text-white hover:bg-white/10 font-medium">
+              {t.ctaContact}
+            </Link>
+          </div>
         </div>
       </section>
     </main>
