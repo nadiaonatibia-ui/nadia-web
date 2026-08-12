@@ -13,16 +13,17 @@ interface Project {
   sectorKey: SectorKey;
   color: string;
   link: string;
+  logo: string;
 }
 
 const projects: Project[] = [
-  { id: 'rassif', title: 'RASSIF', sectorKey: 'migracion', color: 'from-rose-900 to-rose-700', link: 'https://www.casaldelsinfants.org/es/rassif-escena/' },
-  { id: 'smash', title: 'SMASH', sectorKey: 'discurso-odio', color: 'from-violet-900 to-violet-700', link: 'https://www.smashproject.eu/' },
-  { id: 'miretage', title: 'MIRETAGE', sectorKey: 'patrimonio', color: 'from-emerald-900 to-emerald-700', link: 'https://miretage.eu' },
-  { id: 'beyond-gender', title: 'BEYOND GENDER', sectorKey: 'genero', color: 'from-amber-900 to-amber-700', link: 'https://www.laxixateatre.org/es/beyondgender' },
-  { id: 'reignite', title: 'REIGNITE', sectorKey: 'inclusion55', color: 'from-sky-900 to-sky-700', link: 'https://reignite-project.eu/' },
-  { id: 'edi-go', title: 'EDI GO', sectorKey: 'edi', color: 'from-teal-900 to-teal-700', link: 'https://edi-go.eu/' },
-  { id: 'empatheatry', title: 'EMPATHEATRY', sectorKey: 'empatia', color: 'from-orange-900 to-orange-700', link: 'https://empatheatry.eu/' },
+  { id: 'rassif', title: 'RASSIF', sectorKey: 'migracion', color: 'from-rose-900 to-rose-700', link: 'https://www.casaldelsinfants.org/es/rassif-escena/', logo: '/images/projects/logo-rassif.png' },
+  { id: 'smash', title: 'SMASH', sectorKey: 'discurso-odio', color: 'from-violet-900 to-violet-700', link: 'https://www.smashproject.eu/', logo: '/images/projects/logo-smash.png' },
+  { id: 'miretage', title: 'MIRETAGE', sectorKey: 'patrimonio', color: 'from-emerald-900 to-emerald-700', link: 'https://miretage.eu', logo: '/images/projects/logo-miretage.png' },
+  { id: 'beyond-gender', title: 'BEYOND GENDER', sectorKey: 'genero', color: 'from-amber-900 to-amber-700', link: 'https://www.laxixateatre.org/es/beyondgender', logo: '/images/projects/logo-beyond-gender.png' },
+  { id: 'reignite', title: 'REIGNITE', sectorKey: 'inclusion55', color: 'from-sky-900 to-sky-700', link: 'https://reignite-project.eu/', logo: '/images/projects/logo-reignite.png' },
+  { id: 'edi-go', title: 'EDI GO', sectorKey: 'edi', color: 'from-teal-900 to-teal-700', link: 'https://edi-go.eu/', logo: '/images/projects/logo-edi-go.jpg' },
+  { id: 'empatheatry', title: 'EMPATHEATRY', sectorKey: 'empatia', color: 'from-orange-900 to-orange-700', link: 'https://empatheatry.eu/', logo: '/images/projects/logo-empatheatry.png' },
 ];
 
 const sectorKeys: SectorKey[] = ['migracion', 'discurso-odio', 'patrimonio', 'genero', 'inclusion55', 'edi', 'empatia'];
@@ -198,16 +199,16 @@ export const Portfolio = ({ language }: PortfolioProps) => {
                   className="group cursor-pointer rounded-xl overflow-hidden bg-white border border-ink/5 hover:shadow-lg transition-all duration-300"
                   onClick={() => setSelectedProjectId(project.id)}
                 >
-                  {/* Color header placeholder — replace with project image later */}
-                  <div className={`h-40 bg-gradient-to-br ${project.color} flex items-end p-5`}>
-                    <div>
-                      <span className="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-white/20 text-white backdrop-blur-sm mb-2">
-                        {sectorLabels[language][project.sectorKey]}
-                      </span>
-                      <h3 className="text-2xl font-extrabold text-white tracking-tight">
-                        {project.title}
-                      </h3>
-                    </div>
+                  {/* Project logo card header */}
+                  <div className={`h-44 bg-gradient-to-br ${project.color} flex items-center justify-center p-6 relative`}>
+                    <img
+                      src={project.logo}
+                      alt={`${project.title} logo`}
+                      className="max-h-24 max-w-[80%] object-contain drop-shadow-md"
+                    />
+                    <span className="absolute bottom-3 left-5 inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-white/20 text-white backdrop-blur-sm">
+                      {sectorLabels[language][project.sectorKey]}
+                    </span>
                   </div>
                   {/* Body */}
                   <div className="p-5">
@@ -237,8 +238,8 @@ export const Portfolio = ({ language }: PortfolioProps) => {
             <button className="modal-close" onClick={() => setSelectedProjectId(null)}>
               ✕
             </button>
-            {/* Modal header with gradient */}
-            <div className={`h-48 bg-gradient-to-br ${selectedProject.color} flex items-end p-8 rounded-t-2xl`}>
+            {/* Modal header with logo */}
+            <div className={`h-48 bg-gradient-to-br ${selectedProject.color} flex items-center justify-between p-8 rounded-t-2xl`}>
               <div>
                 <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white backdrop-blur-sm mb-3">
                   {sectorLabels[language][selectedProject.sectorKey]}
@@ -247,6 +248,11 @@ export const Portfolio = ({ language }: PortfolioProps) => {
                   {selectedProject.title}
                 </h2>
               </div>
+              <img
+                src={selectedProject.logo}
+                alt={`${selectedProject.title} logo`}
+                className="max-h-20 max-w-[30%] object-contain drop-shadow-lg"
+              />
             </div>
             {/* Modal body */}
             <div className="p-8">
