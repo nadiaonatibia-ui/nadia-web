@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import type { Language } from '../../types';
 
-interface PortfolioProps { language: Language; }
+interface PortfolioProps {
+  language: Language;
+}
 
 type SectorKey = 'migracion' | 'discurso-odio' | 'patrimonio' | 'genero' | 'inclusion55' | 'edi' | 'empatia';
 
@@ -9,18 +11,18 @@ interface Project {
   id: string;
   title: string;
   sectorKey: SectorKey;
-  tagClassName: string;
+  color: string;
   link: string;
 }
 
 const projects: Project[] = [
-  { id: 'rassif', title: 'RASSIF', sectorKey: 'migracion', tagClassName: 'bg-rojo text-hueso', link: 'https://www.casaldelsinfants.org/es/rassif-escena/' },
-  { id: 'smash', title: 'SMASH', sectorKey: 'discurso-odio', tagClassName: 'bg-vino text-hueso', link: 'https://www.smashproject.eu/' },
-  { id: 'miretage', title: 'MIRETAGE', sectorKey: 'patrimonio', tagClassName: 'bg-teal text-hueso', link: 'https://miretage.eu' },
-  { id: 'beyond-gender', title: 'BEYOND GENDER', sectorKey: 'genero', tagClassName: 'bg-lila text-ink', link: 'https://www.laxixateatre.org/es/beyondgender' },
-  { id: 'reignite', title: 'REIGNITE', sectorKey: 'inclusion55', tagClassName: 'bg-vino text-hueso', link: 'https://reignite-project.eu/' },
-  { id: 'edi-go', title: 'EDI GO', sectorKey: 'edi', tagClassName: 'bg-teal text-hueso', link: 'https://edi-go.eu/' },
-  { id: 'empatheatry', title: 'EMPATHEATRY', sectorKey: 'empatia', tagClassName: 'bg-rojo text-hueso', link: 'https://empatheatry.eu/' },
+  { id: 'rassif', title: 'RASSIF', sectorKey: 'migracion', color: 'from-rose-900 to-rose-700', link: 'https://www.casaldelsinfants.org/es/rassif-escena/' },
+  { id: 'smash', title: 'SMASH', sectorKey: 'discurso-odio', color: 'from-violet-900 to-violet-700', link: 'https://www.smashproject.eu/' },
+  { id: 'miretage', title: 'MIRETAGE', sectorKey: 'patrimonio', color: 'from-emerald-900 to-emerald-700', link: 'https://miretage.eu' },
+  { id: 'beyond-gender', title: 'BEYOND GENDER', sectorKey: 'genero', color: 'from-amber-900 to-amber-700', link: 'https://www.laxixateatre.org/es/beyondgender' },
+  { id: 'reignite', title: 'REIGNITE', sectorKey: 'inclusion55', color: 'from-sky-900 to-sky-700', link: 'https://reignite-project.eu/' },
+  { id: 'edi-go', title: 'EDI GO', sectorKey: 'edi', color: 'from-teal-900 to-teal-700', link: 'https://edi-go.eu/' },
+  { id: 'empatheatry', title: 'EMPATHEATRY', sectorKey: 'empatia', color: 'from-orange-900 to-orange-700', link: 'https://empatheatry.eu/' },
 ];
 
 const sectorKeys: SectorKey[] = ['migracion', 'discurso-odio', 'patrimonio', 'genero', 'inclusion55', 'edi', 'empatia'];
@@ -98,7 +100,7 @@ const projectContent: Record<string, Record<Language, { bullets: string[]; descr
       description: 'A European project focused on reigniting purpose and motivation in adults aged 55 and over, combining psychology, theatre and learning. Tested in real communities across different European countries, it left behind tools ready to be replicated by other organisations.',
     },
     ca: {
-      bullets: ['Reactivació de propòsit en adults 55+', 'Combina psicologia, teatre i aprenentatge', 'Testat en comunitats reals d\'Europa'],
+      bullets: ['Reactivació de propòsit en adults 55+', 'Combina psicologia, teatre i aprenentatge', "Testat en comunitats reals d'Europa"],
       description: "Un projecte europeu centrat a reactivar el propòsit i la motivació en persones adultes de 55 anys o més, combinant psicologia, teatre i aprenentatge. Testat en comunitats reals de diferents països d'Europa, va deixar eines llestes perquè altres organitzacions les repliquin.",
     },
   },
@@ -119,23 +121,23 @@ const projectContent: Record<string, Record<Language, { bullets: string[]; descr
   empatheatry: {
     es: {
       bullets: ['Teatro inclusivo para jóvenes con menos oportunidades', 'Empoderamiento de facilitadores y profesionales de teatro', 'Metodologías de taller interdisciplinarias, cofinanciado por Erasmus+'],
-      description: 'Un proyecto de dos años, cofinanciado por el programa Erasmus+ de la Unión Europea, que reunió a socios de Eslovenia, España, Bélgica e Irlanda para explorar cómo el teatro puede fomentar la empatía, la inclusión y el empoderamiento en jóvenes con menos oportunidades. El foco estuvo puesto en mejorar el acceso al teatro para jóvenes en situación de desventaja, fortalecer a educadores y profesionales del teatro, y desarrollar metodologías de taller inclusivas mediante colaboración interdisciplinaria. El proyecto dejó recomendaciones de política pública para hacer el teatro y las artes más accesibles y empoderadores para jóvenes con menos oportunidades.',
+      description: 'Un proyecto de dos años, cofinanciado por el programa Erasmus+ de la Unión Europea, que reunió a socios de Eslovenia, España, Bélgica e Irlanda para explorar cómo el teatro puede fomentar la empatía, la inclusión y el empoderamiento en jóvenes con menos oportunidades.',
     },
     en: {
       bullets: ['Inclusive theatre for young people with fewer opportunities', 'Empowering facilitators and theatre professionals', 'Interdisciplinary workshop methodologies, co-funded by Erasmus+'],
-      description: 'A two-year project, co-funded by the Erasmus+ programme of the European Union, that brought together partners from Slovenia, Spain, Belgium and Ireland to explore how theatre can foster empathy, inclusion and empowerment among young people with fewer opportunities. The focus was on improving access to theatre for disadvantaged youth, empowering educators and theatre professionals, and developing inclusive workshop methodologies through interdisciplinary collaboration. The project produced policy recommendations to make theatre and the arts more accessible and empowering for young people with fewer opportunities.',
+      description: 'A two-year project, co-funded by the Erasmus+ programme of the European Union, that brought together partners from Slovenia, Spain, Belgium and Ireland to explore how theatre can foster empathy, inclusion and empowerment among young people with fewer opportunities.',
     },
     ca: {
       bullets: ['Teatre inclusiu per a joves amb menys oportunitats', 'Empoderament de facilitadors i professionals del teatre', 'Metodologies de taller interdisciplinàries, cofinançat per Erasmus+'],
-      description: "Un projecte de dos anys, cofinançat pel programa Erasmus+ de la Unió Europea, que va reunir socis d'Eslovènia, Espanya, Bèlgica i Irlanda per explorar com el teatre pot fomentar l'empatia, la inclusió i l'empoderament en joves amb menys oportunitats. El focus va ser millorar l'accés al teatre per a joves en situació de desavantatge, enfortir educadors i professionals del teatre, i desenvolupar metodologies de taller inclusives mitjançant col·laboració interdisciplinària. El projecte va deixar recomanacions de política pública per fer el teatre i les arts més accessibles i empoderadores per a joves amb menys oportunitats.",
+      description: "Un projecte de dos anys, cofinançat pel programa Erasmus+ de la Unió Europea, que va reunir socis d'Eslovènia, Espanya, Bèlgica i Irlanda per explorar com el teatre pot fomentar l'empatia, la inclusió i l'empoderament en joves amb menys oportunitats.",
     },
   },
 };
 
 const uiLabels = {
-  es: { eyebrow: '(repertorio)', title: 'PROYECTOS DESTACADOS', filters: 'Filtrar por sector', all: 'Todos', details: 'Ver detalles →', visit: 'Visitar sitio del proyecto →' },
-  en: { eyebrow: '(repertoire)', title: 'FEATURED PROJECTS', filters: 'Filter by sector', all: 'All', details: 'View details →', visit: 'Visit project site →' },
-  ca: { eyebrow: '(repertori)', title: 'PROJECTES DESTACATS', filters: 'Filtrar per sector', all: 'Tots', details: 'Veure detalls →', visit: 'Visitar lloc del projecte →' },
+  es: { eyebrow: 'REPERTORIO', title: 'Proyectos destacados', filters: 'Filtrar por sector', all: 'Todos', details: 'Ver detalles', visit: 'Visitar sitio del proyecto →', close: 'Cerrar' },
+  en: { eyebrow: 'REPERTOIRE', title: 'Featured projects', filters: 'Filter by sector', all: 'All', details: 'View details', visit: 'Visit project site →', close: 'Close' },
+  ca: { eyebrow: 'REPERTORI', title: 'Projectes destacats', filters: 'Filtrar per sector', all: 'Tots', details: 'Veure detalls', visit: 'Visitar lloc del projecte →', close: 'Tancar' },
 };
 
 export const Portfolio = ({ language }: PortfolioProps) => {
@@ -150,31 +152,77 @@ export const Portfolio = ({ language }: PortfolioProps) => {
       <section className="section-padding pb-8">
         <div className="container-wide">
           <p className="eyebrow-mono mb-4">{labels.eyebrow}</p>
-          <h1 className="text-5xl mb-4 text-vino">{labels.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-ink mb-4">{labels.title}</h1>
         </div>
       </section>
+
       <section className="section-padding pt-0">
         <div className="container-wide">
+          {/* Filters */}
           <div className="mb-12">
-            <h3 className="text-lg font-medium mb-4 text-ink normal-case tracking-normal">{labels.filters}</h3>
-            <div className="flex flex-wrap gap-3">
-              <button onClick={() => setSelectedFilter(null)} className={`px-4 py-2 rounded-lg font-medium transition-all ${selectedFilter === null ? 'bg-ink text-hueso' : 'bg-white/60 text-ink hover:bg-white'}`}>{labels.all}</button>
+            <h3 className="text-sm font-medium mb-4 text-gray-warm uppercase tracking-wider">{labels.filters}</h3>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setSelectedFilter(null)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  selectedFilter === null
+                    ? 'bg-ink text-white'
+                    : 'bg-white text-ink/70 hover:bg-ink/5 border border-ink/10'
+                }`}
+              >
+                {labels.all}
+              </button>
               {sectorKeys.map((key) => (
-                <button key={key} onClick={() => setSelectedFilter(key)} className={`px-4 py-2 rounded-lg font-medium transition-all ${selectedFilter === key ? 'bg-ink text-hueso' : 'bg-white/60 text-ink hover:bg-white'}`}>{sectorLabels[language][key]}</button>
+                <button
+                  key={key}
+                  onClick={() => setSelectedFilter(key)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                    selectedFilter === key
+                      ? 'bg-ink text-white'
+                      : 'bg-white text-ink/70 hover:bg-ink/5 border border-ink/10'
+                  }`}
+                >
+                  {sectorLabels[language][key]}
+                </button>
               ))}
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          {/* Project Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((project) => {
               const pc = projectContent[project.id][language];
               return (
-                <div key={project.id} className="bg-crudo-alt rounded-lg p-6 flex flex-col">
-                  <span className={`inline-block self-start px-3 py-1 rounded text-sm font-medium mb-4 ${project.tagClassName}`}>{sectorLabels[language][project.sectorKey]}</span>
-                  <h3 className="text-2xl mb-4 text-rosa">{project.title}</h3>
-                  <ul className="text-hueso/90 mb-6 space-y-2 flex-grow list-disc list-inside">
-                    {pc.bullets.map((b) => <li key={b}>{b}</li>)}
-                  </ul>
-                  <button onClick={() => setSelectedProjectId(project.id)} className="text-hueso font-medium hover:text-rosa text-left">{labels.details}</button>
+                <div
+                  key={project.id}
+                  className="group cursor-pointer rounded-xl overflow-hidden bg-white border border-ink/5 hover:shadow-lg transition-all duration-300"
+                  onClick={() => setSelectedProjectId(project.id)}
+                >
+                  {/* Color header placeholder — replace with project image later */}
+                  <div className={`h-40 bg-gradient-to-br ${project.color} flex items-end p-5`}>
+                    <div>
+                      <span className="inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-white/20 text-white backdrop-blur-sm mb-2">
+                        {sectorLabels[language][project.sectorKey]}
+                      </span>
+                      <h3 className="text-2xl font-extrabold text-white tracking-tight">
+                        {project.title}
+                      </h3>
+                    </div>
+                  </div>
+                  {/* Body */}
+                  <div className="p-5">
+                    <ul className="space-y-1.5 mb-4">
+                      {pc.bullets.map((b) => (
+                        <li key={b} className="text-sm text-gray-warm flex gap-2">
+                          <span className="text-coral mt-0.5">·</span>
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                    <span className="text-sm font-medium text-vino group-hover:text-coral transition-colors">
+                      {labels.details} →
+                    </span>
+                  </div>
                 </div>
               );
             })}
@@ -182,14 +230,46 @@ export const Portfolio = ({ language }: PortfolioProps) => {
         </div>
       </section>
 
+      {/* Project Modal */}
       {selectedProject && (
         <div className="modal-overlay" onClick={() => setSelectedProjectId(null)}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => setSelectedProjectId(null)} className="absolute top-4 right-6 text-hueso text-2xl hover:text-rosa">×</button>
-            <span className={`inline-block px-3 py-1 rounded text-sm font-medium mb-4 ${selectedProject.tagClassName}`}>{sectorLabels[language][selectedProject.sectorKey]}</span>
-            <h2 className="text-3xl mb-6 text-rosa">{selectedProject.title}</h2>
-            <p className="leading-relaxed mb-8 text-hueso/90">{projectContent[selectedProject.id][language].description}</p>
-            <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="text-hueso font-medium hover:text-rosa">{labels.visit}</a>
+            <button className="modal-close" onClick={() => setSelectedProjectId(null)}>
+              ✕
+            </button>
+            {/* Modal header with gradient */}
+            <div className={`h-48 bg-gradient-to-br ${selectedProject.color} flex items-end p-8 rounded-t-2xl`}>
+              <div>
+                <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white backdrop-blur-sm mb-3">
+                  {sectorLabels[language][selectedProject.sectorKey]}
+                </span>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+                  {selectedProject.title}
+                </h2>
+              </div>
+            </div>
+            {/* Modal body */}
+            <div className="p-8">
+              <div className="space-y-1.5 mb-6">
+                {projectContent[selectedProject.id][language].bullets.map((b) => (
+                  <p key={b} className="text-sm text-gray-warm flex gap-2">
+                    <span className="text-coral">·</span>
+                    {b}
+                  </p>
+                ))}
+              </div>
+              <p className="text-base leading-relaxed text-ink/80 mb-8">
+                {projectContent[selectedProject.id][language].description}
+              </p>
+              <a
+                href={selectedProject.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn bg-vino text-white hover:bg-vino-2 font-medium"
+              >
+                {labels.visit}
+              </a>
+            </div>
           </div>
         </div>
       )}

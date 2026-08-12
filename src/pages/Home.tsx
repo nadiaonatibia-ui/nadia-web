@@ -8,9 +8,10 @@ interface HomeProps {
 
 const content = {
   es: {
+    heroEyebrow: 'SE ABRE EL TELÓN',
     heroTagline: 'Gestión cultural · Facilitación arts-based · Producción',
     heroLocation: 'Barcelona — Buenos Aires',
-    manifiestoEyebrow: 'MANIFIESTO',
+    manifiestoEyebrow: 'MONÓLOGO',
     manifiestoTitle: 'Cultura como infraestructura democrática',
     manifiestoLead: 'Trabajo con la convicción de que la cultura no es solo un sector: es infraestructura democrática.',
     manifiestoParagraphs: [
@@ -19,7 +20,7 @@ const content = {
       'Ahí es donde encuentro mi lugar. Me apasiona producir las condiciones para que las cosas sucedan. Diseñar proyectos, coordinar equipos, conseguir recursos, articular alianzas, acompañar procesos creativos y hacer que una visión llegue a existir sin perder su sentido en el camino.',
       'Gestionar un proyecto cultural y subirme a un escenario nunca fueron dos oficios distintos. Son dos maneras de participar de la misma práctica: construir las condiciones para que algo significativo ocurra.',
     ],
-    rolesEyebrow: 'LO QUE HAGO',
+    rolesEyebrow: 'CAMBIO DE ESCENA',
     rolesTitle: 'Tres registros, un mismo oficio',
     roles: [
       {
@@ -51,9 +52,10 @@ const content = {
     ctaContact: 'Contactar',
   },
   en: {
+    heroEyebrow: 'CURTAIN UP',
     heroTagline: 'Cultural management · Arts-based facilitation · Production',
     heroLocation: 'Barcelona — Buenos Aires',
-    manifiestoEyebrow: 'MANIFESTO',
+    manifiestoEyebrow: 'MONOLOGUE',
     manifiestoTitle: 'Culture as democratic infrastructure',
     manifiestoLead: 'I work with the conviction that culture is not just a sector: it is democratic infrastructure.',
     manifiestoParagraphs: [
@@ -62,7 +64,7 @@ const content = {
       "That's where I find my place. I'm passionate about producing the conditions for things to happen: designing projects, coordinating teams, securing resources, building alliances, accompanying creative processes, and making a vision come into existence without losing its meaning along the way.",
       "Managing a cultural project and stepping onto a stage were never two different trades. They're two ways of taking part in the same practice: building the conditions for something meaningful to happen.",
     ],
-    rolesEyebrow: 'WHAT I DO',
+    rolesEyebrow: 'SCENE CHANGE',
     rolesTitle: 'Three registers, one craft',
     roles: [
       {
@@ -94,9 +96,10 @@ const content = {
     ctaContact: 'Get in touch',
   },
   ca: {
+    heroEyebrow: "S'OBRE EL TELÓ",
     heroTagline: "Gestio cultural · Facilitacio arts-based · Produccio",
     heroLocation: 'Barcelona — Buenos Aires',
-    manifiestoEyebrow: 'MANIFEST',
+    manifiestoEyebrow: 'MONÒLEG',
     manifiestoTitle: "La cultura com a infraestructura democratica",
     manifiestoLead: "Treballo amb la conviccio que la cultura no es nomes un sector: es infraestructura democratica.",
     manifiestoParagraphs: [
@@ -105,7 +108,7 @@ const content = {
       "Aqui es on trobo el meu lloc. M'apassiona produir les condicions perque les coses passin: dissenyar projectes, coordinar equips, aconseguir recursos, articular aliances, acompanyar processos creatius i fer que una visio arribi a existir sense perdre el seu sentit pel cami.",
       "Gestionar un projecte cultural i pujar a un escenari mai van ser dos oficis diferents. Son dues maneres de participar de la mateixa practica: construir les condicions perque alguna cosa significativa passi.",
     ],
-    rolesEyebrow: 'EL QUE FAIG',
+    rolesEyebrow: "CANVI D'ESCENA",
     rolesTitle: 'Tres registres, un mateix ofici',
     roles: [
       {
@@ -152,7 +155,8 @@ export const Home = ({ language }: HomeProps) => {
         <div className="container-wide relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
           {/* Left: Text */}
           <div>
-            <p className="eyebrow-mono mb-6">{t.heroLocation}</p>
+            <p className="eyebrow-mono mb-2">{t.heroEyebrow}</p>
+            <p className="text-sm text-white/40 mb-6 font-mono tracking-widest">{t.heroLocation}</p>
             <h1 className="text-6xl md:text-8xl font-extrabold text-white leading-none tracking-tight mb-6">
               NADIA<br />ONATIBIA
             </h1>

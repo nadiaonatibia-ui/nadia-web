@@ -30,8 +30,8 @@ export const Navbar = ({ language, onLanguageChange }: NavbarProps) => {
     <nav className="sticky top-0 bg-crudo/95 backdrop-blur-md z-50 border-b border-ink/5">
       <div className="container-wide">
         <div className="flex justify-between items-center py-4 gap-4">
-          <Link to="/" onClick={handleLogoClick} className="text-xl font-bold text-ink tracking-tight hover:text-vino transition-colors">
-            Nadia Oñatibia
+          <Link to="/" onClick={handleLogoClick} className="text-2xl font-extrabold text-ink tracking-tight hover:text-vino transition-colors">
+            NÕ
           </Link>
 
           <div className="hidden md:flex gap-8">
