@@ -199,14 +199,14 @@ export const Portfolio = ({ language }: PortfolioProps) => {
                   className="group cursor-pointer rounded-xl overflow-hidden bg-white border border-ink/5 hover:shadow-lg transition-all duration-300"
                   onClick={() => setSelectedProjectId(project.id)}
                 >
-                  {/* Project logo card header */}
-                  <div className={`h-44 bg-gradient-to-br ${project.color} flex items-center justify-center p-6 relative`}>
+                  {/* Project logo as full cover */}
+                  <div className="h-48 relative overflow-hidden bg-white">
                     <img
                       src={project.logo}
                       alt={`${project.title} logo`}
-                      className="max-h-24 max-w-[80%] object-contain drop-shadow-md"
+                      className="w-full h-full object-contain p-4"
                     />
-                    <span className="absolute bottom-3 left-5 inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-white/20 text-white backdrop-blur-sm">
+                    <span className="absolute bottom-3 left-3 inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-ink/80 text-white backdrop-blur-sm">
                       {sectorLabels[language][project.sectorKey]}
                     </span>
                   </div>
@@ -238,21 +238,16 @@ export const Portfolio = ({ language }: PortfolioProps) => {
             <button className="modal-close" onClick={() => setSelectedProjectId(null)}>
               ✕
             </button>
-            {/* Modal header with logo */}
-            <div className={`h-48 bg-gradient-to-br ${selectedProject.color} flex items-center justify-between p-8 rounded-t-2xl`}>
-              <div>
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white backdrop-blur-sm mb-3">
-                  {sectorLabels[language][selectedProject.sectorKey]}
-                </span>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
-                  {selectedProject.title}
-                </h2>
-              </div>
+            {/* Modal header with full logo */}
+            <div className="h-48 bg-white flex items-center justify-center rounded-t-2xl relative overflow-hidden border-b border-ink/5">
               <img
                 src={selectedProject.logo}
                 alt={`${selectedProject.title} logo`}
-                className="max-h-20 max-w-[30%] object-contain drop-shadow-lg"
+                className="max-h-32 max-w-[70%] object-contain"
               />
+              <span className="absolute bottom-3 left-6 inline-block px-3 py-1 rounded-full text-xs font-medium bg-ink/80 text-white">
+                {sectorLabels[language][selectedProject.sectorKey]}
+              </span>
             </div>
             {/* Modal body */}
             <div className="p-8">
