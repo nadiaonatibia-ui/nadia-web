@@ -8,6 +8,7 @@ interface ContactProps {
 
 export const Contact = ({ language }: ContactProps) => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [consent, setConsent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,6 +29,8 @@ export const Contact = ({ language }: ContactProps) => {
       namePlaceholder: 'Tu nombre',
       emailPlaceholder: 'tu@email.com',
       messagePlaceholder: 'Tu mensaje...',
+      consent: 'He leído y acepto la',
+      consentLink: 'Política de Privacidad',
     },
     en: {
       eyebrow: 'FINAL CURTAIN',
@@ -44,6 +47,8 @@ export const Contact = ({ language }: ContactProps) => {
       namePlaceholder: 'Your name',
       emailPlaceholder: 'your@email.com',
       messagePlaceholder: 'Your message...',
+      consent: 'I have read and accept the',
+      consentLink: 'Privacy Policy',
     },
     ca: {
       eyebrow: 'TELÓ FINAL',
@@ -60,6 +65,8 @@ export const Contact = ({ language }: ContactProps) => {
       namePlaceholder: 'El teu nom',
       emailPlaceholder: 'el_teu@email.com',
       messagePlaceholder: 'El teu missatge...',
+      consent: 'He llegit i accepto la',
+      consentLink: 'Política de Privacitat',
     },
   };
   const t = labels[language];
@@ -77,6 +84,7 @@ export const Contact = ({ language }: ContactProps) => {
       if (error) throw error;
       setSubmitted(true);
       setFormData({ name: '', email: '', message: '' });
+      setConsent(false);
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
       setError(t.errorMessage);
@@ -166,9 +174,25 @@ export const Contact = ({ language }: ContactProps) => {
                     className="w-full px-4 py-3 border border-ink/10 rounded-lg focus:outline-none focus:border-vino resize-none bg-crudo/50"
                   />
                 </div>
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="consent"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    required
+                    className="mt-1 h-4 w-4 rounded border-ink/20 text-vino focus:ring-vino"
+                  />
+                  <label htmlFor="consent" className="text-sm text-gray-warm">
+                    {t.consent}{' '}
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-vino hover:text-vino-2 underline">
+                      {t.consentLink}
+                    </a>
+                  </label>
+                </div>
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || !consent}
                   className="w-full btn bg-vino text-white hover:bg-vino-2 disabled:opacity-50 font-semibold"
                 >
                   {loading ? t.sending : t.send}
