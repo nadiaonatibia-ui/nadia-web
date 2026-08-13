@@ -26,7 +26,7 @@ interface Experience {
 
 interface Education {
   institution: string;
-  url: string;
+  url?: string;
   degree: string;
   year: string;
 }
@@ -177,7 +177,7 @@ const cvData: Record<Language, CVData> = {
         organization: 'Los Pompapetriyasos',
         location: 'Buenos Aires, Argentina',
         url: 'https://pompapetriyasos.com.ar/',
-        position: 'Producer, Cultural Manager & Fundraiser',
+        position: 'Productora, Gestora Cultural & Fundraiser',
         years: '2016–2023',
         description: 'Desarrollo y coordinación de producciones culturales independientes e iniciativas artísticas comunitarias internacionales.',
         responsibilities: [
@@ -202,7 +202,7 @@ const cvData: Record<Language, CVData> = {
       {
         organization: 'Festival Latitude 40°',
         location: 'Argentina-Portugal',
-        position: 'Producer',
+        position: 'Productora',
         years: '2021–2023',
         description: 'Producción y coordinación de programación cultural en festival multidisciplinario internacional.',
         responsibilities: [
@@ -233,6 +233,8 @@ const cvData: Record<Language, CVData> = {
           'Optimización del flujo de trabajo mediante integración de herramientas creativas con IA',
           'Coordinación de programas culturales y actividades literarias',
           'Colaboración con organizaciones culturales y partners educativos',
+          'Soporte en desarrollo de proyectos e iniciativas de fundraising',
+          'Organización de eventos públicos relacionados a lectura y literatura',
         ],
         impact: [
           'Escalado de producción de contenido educativo',
@@ -244,21 +246,25 @@ const cvData: Record<Language, CVData> = {
     education: [
       { institution: 'CLACSO / UNA', url: 'https://www.clacso.org.ar/', degree: 'Diplomatura Superior en Mediación Cultural, Comunidad, Artes y Tecnologías', year: '2021' },
       { institution: 'FLACSO', url: 'https://www.flacso.org.ar/', degree: 'Posgrado en Gestión Cultural y Comunicación', year: '2019–2020' },
+      { institution: 'EDA Escuela de Dirección de Arte', degree: 'Curso de dirección de arte dictado por Paula Taratuto', year: '2020' },
+      { institution: 'CODERHOUSE', degree: 'Certificado en Copywriting', year: '2023' },
       { institution: 'COSATYC Andamio 90', url: 'https://andamio90.org/', degree: 'Profesorado en Artes con orientación Teatro', year: '2010–2014' },
+      { institution: 'FCE — Universidad de Buenos Aires', degree: 'Organización de Eventos', year: '2014' },
+      { institution: 'FCE — Universidad de Buenos Aires', degree: 'Ceremonial y Protocolo', year: '2014' },
     ],
     languages: [
       { language: 'Español', level: 'Nativo' },
       { language: 'Inglés', level: 'Avanzado' },
-      { language: 'Catalán', level: 'Intermedio A2 (en progreso)' },
+      { language: 'Catalán', level: 'Intermedio (en progreso)' },
     ],
     skills: [
-      'Trello', 'Asana', 'Monday.com', 'Slack',
-      'Canva', 'Google Workspace',
-      'Microsoft Office (Excel avanzado)',
+      'Trello', 'Asana', 'Monday.com', 'Kanban board', 'Slack',
+      'Canva', 'Doodly', 'Filmora', 'Capcut',
+      'Google Workspace', 'Microsoft Office',
     ],
     expertise: [
       {
-        category: 'Gestión de Programas y Proyectos',
+        category: 'Programme & Project Management',
         items: [
           'Coordinación de programas financiados por subvenciones europeas',
           'Gestión de consorcios multi-partner y multi-stakeholder',
@@ -268,7 +274,7 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Producción Cultural y Liderazgo Creativo',
+        category: 'Cultural Production & Creative Leadership',
         items: [
           'Producción cultural y artística (teatro, eventos, contenido digital)',
           'Gestión de proyectos creativos multidisciplinares',
@@ -277,7 +283,7 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Comunidad y Práctica Participativa',
+        category: 'Community & Participatory Practice',
         items: [
           'Mediación artística en contextos educativos y comunitarios',
           'Diseño y facilitación de procesos artísticos participativos',
@@ -287,7 +293,7 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Estrategia y Operaciones',
+        category: 'Strategic & Operational',
         items: [
           'Planificación operativa y presupuestaria',
           'Gestión de proveedores y equipos multidisciplinares',
@@ -471,6 +477,8 @@ const cvData: Record<Language, CVData> = {
           'Workflow optimisation through integration of AI-powered creative tools',
           'Coordination of cultural programmes and literary activities',
           'Collaboration with cultural organisations and educational partners',
+          'Support in project development and fundraising initiatives',
+          'Organisation of public events related to reading and literature',
         ],
         impact: [
           'Scaling of educational content production',
@@ -482,17 +490,21 @@ const cvData: Record<Language, CVData> = {
     education: [
       { institution: 'CLACSO / UNA', url: 'https://www.clacso.org.ar/', degree: 'Advanced Diploma in Cultural Mediation, Community, Arts and Technologies', year: '2021' },
       { institution: 'FLACSO', url: 'https://www.flacso.org.ar/', degree: 'Postgraduate Certificate in Cultural Management and Communication', year: '2019–2020' },
+      { institution: 'EDA School of Art Direction', degree: 'Art Direction Course taught by Paula Taratuto', year: '2020' },
+      { institution: 'CODERHOUSE', degree: 'Certificate in Copywriting', year: '2023' },
       { institution: 'COSATYC Andamio 90', url: 'https://andamio90.org/', degree: 'Teaching Certification in Arts, Theatre', year: '2010–2014' },
+      { institution: 'FCE — University of Buenos Aires', degree: 'Event Organization', year: '2014' },
+      { institution: 'FCE — University of Buenos Aires', degree: 'Ceremonial and Protocol', year: '2014' },
     ],
     languages: [
       { language: 'Spanish', level: 'Native' },
       { language: 'English', level: 'Advanced' },
-      { language: 'Catalan', level: 'Intermediate A2 (in progress)' },
+      { language: 'Catalan', level: 'Intermediate (in progress)' },
     ],
     skills: [
-      'Trello', 'Asana', 'Monday.com', 'Slack',
-      'Canva', 'Google Workspace',
-      'Microsoft Office (advanced Excel)',
+      'Trello', 'Asana', 'Monday.com', 'Kanban board', 'Slack',
+      'Canva', 'Doodly', 'Filmora', 'Capcut',
+      'Google Workspace', 'Microsoft Office',
     ],
     expertise: [
       {
@@ -653,7 +665,7 @@ const cvData: Record<Language, CVData> = {
         organization: 'Los Pompapetriyasos',
         location: 'Buenos Aires, Argentina',
         url: 'https://pompapetriyasos.com.ar/',
-        position: 'Producer, Cultural Manager & Fundraiser',
+        position: 'Productora, Gestora Cultural & Fundraiser',
         years: '2016–2023',
         description: "Desenvolupament i coordinació de produccions culturals independents i iniciatives artístiques comunitàries internacionals.",
         responsibilities: [
@@ -678,7 +690,7 @@ const cvData: Record<Language, CVData> = {
       {
         organization: 'Festival Latitude 40°',
         location: 'Argentina-Portugal',
-        position: 'Producer',
+        position: 'Productora',
         years: '2021–2023',
         description: "Producció i coordinació de programació cultural en festival multidisciplinari internacional.",
         responsibilities: [
@@ -709,6 +721,8 @@ const cvData: Record<Language, CVData> = {
           "Optimització del flux de treball mitjançant integració d'eines creatives amb IA",
           'Coordinació de programes culturals i activitats literàries',
           "Col·laboració amb organitzacions culturals i partners educatius",
+          "Suport en desenvolupament de projectes i iniciatives de fundraising",
+          "Organització d'events públics relacionats a lectura i literatura",
         ],
         impact: [
           'Escalat de producció de contingut educatiu',
@@ -720,21 +734,25 @@ const cvData: Record<Language, CVData> = {
     education: [
       { institution: 'CLACSO / UNA', url: 'https://www.clacso.org.ar/', degree: 'Diplomatura Superior en Mediació Cultural, Comunitat, Arts i Tecnologies', year: '2021' },
       { institution: 'FLACSO', url: 'https://www.flacso.org.ar/', degree: 'Postgrau en Gestió Cultural i Comunicació', year: '2019–2020' },
+      { institution: "EDA Escola de Direcció d'Art", degree: "Curs de direcció d'art impartit per Paula Taratuto", year: '2020' },
+      { institution: 'CODERHOUSE', degree: 'Certificat en Copywriting', year: '2023' },
       { institution: 'COSATYC Andamio 90', url: 'https://andamio90.org/', degree: "Professorat d'Arts amb orientació Teatre", year: '2010–2014' },
+      { institution: 'FCE — Universitat de Buenos Aires', degree: "Organització d'Events", year: '2014' },
+      { institution: 'FCE — Universitat de Buenos Aires', degree: 'Cerimonial i Protocol', year: '2014' },
     ],
     languages: [
       { language: 'Castellà', level: 'Natiu' },
       { language: 'Anglès', level: 'Avançat' },
-      { language: 'Català', level: 'Intermedi A2 (en progrés)' },
+      { language: 'Català', level: 'Intermedi (en progrés)' },
     ],
     skills: [
-      'Trello', 'Asana', 'Monday.com', 'Slack',
-      'Canva', 'Google Workspace',
-      'Microsoft Office (Excel avançat)',
+      'Trello', 'Asana', 'Monday.com', 'Kanban board', 'Slack',
+      'Canva', 'Doodly', 'Filmora', 'Capcut',
+      'Google Workspace', 'Microsoft Office',
     ],
     expertise: [
       {
-        category: 'Gestió de Programes i Projectes',
+        category: 'Programme & Project Management',
         items: [
           'Coordinació de programes finançats per subvencions europees',
           'Gestió de consorcis multi-partner i multi-stakeholder',
@@ -744,7 +762,7 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Producció Cultural i Lideratge Creatiu',
+        category: 'Cultural Production & Creative Leadership',
         items: [
           'Producció cultural i artística (teatre, esdeveniments, contingut digital)',
           'Gestió de projectes creatius multidisciplinars',
@@ -753,7 +771,7 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Comunitat i Pràctica Participativa',
+        category: 'Community & Participatory Practice',
         items: [
           'Mediació artística en contextos educatius i comunitaris',
           "Disseny i facilitació de processos artístics participatius",
@@ -763,7 +781,7 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Estratègia i Operacions',
+        category: 'Strategic & Operational',
         items: [
           'Planificació operativa i pressupostària',
           "Gestió de proveïdors i equips multidisciplinars",
@@ -876,7 +894,9 @@ export const CV = ({ language }: CVProps) => {
                 <div key={idx} className="bg-white rounded-xl border border-ink/5 p-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                   <div>
                     <p className="font-bold text-ink">
-                      <a href={edu.url} target="_blank" rel="noopener noreferrer" className="text-vino hover:text-vino-2 underline">{edu.institution}</a>
+                      {edu.url ? (
+                        <a href={edu.url} target="_blank" rel="noopener noreferrer" className="text-vino hover:text-vino-2 underline">{edu.institution}</a>
+                      ) : edu.institution}
                     </p>
                     <p className="text-gray-warm mt-1">{edu.degree}</p>
                   </div>
