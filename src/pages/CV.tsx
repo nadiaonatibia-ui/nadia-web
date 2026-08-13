@@ -28,7 +28,8 @@ interface Education {
   institution: string;
   url?: string;
   degree: string;
-  year: string;
+  year?: string;
+  years?: string;
 }
 
 interface LanguageItem {
@@ -102,7 +103,7 @@ const cvData: Record<Language, CVData> = {
       },
       {
         organization: 'Docencia — Múltiples Instituciones',
-        location: 'Buenos Aires & Barcelona',
+        location: 'Buenos Aires',
         position: 'Profesora / Coordinadora Pedagógica',
         years: '2015–2024',
         description: 'Docencia en artes teatrales, coordinación pedagógica y facilitación de procesos comunitarios.',
@@ -221,6 +222,7 @@ const cvData: Record<Language, CVData> = {
       },
       {
         organization: 'Infolibros (YouTube)',
+        url: 'https://infolibros.org/',
         location: 'Uruguay-LATAM',
         position: 'Creative Project Manager',
         years: '2021–2023',
@@ -245,17 +247,17 @@ const cvData: Record<Language, CVData> = {
     ],
     education: [
       { institution: 'CLACSO / UNA', url: 'https://www.clacso.org.ar/', degree: 'Diplomatura Superior en Mediación Cultural, Comunidad, Artes y Tecnologías', year: '2021' },
-      { institution: 'FLACSO', url: 'https://www.flacso.org.ar/', degree: 'Posgrado en Gestión Cultural y Comunicación', year: '2019–2020' },
-      { institution: 'EDA Escuela de Dirección de Arte', degree: 'Curso de dirección de arte dictado por Paula Taratuto', year: '2020' },
-      { institution: 'CODERHOUSE', degree: 'Certificado en Copywriting', year: '2023' },
-      { institution: 'COSATYC Andamio 90', url: 'https://andamio90.org/', degree: 'Profesorado en Artes con orientación Teatro', year: '2010–2014' },
+      { institution: 'FLACSO', url: 'https://www.flacso.org.ar/', degree: 'Posgrado en Gestión Cultural y Comunicación', years: '2019–2020' },
+      { institution: 'EDA Escuela de Dirección de Arte', url: 'https://www.direcciondearte.com.ar/', degree: 'Curso de dirección de arte dictado por Paula Taratuto', year: '2020' },
+      { institution: 'CODERHOUSE', url: 'https://www.coderhouse.com/', degree: 'Certificado en Copywriting', year: '2023' },
+      { institution: 'COSATYC Andamio 90', url: 'https://andamio90.org/', degree: 'Profesorado en Artes con orientación Teatro', years: '2010–2014' },
       { institution: 'FCE — Universidad de Buenos Aires', degree: 'Organización de Eventos', year: '2014' },
       { institution: 'FCE — Universidad de Buenos Aires', degree: 'Ceremonial y Protocolo', year: '2014' },
     ],
     languages: [
       { language: 'Español', level: 'Nativo' },
-      { language: 'Inglés', level: 'Avanzado' },
-      { language: 'Catalán', level: 'Intermedio (en progreso)' },
+      { language: 'Inglés', level: 'Avanzado (FCE)' },
+      { language: 'Catalán', level: 'Intermedio en progreso' },
     ],
     skills: [
       'Trello', 'Asana', 'Monday.com', 'Kanban board', 'Slack',
@@ -287,19 +289,22 @@ const cvData: Record<Language, CVData> = {
         items: [
           'Mediación artística en contextos educativos y comunitarios',
           'Diseño y facilitación de procesos artísticos participativos',
-          'Cultura y participación democrática',
-          'Diálogo intercultural e intergeneracional',
-          'Iniciativas culturales de base comunitaria',
+          'Metodologías arts-based y educación artística transformadora',
+          'Teatro del Oprimido y Teatro Forum',
+          'Teatro Comunitario como espacio de encuentro y cambio social',
+          'Culture and democratic participation',
+          'Intercultural and intergenerational dialogue',
+          'Community-based cultural initiatives',
         ],
       },
       {
         category: 'Strategic & Operational',
         items: [
           'Planificación operativa y presupuestaria',
-          'Gestión de proveedores y equipos multidisciplinares',
+          'Gestión de proveedores y teams multidisciplinares',
           'Fundraising y desarrollo de estrategias de financiación',
-          'Colaboración institucional y gestión de stakeholders',
-          'Coordinación de equipos internacionales',
+          'Colaboración institucional y stakeholder management',
+          'International team coordination',
         ],
       },
     ],
@@ -346,8 +351,8 @@ const cvData: Record<Language, CVData> = {
       },
       {
         organization: 'Teaching — Multiple Institutions',
-        location: 'Buenos Aires & Barcelona',
-        position: 'Faculty / Pedagogical Coordinator',
+        location: 'Buenos Aires',
+        position: 'Professor / Pedagogical Coordinator',
         years: '2015–2024',
         description: 'Theatre arts teaching, pedagogical coordination and facilitation of community processes.',
         isTeaching: true,
@@ -489,10 +494,10 @@ const cvData: Record<Language, CVData> = {
     ],
     education: [
       { institution: 'CLACSO / UNA', url: 'https://www.clacso.org.ar/', degree: 'Advanced Diploma in Cultural Mediation, Community, Arts and Technologies', year: '2021' },
-      { institution: 'FLACSO', url: 'https://www.flacso.org.ar/', degree: 'Postgraduate Certificate in Cultural Management and Communication', year: '2019–2020' },
-      { institution: 'EDA School of Art Direction', degree: 'Art Direction Course taught by Paula Taratuto', year: '2020' },
-      { institution: 'CODERHOUSE', degree: 'Certificate in Copywriting', year: '2023' },
-      { institution: 'COSATYC Andamio 90', url: 'https://andamio90.org/', degree: 'Teaching Certification in Arts, Theatre', year: '2010–2014' },
+      { institution: 'FLACSO', url: 'https://www.flacso.org.ar/', degree: 'Postgraduate in Cultural Management and Communication', years: '2019–2020' },
+      { institution: 'EDA School of Art Direction', url: 'https://www.direcciondearte.com.ar/', degree: 'Art Direction Course taught by Paula Taratuto', year: '2020' },
+      { institution: 'CODERHOUSE', url: 'https://www.coderhouse.com/', degree: 'Certificate in Copywriting', year: '2023' },
+      { institution: 'COSATYC Andamio 90', url: 'https://andamio90.org/', degree: 'Professorship in Arts with Theater Orientation', years: '2010–2014' },
       { institution: 'FCE — University of Buenos Aires', degree: 'Event Organization', year: '2014' },
       { institution: 'FCE — University of Buenos Aires', degree: 'Ceremonial and Protocol', year: '2014' },
     ],
@@ -733,10 +738,10 @@ const cvData: Record<Language, CVData> = {
     ],
     education: [
       { institution: 'CLACSO / UNA', url: 'https://www.clacso.org.ar/', degree: 'Diplomatura Superior en Mediació Cultural, Comunitat, Arts i Tecnologies', year: '2021' },
-      { institution: 'FLACSO', url: 'https://www.flacso.org.ar/', degree: 'Postgrau en Gestió Cultural i Comunicació', year: '2019–2020' },
+      { institution: 'FLACSO', url: 'https://www.flacso.org.ar/', degree: 'Postgrau en Gestió Cultural i Comunicació', years: '2019–2020' },
       { institution: "EDA Escola de Direcció d'Art", degree: "Curs de direcció d'art impartit per Paula Taratuto", year: '2020' },
       { institution: 'CODERHOUSE', degree: 'Certificat en Copywriting', year: '2023' },
-      { institution: 'COSATYC Andamio 90', url: 'https://andamio90.org/', degree: "Professorat d'Arts amb orientació Teatre", year: '2010–2014' },
+      { institution: 'COSATYC Andamio 90', url: 'https://andamio90.org/', degree: "Professorat d'Arts amb orientació Teatre", years: '2010–2014' },
       { institution: 'FCE — Universitat de Buenos Aires', degree: "Organització d'Events", year: '2014' },
       { institution: 'FCE — Universitat de Buenos Aires', degree: 'Cerimonial i Protocol', year: '2014' },
     ],
@@ -900,7 +905,7 @@ export const CV = ({ language }: CVProps) => {
                     </p>
                     <p className="text-gray-warm mt-1">{edu.degree}</p>
                   </div>
-                  <span className="text-sm font-semibold text-coral whitespace-nowrap">{edu.year}</span>
+                  <span className="text-sm font-semibold text-coral whitespace-nowrap">{edu.year || edu.years}</span>
                 </div>
               ))}
             </div>
