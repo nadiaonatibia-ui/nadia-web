@@ -1,6 +1,6 @@
 # Nadia Oñatibia — Web personal — Documento maestro de cierre
 
-Última actualización: 2026-08-03 · commit `d27d22e` en `main`
+Última actualización: 2026-08-12 · commit `23757ee` en `main`
 
 ## 1. Qué es esto
 
@@ -11,111 +11,139 @@ Deployada en Vercel, con dominio actual `https://nadia-web-theta.vercel.app`.
 - **Carpeta local:** `C:\Users\Rodrigo\Documents\Cloude Code\nadia-web`
 - **Identidad de git para commits en este repo:** `nadiaonatibia-netizen <nadiaonatibia-netizen@users.noreply.github.com>` (ya configurada en el repo local vía `git config user.name`/`user.email`, no es la identidad global de la máquina)
 - **Colaborador con push access:** `rodrigoalexiscelaoviedo-netizen` (agregado como colaborador en GitHub; es quien efectivamente empuja los commits)
+- **NUNCA pegar tokens/contraseñas de GitHub (u otro servicio) en el chat.** Ya pasó dos veces en este proyecto con un PAT (`ghp_...`) que tuvo que ser rechazado y se recomendó revocar. El acceso de push ya está resuelto vía colaborador de GitHub, no hace falta ningún token para seguir trabajando.
 
 ## 2. Stack y arquitectura
 
 - React 18 + React Router (rutas: `/`, `/portfolio`, `/blog`, `/cv`, `/contact`)
-- Vite 5 + TypeScript (`tsc -b && vite build`)
-- Tailwind CSS 3 + `@tailwindcss/forms`
-- Supabase (`@supabase/supabase-js`) — proyecto `heabqkigomppqgwfzgvj.supabase.co`, credenciales en `.env.local` (NO está en git, está en `.gitignore`, hay que configurarlas también en Vercel como env vars si no están)
-- Deploy: Vercel, con `vercel.json` (buildCommand + outputDirectory + rewrites SPA, restaurado tras confirmar que faltaba)
+- Vite 5 + TypeScript (`tsc -b && vite build`) — `tsconfig.json` requiere `"jsx":"react-jsx"` y `"noEmit":true`; si algún cambio futuro los toca sin querer, el build se rompe con errores de TS crípticos.
+- Tailwind CSS 3 + `@tailwindcss/forms`. Sin ESLint configurado (solo el chequeo estricto de TypeScript).
+- Supabase (`@supabase/supabase-js`) — proyecto `heabqkigomppqgwfzgvj.supabase.co`, credenciales en `.env.local` (NO está en git, cubierto por `.gitignore`).
+- Deploy: Vercel, con `vercel.json` (buildCommand + outputDirectory + rewrites SPA). Auto-deploy en cada push a `main`.
 
-### Tablas de Supabase en uso
-- `contact_messages` — el formulario de contacto inserta acá (nombre, email, mensaje). Funcionando.
-- `blog_posts` — sistema dinámico de blog, actualmente vacío. Blog.tsx lo sigue consultando y solo muestra una sección extra "Actualizaciones recientes" si hay posts publicados (`published=true`). El contenido visible principal del Blog (paper + 8 reflexiones) está hardcodeado en el componente, no viene de esta tabla.
-- `portfolio_projects` — **ya NO se usa**. Portfolio.tsx pasó a tener los 6 proyectos hardcodeados como array local (con tags, bullets, descripción de modal y link). Se dejó de consultar Supabase para esto a pedido explícito del rediseño.
-- `cv_content` — **ya NO se usa**. CV.tsx es ahora completamente estático (timeline, formación, idiomas hardcodeados).
+### Tablas de Supabase
 
-## 3. Estado visual actual (post-rediseño)
+| Tabla | ¿La usa el sitio? | Estado |
+|---|---|---|
+| `contact_messages` | Sí — el formulario de Contact inserta ahí | Nunca confirmado si tiene mensajes sin leer (ver pendientes) |
+| `blog_posts` | Sí, parcialmente — Blog.tsx la consulta y muestra una sección extra "Actualizaciones recientes" solo si hay posts con `published=true` | Vacía; el contenido principal del Blog (paper + 8 reflexiones) está hardcodeado, no viene de acá |
+| `portfolio_projects` | **No** | Huérfana desde el rediseño — Portfolio.tsx tiene los 7 proyectos hardcodeados |
+| `cv_content` | **No** | Huérfana desde el rediseño — CV.tsx es completamente estático |
 
-Se hizo un rediseño completo de identidad visual "teatral" reemplazando el diseño genérico inicial. Paleta y sistema de diseño en `tailwind.config.js` / `src/styles/index.css`:
+Con la anon key, las 4 tablas devuelven 0 filas, pero **es ambiguo**: no se puede distinguir si están vacías o si RLS bloquea la lectura pública (lo cual sería correcto para `contact_messages`). Nadie confirmó todavía desde el dashboard de Supabase.
+
+## 3. Estado visual actual (post-rediseño completo)
+
+El sitio pasó por un rediseño completo en 4 commits sucesivos (2026-08-11 y 2026-08-12), de un estilo "teatral/polaroid" a uno **editorial photo-first moderno**. Las 5 páginas están unificadas en el sistema de diseño nuevo.
+
+### Paleta y sistema de diseño (`tailwind.config.js` / `src/styles/index.css`)
 
 ```
-crudo #D8D45A · crudo-alt #898E46 · ink #241129 · vino #7A1440 · vino-2 #611033
-rojo #D2491F · teal #1B7A6B · lila #A8AD6E · rosa #F29CC3 · hueso #F3EFC2
+crudo #F5F0E8 (blanco cálido)   crudo-dark #1A1A2E (secciones oscuras)
+ink #241129    vino #7A1440    vino-2 #611033    rojo #D2491F
+coral #E8794E    teal #39B98E    rosa #F29CC3    hueso #F3EFC2    gray-warm #6B6B6B
 ```
 
-Fuentes: Anton (títulos), Dancing Script (subtítulos/Hablemos), Caveat (logo pill), Inter (cuerpo), IBM Plex Mono (eyebrows tipo "(se abre el telón)"). Todas cargadas vía Google Fonts en `index.html`.
+**Tipografía:** solo Inter (cuerpo y títulos) + IBM Plex Mono (eyebrows tipo "SE ABRE EL TELÓN"). Se eliminaron por completo Anton, Caveat y Dancing Script — no queda ninguna fuente manuscrita en el sitio.
 
-Componentes CSS custom: `.eyebrow-mono`, `.logo-pill`, `.gingham-rosa`/`.gingham-teal`, `.polaroid`/`.polaroid-photo`, `.timeline`/`.timeline-item`, `.accordion-*`, `.modal-overlay`/`.modal-card`.
+**Clases CSS custom vigentes:** `.eyebrow-mono`, `.role-card` (+ `.role-card-overlay/-number/-title/-cta`), `.modal-overlay`/`.modal-card` (+ `-header`/-`body`/-`close`), `.btn`, `.container-wide`, `.section-padding`.
 
-### Páginas
-- **Home**: hero con polaroids y **fotos reales de Nadia** (`public/images/01_headshot_principal.jpg`, `02_escenario_patheatry.jpg`, `03_panel_miretage_horizontal.jpg` — la tercera es horizontal, montada con `object-cover object-[50%_35%]` para encuadrar cara/torso dentro del marco cuadrado), manifiesto "Lo que creo", 3 acordeones "Tres Registros", CTA final.
-- **Portfolio**: **7 proyectos reales** (Rassif, SMASH, Miretage, Beyond Gender, Reignite, EDI Go, **EMPATHEATRY**) con filtro por sector y modal de detalle. Datos hardcodeados en `Portfolio.tsx`. El contenido de EMPATHEATRY (tag/bullets/descripción) fue redactado por Claude a partir de búsqueda web pública sobre el proyecto (no provisto directamente por Nadia) — aprobado por Rodrigo antes de subir, pero **Nadia debería revisarlo** por si quiere ajustar el texto con más precisión sobre el proyecto real.
-- **CV**: timeline de 6 "actos" (trayectoria), formación, idiomas. Botón de descarga del CV **ya activo** → `/documents/CV_Nadia_Onatibia.pdf`.
-- **Blog**: paper destacado con botón **ya activo** → `/documents/Paper_Culture_as_Democratic_Infrastructure.pdf`, + 8 reflexiones estáticas, + sección dinámica opcional desde Supabase si hay posts.
-- **Contact**: fondo vino con marco gingham teal, "Hablemos" en Dancing Script, formulario conectado a Supabase (`contact_messages`) funcionando.
-- **Navbar/Footer**: restilizados con logo pill y paleta nueva.
+**Clases eliminadas — si aparecen en algún código nuevo o copiado de una versión vieja, son un bug:** `.gingham-*`, `.polaroid`/`.polaroid-photo`, `.accordion-*`, `.timeline`/`.timeline-item` (el layout de CV ya no las necesita salvo confirmarlo), `.logo-pill`, `bg-crudo-alt`, `font-dancing`/`font-anton`, `.subtitle`, `btn-primary` (nunca existió, era un bug del código heredado, ya corregido donde se encontró).
 
-Multiidioma: **completo**. Home, Portfolio, CV, Blog y Contact tienen contenido real en ES/EN/CA (traducciones provistas por Nadia, cargadas en objetos `content`/`labels` por página). Navbar ya tenía sus 3 idiomas de antes. Footer no se traduce (decisión del brief original).
+### Páginas (todas migradas al estilo nuevo)
 
-## 4. PDFs y assets conectados
+- **Home** (`src/pages/Home.tsx`): hero oscuro/cinematic (`bg-crudo-dark`) con foto grande de Nadia (`hero-headshot.jpg`), eyebrow teatral ("SE ABRE EL TELÓN" / "CURTAIN UP" / "S'OBRE EL TELÓ") + ubicación en mono debajo, manifiesto ("MONÓLOGO"), y sección "Tres registros" ("CAMBIO DE ESCENA") con 3 role-cards (foto + overlay + hover) que abren un modal con foto secundaria y descripción del rol. CTA final sobre fondo oscuro.
+- **Portfolio** (`src/pages/Portfolio.tsx`): 7 proyectos reales (Rassif, SMASH, Miretage, Beyond Gender, Reignite, EDI Go, EMPATHEATRY), filtro por sector, cards blancas donde el **logo real de cada proyecto ocupa toda la cabecera** de la card (fondo blanco, `object-contain`) con badge de sector superpuesto. Click abre modal (mismo tratamiento de logo a pantalla completa) con bullets + descripción + link "Visitar sitio del proyecto".
+- **Blog** (`src/pages/Blog.tsx`): paper destacado en card blanca con link al PDF real; 8 "reflexiones" que son carruseles tipo Instagram — cada card usa como portada el primer slide real (`/images/reflexiones/{id}-slide-1.jpg`) y al clickear abre un modal con carrusel navegable (flechas + dots) mostrando **las 42 imágenes reales** extraídas de los PDFs originales de Nadia. Sección opcional "Actualizaciones recientes" si hay posts en Supabase.
+- **CV** (`src/pages/CV.tsx`): timeline de 6 "actos", con el Acto III (docencia) separado en 4 sub-items con link a EMAD; Actos V (InfoLibros) y VI (La Xixa Teatre) con link "(Web)". Formación en lista. Idiomas en 3 cards blancas. Botón de descarga del PDF.
+- **Contact** (`src/pages/Contact.tsx`): header oscuro (`crudo-dark`) con email en coral y LinkedIn/ubicación, formulario en card blanca conectado a Supabase (`contact_messages`).
+- **Navbar** (`src/components/Navbar.tsx`): logo reemplazado por un **ícono de casa SVG inline** (sin texto), fondo `bg-crudo/95` con blur, menú mobile con hamburguesa.
+- **Footer** (`src/components/Footer.tsx`): fondo oscuro, minimalista, copyright + LinkedIn + Email. Requiere prop `language` (se pasa desde `App.tsx`).
 
-- `public/documents/CV_Nadia_Onatibia.pdf` (5118 bytes) — generado con ReportLab, colores de marca. Linkeado desde CV.tsx. Sigue siendo el borrador original, no reemplazado todavía.
-- `public/documents/Paper_Culture_as_Democratic_Infrastructure.pdf` (135316 bytes) — **reemplazado por el paper real escrito por Nadia** (el anterior era un borrador de ReportLab). Mismo nombre de archivo, no hubo que tocar el link en Blog.tsx.
-- `public/images/01_headshot_principal.jpg`, `02_escenario_patheatry.jpg`, `03_panel_miretage_horizontal.jpg` — fotos reales del hero, verificadas cargando con las dimensiones correctas.
-- `.gitattributes` con `*.pdf binary` evita que Git (con `core.autocrlf=true` en esta máquina Windows) corrompa los PDFs al convertir saltos de línea. Las imágenes JPG no mostraron el mismo riesgo (Git las detecta como binarias automáticamente), pero se verificó igual byte a byte que todos los blobs commiteados coinciden con los archivos originales.
-- Todos los links y fetches verificados en local: `200` y content-type correcto.
+Multiidioma: **completo** en las 5 páginas (ES/EN/CA), incluyendo los textos nuevos del rediseño.
 
-## 5. Pendientes explícitos (lo que falta para considerar el sitio "terminado")
+## 4. Assets: fotos, logos, PDFs
 
-1. ~~Fotos reales del hero~~ — **hecho** (commit `a4f2b21`). Las 3 fotos ya están en `public/images/` y montadas en `Home.tsx`.
-2. ~~Traducciones EN/CA reales~~ — **hecho** (commit `2a34506`). Todo el contenido de Home, Portfolio, CV, Blog y Contact tiene textos reales en los 3 idiomas, verificado navegando cada página con el toggle.
-3. **Revisión de contenido del CV en PDF** — el `CV_Nadia_Onatibia.pdf` sigue siendo el borrador generado con ReportLab (script `build_cv.py`, no en el repo). El paper ya se reemplazó por el real; el CV todavía no. Si Nadia quiere reemplazarlo, mismo procedimiento: nuevo archivo con el mismo nombre en `public/documents/`.
-4. **Variables de entorno en Vercel** — confirmar que `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` estén configuradas en el dashboard de Vercel (Project Settings → Environment Variables). No pude verificarlo desde este entorno (sin acceso a la CLI de Vercel autenticada ni al dashboard). **Pendiente que Rodrigo/Nadia lo confirmen manualmente.**
-5. **Revisión del texto de EMPATHEATRY** — el tag, los 3 bullets y la descripción del modal de este 7° proyecto los redactó Claude a partir de resultados de búsqueda web pública (el sitio empatheatry.eu bloquea el scraping directo con 403), no a partir de contenido provisto por Nadia. Rodrigo aprobó el texto antes de subirlo, pero como no viene de la fuente original, **conviene que Nadia lo revise** y corrija cualquier imprecisión.
-6. **Confirmar visualmente en producción los últimos cambios** — Rodrigo ya confirmó en una iteración anterior que home, `/portfolio` sin 404, y los PDFs viejos andaban bien en `https://nadia-web-theta.vercel.app`. Falta la misma confirmación para lo último: las 3 fotos del hero, el paper nuevo, y el 7° proyecto EMPATHEATRY con su link. No pude verificarlo yo mismo (sin acceso a dominios externos desde este entorno).
-7. ~~Rewrite de rutas SPA~~ — **hecho y confirmado en producción** (commit `2a34506`).
+### Imágenes en `public/images/` (todo sirve directo, sin CDN/compresión adicional)
 
-## 6. Auditoría completa (2026-08-03, commit `d27d22e`)
+- **Hero y roles** (8 fotos, ~2.8 MB): `hero-headshot.jpg`, `pm-presentation.jpg`, `pm-panel.jpg`, `facilitadora-teatro.jpg`, `facilitadora-beyond-gender.jpg`, `productora-patheatry.jpg`, `productora-collage.jpg`, `stage-performance.jpg` (esta última **no se usa en ningún componente todavía**, quedó copiada "por si acaso").
+- **Fotos viejas sin usar** (~1 MB, código muerto de assets): `01_headshot_principal.jpg`, `02_escenario_patheatry.jpg`, `03_panel_miretage_horizontal.jpg` — eran las 3 fotos del hero del diseño teatral anterior. Ya no las referencia ningún componente, pero siguen en `public/` y por lo tanto **se siguen deployando** a producción sin necesidad.
+- **Logos de proyectos** (`public/images/projects/`, 7 archivos, ~620 KB): un PNG/JPG por proyecto del Portfolio.
+- **Slides de reflexiones** (`public/images/reflexiones/`, 42 archivos, ~4.9 MB): imágenes 800×800 extraídas de los 8 PDFs originales de reflexiones de Nadia, nombradas `{slug}-slide-{n}.jpg`.
+- **Total `public/images/`: ~8.6 MB** — ninguna imagen tiene `loading="lazy"`, compresión WebP, ni `srcset` responsive. El build final (`dist/`) pesa ~9.2 MB en total.
 
-Se hizo una auditoría en 4 partes, documento completo en [`AUDITORIA_2026-08-03.md`](AUDITORIA_2026-08-03.md). Resumen:
+### PDFs (`public/documents/`)
 
-**Parte 1 (navegación/botones) — arreglado:**
-- Bug real: React Router no reseteaba el scroll al cambiar de página (afectaba toda la navegación). Se agregó `ScrollToTop` en `App.tsx`.
-- Logo del navbar ahora funcional: lleva a Home, o hace scroll suave arriba si ya estás en Home (antes no tenía efecto visible en ese segundo caso).
-- Favicon roto (`/vite.svg`, 404 en producción porque el archivo nunca existió) — eliminada la referencia en `index.html`.
-- **Pendiente que requiere info tuya:** el link de LinkedIn (`linkedin.com/in/nadiaoñatibia`, en Footer.tsx y Contact.tsx) es casi seguro inválido — LinkedIn no permite `ñ` en URLs de perfil. Falta el handle real para corregirlo.
+- `Paper_Culture_as_Democratic_Infrastructure.pdf` (135 KB) — **el paper real escrito por Nadia**, ya reemplazó al borrador.
+- `CV_Nadia_Onatibia.pdf` (5 KB) — **sigue siendo el borrador generado con ReportLab** (script `build_cv.py`, no está en el repo). Nunca se reemplazó por el CV real. Si Nadia quiere reemplazarlo: mismo nombre de archivo en `public/documents/`.
+- `.gitattributes` con `*.pdf binary` evita que Git corrompa los PDFs con conversión de saltos de línea en Windows (`core.autocrlf=true`).
 
-**Parte 2 (Supabase) — solo reporte, nada tocado:**
-- Las 4 tablas (`contact_messages`, `blog_posts`, `portfolio_projects`, `cv_content`) devuelven 0 filas vía anon key, pero **es ambiguo**: no se puede distinguir desde el cliente si están vacías o si RLS bloquea correctamente la lectura pública. **Falta que alguien revise el Table Editor del dashboard de Supabase directamente** para confirmar si hay mensajes de contacto sin leer — esto es lo más urgente pendiente de todo el proyecto.
-- `portfolio_projects` y `cv_content` están huérfanas (el sitio ya no las lee) pero siguen aceptando INSERT del rol `anon` a nivel de grant — no es grave pero es basura/superficie innecesaria.
-- Nunca se probó el envío real del formulario de contacto end-to-end (para no ensuciar la bandeja real con un mensaje de prueba).
+### Origen de los assets nuevos
 
-**Parte 3 (código) — solo reporte:**
-- Build limpio, 0 warnings.
-- Código muerto: `PortfolioProject`, `CVContent`, `ContactMessage` en `types/index.ts` ya no se usan en ningún lado.
-- **Hallazgo real de accesibilidad:** `text-rosa` sobre `bg-crudo-alt` (títulos de las 7 tarjetas de Portfolio + sus modales + título del paper en Blog) tiene contraste ~1.7:1 — falla WCAG AA gravemente (se necesita 4.5:1). `text-hueso/90` sobre el mismo fondo da ~3:1, también insuficiente para texto normal. Es un problema real de legibilidad, no solo un tecnicismo.
-- Las 3 fotos del hero pesan ~1.05 MB combinadas, sirviendo 4-6x más resolución de la que se muestra en pantalla — sin compresión, sin WebP, sin `loading="lazy"`.
-- Sin `robots.txt`, `sitemap.xml`, tags Open Graph, ni `<title>`/`<meta description>` por página.
+Todas las fotos, logos y slides de esta ronda de rediseño vinieron de carpetas locales del usuario (no del repo, no de Supabase):
+- `C:\Users\Rodrigo\Downloads\fotos nadia web\optimized\` → 8 fotos de Home
+- `C:\Users\Rodrigo\Downloads\fotos nadia web\logos-proyectos\` → 7 logos de Portfolio
+- `C:\Users\Rodrigo\Downloads\fotos nadia web\reflexiones-optimized\` → 42 slides de Blog
 
-**Parte 4 (propuestas, sin implementar) — de mayor a menor prioridad recomendada:**
-1. Panel admin simple (leer mensajes de contacto + publicar blog posts sin entrar a Supabase a mano) — alto impacto, esfuerzo alto.
-2. Arreglar el contraste rosa/verde-oliva en Portfolio — alto impacto, esfuerzo bajo.
-3. Comprimir/optimizar las 3 fotos del hero + lazy loading — alto impacto, esfuerzo bajo.
-4. `robots.txt` + `sitemap.xml` + meta/OG por página — impacto medio, esfuerzo bajo.
-5. Favicon real de marca + `og:image` — impacto medio, esfuerzo bajo.
-6. Analytics básico (Vercel Analytics o Plausible) — impacto medio, esfuerzo bajo.
-7. Animaciones de scroll + transición entre páginas — impacto bajo/medio, esfuerzo medio.
-8. Escape + focus trap en el modal de Portfolio, loading state en fetch de blog dinámico — pulido menor.
+## 5. Código: hallazgos técnicos vigentes
 
-**Decisiones pendientes del usuario tras la auditoría** (no se avanzó porque requieren input de Rodrigo/Nadia):
-- Handle real de LinkedIn.
-- Confirmar en Supabase dashboard si hay mensajes de contacto sin leer.
-- Qué hacer con `portfolio_projects`/`cv_content` (dejar o eliminar).
-- Con cuál propuesta de la Parte 4 seguir primero.
+- **Build:** limpio, 0 errores. Un único warning inofensivo de Vite sobre el orden de `@import` en `src/styles/index.css` (el `@import` de Google Fonts va después de las directivas `@tailwind`) — no rompe nada, viene así desde el rediseño.
+- **Código muerto — tipos:** `types/index.ts` exporta `PortfolioProject`, `ContactMessage` y `CVContent`, ninguno se usa en `src/` (Portfolio y CV tienen sus propios tipos locales desde que pasaron a ser estáticos).
+- **Código muerto — campo `color`:** en `Portfolio.tsx`, cada proyecto tiene un campo `color` (gradiente Tailwind, ej. `from-rose-900 to-rose-700`) que ya no se usa en el JSX desde que las cards pasaron a mostrar el logo a pantalla completa sobre fondo blanco. Sigue declarado en la interfaz y en los datos, no rompe nada pero es basura.
+- **Assets huérfanos:** las 3 fotos viejas del hero (`01_`, `02_`, `03_`) y `stage-performance.jpg` (ver sección 4) se siguen deployando sin usarse.
+- **Accesibilidad:** el problema real de contraste que había en el diseño teatral anterior (`text-rosa` sobre `bg-crudo-alt`, ~1.7:1) **ya no aplica** — esas clases no existen en la paleta nueva. No se hizo una auditoría de contraste nueva sobre el diseño actual, pero a simple vista los pares usados (`text-vino`/`text-ink` sobre `bg-crudo`, texto blanco sobre `bg-crudo-dark`) son de alto contraste.
+- **Modales sin Escape ni focus trap:** ni el modal de Portfolio, ni el del carrusel de reflexiones en Blog, ni el de roles en Home cierran con la tecla Escape, y no hay focus trap (con Tab se puede salir del modal y seguir navegando la página de atrás mientras el modal sigue abierto visualmente).
+- **SEO:** sigue sin `robots.txt`, sin `sitemap.xml`, y **sin `<title>`/`<meta description>` por página** (son fijos y únicos en `index.html`, iguales en las 5 rutas). El `og:image` en `index.html` usa una ruta relativa (`/images/hero-headshot.jpg`) — para que funcione bien al compartir en redes sociales debería ser una URL absoluta (`https://nadia-web-theta.vercel.app/images/hero-headshot.jpg`).
+- **Favicon:** sigue sin uno real. La referencia rota a `/vite.svg` se eliminó en la auditoría original, pero nunca se agregó un favicon de marca — hoy el sitio no tiene ninguno.
+- **Analytics:** no hay ninguno instalado (Vercel Analytics, Plausible, etc.) — cero visibilidad de tráfico.
+- **Blog dinámico:** el fetch a `blog_posts` no tiene loading state — si la conexión es lenta hay un parpadeo/vacío momentáneo antes de que aparezca o no la sección "Actualizaciones recientes".
+- **Formulario de contacto:** nunca se probó un envío real end-to-end (para no ensuciar la bandeja real de Nadia con un mensaje de prueba). El código está revisado y parece correcto.
+- **Nota de entorno (no es un bug del sitio):** cuando se prueba el sitio en el navegador de Claude Code, los fetches a Supabase (`ERR_NAME_NOT_RESOLVED`) fallan porque el Browser pane de este entorno no tiene salida a internet general — es una restricción del entorno de desarrollo, no del código. En producción (Vercel) esto no pasa.
+
+## 6. Pendientes consolidados — todo lo que falta
+
+### 🔴 Requieren info o una acción de Nadia/Rodrigo (no los puede resolver Claude solo)
+
+1. **Handle real de LinkedIn.** El link actual (`linkedin.com/in/nadiaoñatibia`, en `Footer.tsx` y `Contact.tsx`) es casi seguro inválido — LinkedIn no permite `ñ` en URLs de perfil. Falta el handle real para corregirlo en los dos archivos.
+2. **Revisar el Table Editor de Supabase.** Entrar al dashboard de Supabase → Table Editor → `contact_messages` y confirmar si hay mensajes sin leer. Es lo más urgente de todo el proyecto porque nadie lo revisó nunca y es información real que puede estar esperando respuesta.
+3. **Decidir qué hacer con `portfolio_projects` y `cv_content`** (tablas huérfanas en Supabase): dejarlas por si algún día se vuelve a un modelo dinámico, o eliminarlas para reducir superficie de ataque/confusión.
+4. **Confirmar variables de entorno en Vercel** (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`) en Project Settings → Environment Variables — nunca se pudo verificar desde ningún entorno de Claude Code.
+5. **Revisar el texto de EMPATHEATRY** en Portfolio — lo redactó Claude a partir de búsqueda web pública (el sitio oficial bloquea scraping con 403), no de contenido provisto por Nadia. Rodrigo lo aprobó antes de subirlo, pero conviene que Nadia lo revise por precisión.
+6. **Reemplazar el CV en PDF** — sigue siendo el borrador de ReportLab, nunca se subió la versión real de Nadia.
+7. **Confirmar visualmente en producción** (`https://nadia-web-theta.vercel.app`) los últimos 4 commits de rediseño — Claude Code no tiene acceso a dominios externos desde este entorno para verificarlo por su cuenta.
+8. **Elegir con cuál mejora seguir primero** de la lista técnica de abajo (o de la Parte 4 de `AUDITORIA_2026-08-03.md`, todavía vigente en su mayoría).
+
+### 🟡 Limpieza técnica — se puede hacer sin pedir nada a nadie
+
+9. Borrar código muerto: tipos sin usar en `types/index.ts` (`PortfolioProject`, `ContactMessage`, `CVContent`) y campo `color` sin usar en `Portfolio.tsx`.
+10. Borrar assets huérfanos de `public/images/` (`01_headshot_principal.jpg`, `02_escenario_patheatry.jpg`, `03_panel_miretage_horizontal.jpg`, y decidir si `stage-performance.jpg` se usa en algún lado o se borra) — ahorra ~1 MB de deploy innecesario.
+11. Agregar `robots.txt` + `sitemap.xml` + `<title>`/`<meta description>` únicos por página (hoy son globales e iguales en las 5 rutas).
+12. Cambiar el `og:image` de `index.html` a URL absoluta.
+13. Favicon real de marca (hoy no hay ninguno).
+14. Comprimir/optimizar imágenes (WebP + `loading="lazy"` + `srcset`) — especialmente las 42 de reflexiones y las 8 de Home, que suman la mayoría de los ~8.6 MB de `public/images/`.
+15. Analytics básico (Vercel Analytics es el más simple de instalar por estar ya en Vercel).
+16. Escape + focus trap en los 3 modales del sitio (Home roles, Portfolio, Blog reflexiones).
+17. Loading state en el fetch de `blog_posts`.
+
+### 🟢 Funcionalidad nueva (mayor esfuerzo, evaluar prioridad)
+
+18. **Panel admin simple** para leer mensajes de contacto y publicar posts del blog sin entrar a Supabase a mano — sigue siendo, en opinión de las auditorías previas, lo de mayor impacto real sobre el uso diario del sitio.
+19. Animaciones sutiles de scroll (fade-in de secciones) y transición entre páginas — pulido visual, no urgente.
+20. Probar el envío real del formulario de contacto end-to-end (con permiso explícito, para no ensuciar la bandeja real).
 
 ## 7. Cosas importantes para la próxima conversación (contexto operativo)
 
-- **NUNCA pegar tokens/contraseñas de GitHub (u otro servicio) en el chat.** Ya pasó dos veces en este proyecto con un PAT (`ghp_...`) que tuvo que ser rechazado y se recomendó revocar. El acceso de push ya está resuelto vía colaborador de GitHub (`rodrigoalexiscelaoviedo-netizen`), no hace falta ningún token para seguir trabajando.
-- El repo remoto empezó vacío (solo un `.gitignore` genérico autogenerado por GitHub) — todo el código se subió desde esta máquina en la sesión de rediseño.
-- Antes de cualquier `npm run build` local, si aparecen archivos `.js`/`.d.ts`/`.tsbuildinfo` sueltos en `src/` o en la raíz (residuos de builds fallidos anteriores), borrarlos — ya pasó una vez y rompía el build de Vite. Están cubiertos por `.gitignore` (`*.tsbuildinfo`, `vite.config.js`, `vite.config.d.ts`) pero pueden ensuciar el árbol de trabajo local igual.
-- `tsconfig.json` requiere `"jsx":"react-jsx"` y `"noEmit":true` — si algún cambio futuro los toca sin querer, el build se rompe con errores de TS crípticos (ya pasó, quedó documentado acá para no perder tiempo repitiendo el diagnóstico).
+- El repo remoto empezó vacío (solo un `.gitignore` genérico autogenerado por GitHub) — todo el código se subió desde esta máquina en la sesión de rediseño original.
+- Antes de cualquier `npm run build` local, si aparecen archivos `.js`/`.d.ts`/`.tsbuildinfo` sueltos en `src/` o en la raíz (residuos de builds fallidos anteriores), borrarlos — ya pasó una vez y rompía el build de Vite. Están cubiertos por `.gitignore` pero pueden ensuciar el árbol de trabajo local igual.
+- Cuando llegan instrucciones de rediseño "V2" ya completamente especificadas (código exacto por archivo) que se parecen mucho a una instrucción anterior: **diffear contra lo ya aplicado antes de asumir que hay que rehacer todo** — en esta última ronda llegaron 3 instrucciones "V2" casi idénticas en mensajes sucesivos, cada una con solo 2-3 diferencias reales sobre la anterior (esto probablemente viene de una sesión de diseño externa —Figma/otra IA— que itera y reenvía la instrucción completa en vez de solo el diff).
+- Los assets (fotos, logos, slides) llegan como carpetas en `C:\Users\Rodrigo\Downloads\fotos nadia web\`, no dentro del repo — hay que buscarlos ahí si una instrucción los referencia como si ya estuvieran en el workspace.
+- Siempre verificar en el navegador (dev server local, `npm run dev` vía preview) antes de dar por terminado un cambio visual: build limpio no garantiza que el JSX/CSS se vea bien. Los errores de red a Supabase en este entorno (`ERR_NAME_NOT_RESOLVED`) son esperables y no indican un bug real.
+- Siempre pedir confirmación explícita antes de `git push origin main` — cada commit dispara un deploy automático a producción en Vercel.
 
 ## 8. Cómo retomar en una conversación nueva
 
 Si volvés a este proyecto en otra sesión de Claude Code, decile a Claude:
 
-> "Estoy retomando el proyecto nadia-web en `C:\Users\Rodrigo\Documents\Cloude Code\nadia-web`. Leé `CIERRE_PROYECTO.md` en la raíz del proyecto para el contexto completo antes de hacer nada."
+> "Estoy retomando el proyecto nadia-web en `C:\Users\Rodrigo\Documents\Cloude Code\nadia-web`. Leé `CIERRE_PROYECTO.md` en la raíz del proyecto para el contexto completo antes de hacer nada. También existe `AUDITORIA_2026-08-03.md` en el mismo directorio con el detalle completo de la auditoría original (navegación, Supabase, código, propuestas) — la mayoría de sus hallazgos de código y accesibilidad ya no aplican porque cambió el diseño, pero las propuestas de la Parte 4 y las decisiones pendientes siguen vigentes y están resumidas en la sección 6 de CIERRE_PROYECTO.md."
 
 Eso le da todo el historial de decisiones sin tener que repetir la explicación completa.

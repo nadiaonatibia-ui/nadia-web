@@ -1,6 +1,8 @@
 # Auditoría completa — nadia-web
 2026-08-03 · commit `acff452` en `main`
 
+> **Nota (2026-08-12):** este documento es anterior al rediseño visual completo del sitio (commits `84f4dd7`→`23757ee`). Los hallazgos de las Partes 1 y 2 (navegación, Supabase) siguen vigentes. Los de la Parte 3 sobre contraste de color y clases CSS **ya no aplican** — la paleta y las clases que menciona (`text-rosa`, `bg-crudo-alt`, etc.) fueron reemplazadas. El resto de la Parte 3 (SEO, favicon, código muerto) y toda la Parte 4 (propuestas) siguen vigentes. Ver la sección 6 de `CIERRE_PROYECTO.md` para la lista de pendientes consolidada y actualizada.
+
 ---
 
 ## PARTE 1 — Navegación y botones (arreglado)
