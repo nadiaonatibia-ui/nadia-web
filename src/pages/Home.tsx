@@ -15,10 +15,9 @@ const content = {
     manifiestoTitle: 'Cultura como infraestructura democrática',
     manifiestoLead: 'Trabajo con la convicción de que la cultura no es solo un sector: es infraestructura democrática.',
     manifiestoParagraphs: [
-      'Creo en los proyectos que abren espacios para que más personas puedan reconocerse como productoras de sentido y de cultura, con voz propia para contar su historia, cuestionar lo dado y disputar un lugar en la conversación pública. Ese pasaje necesita relato, pero también producción: alguien que transforme una intuición en un proyecto, una conversación en una alianza, una idea en un presupuesto, un cronograma, un equipo y, finalmente, una experiencia compartida.',
-      'En los últimos años trabajé en contextos atravesados por la migración, la fractura generacional, el discurso de odio en redes y la fragmentación religiosa. En todos aprendí lo mismo: la democracia no se debilita porque exista el conflicto. Se debilita cuando dejamos de crear espacios capaces de sostenerlo, de escucharlo y de transformarlo en acción colectiva.',
-      'Ahí es donde encuentro mi lugar. Me apasiona producir las condiciones para que las cosas sucedan. Diseñar proyectos, coordinar equipos, conseguir recursos, articular alianzas, acompañar procesos creativos y hacer que una visión llegue a existir sin perder su sentido en el camino.',
-      'Gestionar un proyecto cultural y subirme a un escenario nunca fueron dos oficios distintos. Son dos maneras de participar de la misma práctica: construir las condiciones para que algo significativo ocurra.',
+      'Creo en los proyectos que abren espacios para que más personas se reconozcan como productoras de sentido, con voz propia para contar su historia y ocupar un lugar en la conversación pública.',
+      'Ahí encuentro mi lugar: diseño proyectos, coordino equipos y consigo los recursos para que una idea llegue a existir sin perder su sentido en el camino.',
+      'Gestionar un proyecto cultural y subirme a un escenario nunca fueron oficios distintos: son dos formas de construir las condiciones para que algo significativo ocurra.',
     ],
     rolesEyebrow: 'CAMBIO DE ESCENA',
     rolesTitle: 'Tres registros, un mismo oficio',
@@ -28,7 +27,7 @@ const content = {
         title: 'Project\nManager',
         image: '/images/pm-presentation.jpg',
         secondImage: '/images/pm-panel.jpg',
-        body: 'Planificación y coordinación de proyectos multi-partner bajo marcos europeos: Erasmus+, Creative Europe, CERV. Con conocimiento directo también de la escena cultural latinoamericana, desde mi trayectoria en Argentina. Gestión de presupuesto, reporting a financiadores públicos y privados, cumplimiento y documentación. Coordinación de equipos internacionales, alineando timelines y entregables entre países y continentes.',
+        body: 'Planificación y coordinación de proyectos multi-partner bajo marcos europeos: Erasmus+, Creative Europe, CERV. Colaboración con administraciones públicas, fundaciones y consorcios de organizaciones asociadas, en proyectos de cooperación con Latinoamérica, Europa y África.\n\nGestión de presupuesto, informes narrativos y financieros, cumplimiento y documentación. Equipos numerosos en paralelo, con varios proyectos corriendo al mismo tiempo, alineando cronogramas y entregables entre países y continentes.\n\nOrganización y exposición en congresos y kick-offs. Seguimiento de tareas con metodologías ágiles (Kanban, Scrum), procesos de MEL —monitoreo, evaluación y aprendizaje— interno y externo, planes de comunicación de proyecto e informes de riesgo.',
         cta: 'Explorar →',
       },
       {
@@ -36,7 +35,7 @@ const content = {
         title: 'Facilitadora\nArts-Based',
         image: '/images/facilitadora-teatro.jpg',
         secondImage: '/images/facilitadora-beyond-gender.jpg',
-        body: 'Actriz y profesora de arte. Diseño y facilitación de procesos participativos con teatro comunitario, teatro del oprimido y teatro fórum. Formación a jóvenes, educadores y trabajadores comunitarios. De la sesión íntima de taller al proceso de varias semanas con grupos en contextos de vulnerabilidad.',
+        body: 'Diseño y facilitación de procesos participativos con metodologías arts-based: teatro comunitario, teatro del oprimido, teatro fórum, entre otras. Trabajo interdisciplinario en duplas con otras disciplinas —música, artes plásticas y visuales— según las necesidades del proyecto.\n\nTalleres puntuales y procesos sostenidos en el tiempo, con todas las franjas etarias —niñeces, adolescencias, adultos, personas mayores de 55— en contextos escolares, extracurriculares y de formación docente. Diseño de currículas, handbooks y guías de aprendizaje.\n\nProducción de los resultados que cada proceso requiera: muestras, instalaciones performáticas, cortometrajes. Aplicado tanto en contextos de vulnerabilidad como en entornos menos adversos.',
         cta: 'Explorar →',
       },
       {
@@ -44,7 +43,7 @@ const content = {
         title: 'Productora\nCultural',
         image: '/images/productora-patheatry.jpg',
         secondImage: '/images/productora-collage.jpg',
-        body: 'Logística y coordinación multi-sede de programación cultural. Producción de contenido en distintos formatos: presencial, digital, editorial. De un taller de una tarde a un festival internacional o un congreso con múltiples stakeholders.',
+        body: 'Curaduría de artes escénicas y performativas, y logística y coordinación multi-sede de programación cultural: contratación y coordinación de artistas y equipos técnicos, gestión de proveedores, montaje in situ y coordinación de ensayos.\n\nProducción de contenido en distintos formatos —presencial, digital, editorial—: guión, edición audiovisual, SEO y analítica de contenido, con optimización de flujos de producción mediante herramientas de IA.\n\nDe un taller de una tarde a un festival internacional o un congreso con múltiples stakeholders.',
         cta: 'Explorar →',
       },
     ],
@@ -59,10 +58,9 @@ const content = {
     manifiestoTitle: 'Culture as democratic infrastructure',
     manifiestoLead: 'I work with the conviction that culture is not just a sector: it is democratic infrastructure.',
     manifiestoParagraphs: [
-      "I believe in projects that open spaces for more people to recognize themselves as producers of meaning and culture, with a voice of their own to tell their story, question what is given, and claim a place in the public conversation. That shift needs narrative, but it also needs production: someone who turns an intuition into a project, a conversation into an alliance, an idea into a budget, a schedule, a team and, finally, a shared experience.",
-      "In recent years I've worked in contexts shaped by migration, generational fracture, online hate speech and religious fragmentation. In all of them I learned the same thing: democracy doesn't weaken because conflict exists. It weakens when we stop creating spaces capable of holding it, listening to it, and turning it into collective action.",
-      "That's where I find my place. I'm passionate about producing the conditions for things to happen: designing projects, coordinating teams, securing resources, building alliances, accompanying creative processes, and making a vision come into existence without losing its meaning along the way.",
-      "Managing a cultural project and stepping onto a stage were never two different trades. They're two ways of taking part in the same practice: building the conditions for something meaningful to happen.",
+      'I believe in projects that open spaces for more people to recognise themselves as producers of meaning, with a voice of their own to tell their story and take part in public conversation.',
+      "That's where I find my place: I design projects, coordinate teams and secure the resources for an idea to come into being without losing its meaning along the way.",
+      'Managing a cultural project and stepping onto a stage were never two different trades: they are two ways of building the conditions for something meaningful to happen.',
     ],
     rolesEyebrow: 'SCENE CHANGE',
     rolesTitle: 'Three registers, one craft',
@@ -72,7 +70,7 @@ const content = {
         title: 'Project\nManager',
         image: '/images/pm-presentation.jpg',
         secondImage: '/images/pm-panel.jpg',
-        body: 'Planning and coordination of multi-partner projects under European frameworks: Erasmus+, Creative Europe, CERV. With direct knowledge of the Latin American cultural scene too, from my background in Argentina. Budget management, reporting to public and private funders, compliance and documentation. Coordination of international teams, aligning timelines and deliverables across countries and continents.',
+        body: 'Planning and coordination of multi-partner projects under European frameworks: Erasmus+, Creative Europe, CERV. Collaboration with public administrations, foundations and consortia of partner organisations, on cooperation projects across Latin America, Europe and Africa.\n\nBudget management, narrative and financial reporting, compliance and documentation. Large teams working in parallel, with several projects running at the same time, aligning timelines and deliverables across countries and continents.\n\nOrganisation of and speaking at conferences and kick-offs. Task tracking with agile methodologies (Kanban, Scrum), internal and external MEL (monitoring, evaluation and learning) processes, project communication plans and risk reports.',
         cta: 'Explore →',
       },
       {
@@ -80,7 +78,7 @@ const content = {
         title: 'Facilitator\nArts-Based',
         image: '/images/facilitadora-teatro.jpg',
         secondImage: '/images/facilitadora-beyond-gender.jpg',
-        body: 'Actress and art teacher. Design and facilitation of participatory processes using community theatre, Theatre of the Oppressed and forum theatre. Training for young people, educators and community workers. From an intimate workshop session to a multi-week process with groups in vulnerable contexts.',
+        body: 'Design and facilitation of participatory processes using arts-based methodologies: Theatre of the Oppressed, Forum Theatre, Community Theatre, among others. Interdisciplinary work in pairs with other disciplines —music, visual and plastic arts— depending on the needs of the project.\n\nOne-off workshops and sustained long-term processes, across all age groups —childhood, adolescence, adults, people over 55— in school, extracurricular and teacher-training settings. Design of curricula, handbooks and learning guides.\n\nProduction of whatever outcome each process calls for: exhibitions, performative installations, short films. Applied both in contexts of vulnerability and in less adverse settings.',
         cta: 'Explore →',
       },
       {
@@ -88,7 +86,7 @@ const content = {
         title: 'Cultural\nProducer',
         image: '/images/productora-patheatry.jpg',
         secondImage: '/images/productora-collage.jpg',
-        body: 'Logistics and multi-venue coordination of cultural programming. Content production in different formats: in-person, digital, editorial. From a one-afternoon workshop to an international festival or a congress with multiple stakeholders.',
+        body: 'Curation of performing and performative arts, and multi-site logistics and coordination of cultural programming: hiring and coordinating artists and technical teams, supplier management, on-site setup and rehearsal coordination.\n\nContent production across formats —in-person, digital, editorial—: scriptwriting, video editing, SEO and content analytics, with production workflows optimised through AI tools.\n\nFrom a one-afternoon workshop to an international festival or a conference with multiple stakeholders.',
         cta: 'Explore →',
       },
     ],
@@ -97,16 +95,15 @@ const content = {
   },
   ca: {
     heroEyebrow: "S'OBRE EL TELÓ",
-    heroTagline: "Gestio cultural · Facilitacio arts-based · Produccio",
+    heroTagline: "Gestió cultural · Facilitació arts-based · Producció",
     heroLocation: 'Barcelona — Buenos Aires',
     manifiestoEyebrow: 'MONÒLEG',
-    manifiestoTitle: "La cultura com a infraestructura democratica",
-    manifiestoLead: "Treballo amb la conviccio que la cultura no es nomes un sector: es infraestructura democratica.",
+    manifiestoTitle: "La cultura com a infraestructura democràtica",
+    manifiestoLead: "Treballo amb la convicció que la cultura no és només un sector: és infraestructura democràtica.",
     manifiestoParagraphs: [
-      "Crec en els projectes que obren espais perque mes persones puguin reconeixer-se com a productores de sentit i de cultura, amb veu propia per explicar la seva historia, questionar el que es dona per fet i disputar un lloc en la conversa publica. Aquest pas necessita relat, pero tambe produccio: algu que transformi una intuicio en un projecte, una conversa en una alianca, una idea en un pressupost, un cronograma, un equip i, finalment, una experiencia compartida.",
-      "En els ultims anys he treballat en contextos travessats per la migracio, la fractura generacional, el discurs d'odi a les xarxes i la fragmentacio religiosa. En tots vaig aprendre el mateix: la democracia no s'afebleix perque existeixi el conflicte. S'afebleix quan deixem de crear espais capacos de sostenir-lo, d'escoltar-lo i de transformar-lo en accio col·lectiva.",
-      "Aqui es on trobo el meu lloc. M'apassiona produir les condicions perque les coses passin: dissenyar projectes, coordinar equips, aconseguir recursos, articular aliances, acompanyar processos creatius i fer que una visio arribi a existir sense perdre el seu sentit pel cami.",
-      "Gestionar un projecte cultural i pujar a un escenari mai van ser dos oficis diferents. Son dues maneres de participar de la mateixa practica: construir les condicions perque alguna cosa significativa passi.",
+      "Crec en els projectes que obren espais perquè més persones es reconeguin com a productores de sentit, amb veu pròpia per explicar la seva història i ocupar un lloc a la conversa pública.",
+      "Aquí trobo el meu lloc: dissenyo projectes, coordino equips i aconsegueixo els recursos perquè una idea arribi a existir sense perdre el seu sentit pel camí.",
+      "Gestionar un projecte cultural i pujar a un escenari mai van ser oficis diferents: són dues maneres de construir les condicions perquè alguna cosa significativa passi.",
     ],
     rolesEyebrow: "CANVI D'ESCENA",
     rolesTitle: 'Tres registres, un mateix ofici',
@@ -116,7 +113,7 @@ const content = {
         title: 'Project\nManager',
         image: '/images/pm-presentation.jpg',
         secondImage: '/images/pm-panel.jpg',
-        body: "Planificacio i coordinacio de projectes multi-partner sota marcs europeus: Erasmus+, Creative Europe, CERV. Amb coneixement directe tambe de l'escena cultural llatinoamericana, des de la meva trajectoria a l'Argentina. Gestio de pressupost, reporting a financadors publics i privats, compliment i documentacio. Coordinacio d'equips internacionals, alineant terminis i lliurables entre paisos i continents.",
+        body: "Planificació i coordinació de projectes multi-partner sota marcs europeus: Erasmus+, Creative Europe, CERV. Col·laboració amb administracions públiques, fundacions i consorcis d'organitzacions associades, en projectes de cooperació amb l'Amèrica Llatina, Europa i l'Àfrica.\n\nGestió de pressupost, informes narratius i financers, compliment i documentació. Equips nombrosos en paral·lel, amb diversos projectes en marxa alhora, alineant cronogrames i lliurables entre països i continents.\n\nOrganització i exposició en congressos i kick-offs. Seguiment de tasques amb metodologies àgils (Kanban, Scrum), processos de MEL —seguiment, avaluació i aprenentatge— intern i extern, plans de comunicació de projecte i informes de risc.",
         cta: 'Explorar →',
       },
       {
@@ -124,7 +121,7 @@ const content = {
         title: 'Facilitadora\nArts-Based',
         image: '/images/facilitadora-teatro.jpg',
         secondImage: '/images/facilitadora-beyond-gender.jpg',
-        body: "Actriu i professora d'art. Disseny i facilitacio de processos participatius amb teatre comunitari, teatre de l'oprimit i teatre forum. Formacio a joves, educadors i treballadors comunitaris. De la sessio intima d'un taller a un proces de diverses setmanes amb grups en contextos de vulnerabilitat.",
+        body: "Disseny i facilitació de processos participatius amb metodologies arts-based: teatre comunitari, teatre de l'oprimit, teatre fòrum, entre d'altres. Treball interdisciplinari en parelles amb altres disciplines —música, arts plàstiques i visuals— segons les necessitats del projecte.\n\nTallers puntuals i processos sostinguts en el temps, amb totes les franges d'edat —infàncies, adolescències, adults, persones grans de 55— en contextos escolars, extraescolars i de formació docent. Disseny de currículums, manuals i guies d'aprenentatge.\n\nProducció dels resultats que cada procés requereixi: mostres, instal·lacions performàtiques, curtmetratges. Aplicat tant en contextos de vulnerabilitat com en entorns menys adversos.",
         cta: 'Explorar →',
       },
       {
@@ -132,7 +129,7 @@ const content = {
         title: 'Productora\nCultural',
         image: '/images/productora-patheatry.jpg',
         secondImage: '/images/productora-collage.jpg',
-        body: "Logistica i coordinacio multi-seu de programacio cultural. Produccio de contingut en diferents formats: presencial, digital, editorial. D'un taller d'una tarda a un festival internacional o un congres amb multiples stakeholders.",
+        body: "Curadoria d'arts escèniques i performatives, i logística i coordinació multiseu de programació cultural: contractació i coordinació d'artistes i equips tècnics, gestió de proveïdors, muntatge in situ i coordinació d'assajos.\n\nProducció de continguts en diferents formats —presencial, digital, editorial—: guió, edició audiovisual, SEO i analítica de continguts, amb optimització de fluxos de producció mitjançant eines d'IA.\n\nD'un taller d'una tarda a un festival internacional o un congrés amb múltiples stakeholders.",
         cta: 'Explorar →',
       },
     ],
@@ -270,9 +267,11 @@ export const Home = ({ language }: HomeProps) => {
 
             {/* Modal body */}
             <div className="modal-card-body">
-              <p className="text-base md:text-lg leading-relaxed text-gray-warm">
-                {t.roles[selectedRole].body}
-              </p>
+              <div className="text-base md:text-lg leading-relaxed text-gray-warm space-y-4">
+                {t.roles[selectedRole].body.split('\n\n').map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
               <div className="mt-8">
                 <Link
                   to="/portfolio"
