@@ -60,15 +60,44 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 0.75rem;
   aspect-ratio: 16/10;
 }
-.role-card img {
+.role-card-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: saturate(0.6);
   transition: transform 0.6s ease, filter 0.6s ease;
 }
-.role-card:hover img {
+.role-card:hover .role-card-photo {
   transform: scale(1.05);
-  filter: brightness(0.7);
+  filter: saturate(1) brightness(0.7);
+}
+
+/* CARD FLASH — scroll-to highlight */
+.card-flash {
+  animation: flash-highlight 0.9s ease-out;
+}
+@keyframes flash-highlight {
+  0%   { box-shadow: 0 0 0 0 var(--card-color); }
+  30%  { box-shadow: 0 0 0 6px var(--card-color); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+/* STAGGERED REVEAL — Tres Registros */
+.registros-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.registros-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .registros-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 .role-card-overlay {
   position: absolute;
@@ -208,6 +237,22 @@ h1, h2, h3, h4, h5, h6 {
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* HERO PHOTO CURTAIN */
+.hero-photo-curtain {
+  position: absolute;
+  inset: 0;
+  background: var(--crudo-dark);
+  animation: curtain-rise 0.8s ease-out 0.4s forwards;
+  z-index: 2;
+}
+@keyframes curtain-rise {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo-curtain { display: none; }
 }
 
 /* HERO PHOTO GLOW */

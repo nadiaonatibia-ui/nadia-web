@@ -206,9 +206,46 @@ const content = {
   },
 };
 
+const cardIds = ['card-pm', 'card-facilitadora', 'card-productora'];
+const cardColors = ['var(--teal)', 'var(--rosa)', 'var(--coral)'];
+
+const scrollToCard = (index: number) => {
+  const card = document.getElementById(cardIds[index]);
+  if (!card) return;
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(() => {
+    card.classList.add('card-flash');
+    card.style.setProperty('--card-color', cardColors[index]);
+    setTimeout(() => card.classList.remove('card-flash'), 900);
+  }, 500);
+};
+
 export const Home = ({ language }: HomeProps) => {
   const [selectedRole, setSelectedRole] = useState<number | null>(null);
   const t = content[language];
+  const registrosRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    const section = registrosRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          section.querySelectorAll('.registros-reveal').forEach(el => {
+            el.classList.add('in-view');
+          });
+          observer.unobserve(section);
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <main>
@@ -226,20 +263,17 @@ export const Home = ({ language }: HomeProps) => {
               NADIA<br />OÑATIBIA
             </h1>
             <p className="text-lg md:text-xl text-white/70 max-w-lg leading-relaxed">
-              {t.heroTagline.split(' · ').map((part: string, i: number) => {
-                const cardIds = ['card-pm', 'card-facilitadora', 'card-productora'];
-                return (
-                  <span key={i}>
-                    {i > 0 && <span className="mx-1 opacity-50">·</span>}
-                    <button
-                      className={`tagline-btn tagline-segment tagline-segment--${i}`}
-                      onClick={() => document.getElementById(cardIds[i])?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
-                    >
-                      {part}
-                    </button>
-                  </span>
-                );
-              })}
+              {t.heroTagline.split(' · ').map((part: string, i: number) => (
+                <span key={i}>
+                  {i > 0 && <span className="mx-1 opacity-50">·</span>}
+                  <button
+                    className={`tagline-btn tagline-segment tagline-segment--${i}`}
+                    onClick={() => scrollToCard(i)}
+                  >
+                    {part}
+                  </button>
+                </span>
+              ))}
             </p>
             <div className="flex gap-4 mt-10">
               <Link
@@ -259,12 +293,13 @@ export const Home = ({ language }: HomeProps) => {
 
           {/* Right: Hero Photo */}
           <div className="flex justify-center lg:justify-end">
-            <div className="relative w-72 md:w-96">
+            <div className="relative w-72 md:w-96 overflow-hidden rounded-2xl">
               <img
                 src="/images/hero-headshot.jpg"
                 alt="Nadia Onatibia"
-                className="w-full rounded-2xl shadow-2xl"
+                className="w-full shadow-2xl"
               />
+              <div className="hero-photo-curtain" />
               <div className="hero-photo-glow" />
             </div>
           </div>
@@ -287,32 +322,30 @@ export const Home = ({ language }: HomeProps) => {
       </section>
 
       {/* ===== TRES REGISTROS — PHOTO CARDS ===== */}
-      <section className="section-padding bg-crudo">
+      <section ref={registrosRef} className="section-padding bg-crudo">
         <div className="container-wide">
-          <p className="eyebrow-mono mb-4">{t.rolesEyebrow}</p>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-ink mb-12 leading-tight">
+          <p className="eyebrow-mono mb-4 registros-reveal" style={{ transitionDelay: '0ms' }}>{t.rolesEyebrow}</p>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-ink mb-12 leading-tight registros-reveal" style={{ transitionDelay: '100ms' }}>
             {t.rolesTitle}
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {t.roles.map((role, i) => {
-              const cardIds = ['card-pm', 'card-facilitadora', 'card-productora'];
-              return (
+            {t.roles.map((role, i) => (
               <div
                 key={role.number}
                 id={cardIds[i]}
-                className="role-card"
+                className="role-card registros-reveal"
+                style={{ transitionDelay: `${200 + i * 100}ms`, '--card-color': cardColors[i] } as React.CSSProperties}
                 onClick={() => setSelectedRole(i)}
               >
-                <img src={role.image} alt={role.title.replace('\n', ' ')} />
+                <img src={role.image} alt={role.title.replace('\n', ' ')} className="role-card-photo" />
                 <div className="role-card-overlay">
                   <span className={`role-card-number role-card-number--${i}`}>{role.number}</span>
                   <h3 className="role-card-title whitespace-pre-line">{role.title}</h3>
                   <span className="role-card-cta">{role.cta}</span>
                 </div>
               </div>
-            );
-            })}
+            ))}
           </div>
         </div>
       </section>
