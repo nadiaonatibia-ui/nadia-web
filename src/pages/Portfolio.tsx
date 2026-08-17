@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { Language } from '../../types';
 
 interface PortfolioProps {
@@ -144,27 +144,64 @@ const uiLabels = {
 export const Portfolio = ({ language }: PortfolioProps) => {
   const [selectedFilter, setSelectedFilter] = useState<SectorKey | null>(null);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const labels = uiLabels[language];
   const filtered = selectedFilter ? projects.filter((p) => p.sectorKey === selectedFilter) : projects;
   const selectedProject = projects.find((p) => p.id === selectedProjectId) || null;
 
+  const handleFilterChange = (newFilter: SectorKey | null) => {
+    setSelectedFilter(newFilter);
+  };
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      if (gridRef.current) {
+        gridRef.current.querySelectorAll('.project-card').forEach(el => {
+          el.classList.add('in-view');
+        });
+      }
+      return;
+    }
+
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const cards = grid.querySelectorAll('.project-card:not(.filtered-out)');
+          cards.forEach((el, i) => {
+            setTimeout(() => el.classList.add('in-view'), i * 90);
+          });
+          observer.unobserve(grid);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(grid);
+    return () => observer.disconnect();
+  }, []);
+
+
   return (
     <main className="min-h-screen pt-8 bg-crudo">
-      <section className="section-padding pb-8">
+      <section className="pt-8 pb-4 md:pt-12 md:pb-6">
         <div className="container-wide">
           <p className="eyebrow-mono mb-4">{labels.eyebrow}</p>
           <h1 className="text-4xl md:text-5xl font-extrabold text-ink mb-4">{labels.title}</h1>
         </div>
       </section>
 
-      <section className="section-padding pt-0">
+      <section className="pb-12 md:pb-16">
         <div className="container-wide">
           {/* Filters */}
           <div className="mb-12">
             <h3 className="text-sm font-medium mb-4 text-gray-warm uppercase tracking-wider">{labels.filters}</h3>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => setSelectedFilter(null)}
+                onClick={() => handleFilterChange(null)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   selectedFilter === null
                     ? 'bg-ink text-white'
@@ -176,7 +213,7 @@ export const Portfolio = ({ language }: PortfolioProps) => {
               {sectorKeys.map((key) => (
                 <button
                   key={key}
-                  onClick={() => setSelectedFilter(key)}
+                  onClick={() => handleFilterChange(key)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                     selectedFilter === key
                       ? 'bg-ink text-white'
@@ -190,13 +227,16 @@ export const Portfolio = ({ language }: PortfolioProps) => {
           </div>
 
           {/* Project Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((project) => {
               const pc = projectContent[project.id][language];
               return (
                 <div
                   key={project.id}
-                  className="group cursor-pointer rounded-xl overflow-hidden bg-white border border-ink/5 hover:shadow-lg transition-all duration-300"
+                  data-sector={project.sectorKey}
+                  className={`project-card group cursor-pointer rounded-xl overflow-hidden bg-white border border-ink/5 transition-all duration-300 ${
+                    selectedFilter && project.sectorKey !== selectedFilter ? 'filtered-out' : ''
+                  }`}
                   onClick={() => setSelectedProjectId(project.id)}
                 >
                   {/* Project logo as full cover */}
@@ -206,7 +246,7 @@ export const Portfolio = ({ language }: PortfolioProps) => {
                       alt={`${project.title} logo`}
                       className="w-full h-full object-contain p-4"
                     />
-                    <span className="absolute bottom-3 left-3 inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-ink/80 text-white backdrop-blur-sm">
+                    <span className={`tag-sector tag-sector--${project.sectorKey} absolute bottom-3 left-3 inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-ink/80 text-white backdrop-blur-sm transition-colors duration-300`}>
                       {sectorLabels[language][project.sectorKey]}
                     </span>
                   </div>

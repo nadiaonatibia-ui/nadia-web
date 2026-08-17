@@ -325,6 +325,58 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar-thumb { background: var(--vino); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--vino-2); }
 
+/* PORTFOLIO — JOYITAS TANDA 1 */
+
+/* 1. Filter animation on change */
+.project-card {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.project-card.filtered-out {
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+}
+
+/* 2. Grid reveal on scroll */
+.project-card {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.project-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* 3. Hover elevation + tag color by sector */
+.project-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(36, 17, 41, 0.12);
+}
+
+.tag-sector {
+  transition: background-color 0.25s ease;
+}
+
+/* Sector color mapping (hover) */
+.project-card:hover .tag-sector--migracion { background-color: var(--coral) !important; }
+.project-card:hover .tag-sector--discurso-odio { background-color: var(--rojo) !important; }
+.project-card:hover .tag-sector--patrimonio { background-color: var(--teal) !important; }
+.project-card:hover .tag-sector--genero { background-color: var(--rosa) !important; }
+.project-card:hover .tag-sector--inclusion55 { background-color: var(--vino) !important; }
+.project-card:hover .tag-sector--edi { background-color: var(--vino-2) !important; }
+.project-card:hover .tag-sector--empatia { background-color: var(--coral) !important; }
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .section-padding { padding: 3rem 1rem; }
