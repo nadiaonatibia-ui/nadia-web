@@ -144,12 +144,23 @@ const uiLabels = {
 export const Portfolio = ({ language }: PortfolioProps) => {
   const [selectedFilter, setSelectedFilter] = useState<SectorKey | null>(null);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+  const [exitingIds, setExitingIds] = useState<Set<string>>(new Set());
   const gridRef = useRef<HTMLDivElement>(null);
   const labels = uiLabels[language];
   const selectedProject = projects.find((p) => p.id === selectedProjectId) || null;
 
   const handleFilterChange = (newFilter: SectorKey | null) => {
-    setSelectedFilter(newFilter);
+    if (newFilter === selectedFilter) return;
+
+    const cardsToExit = projects
+      .filter((p) => newFilter && p.sectorKey !== newFilter)
+      .map((p) => p.id);
+
+    setExitingIds(new Set(cardsToExit));
+    setTimeout(() => {
+      setSelectedFilter(newFilter);
+      setExitingIds(new Set());
+    }, 300);
   };
 
   useEffect(() => {
@@ -227,18 +238,24 @@ export const Portfolio = ({ language }: PortfolioProps) => {
 
           {/* Project Grid */}
           <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project) => {
-              const pc = projectContent[project.id][language];
-              const isFiltered = selectedFilter && project.sectorKey !== selectedFilter;
-              return (
-                <div
-                  key={project.id}
-                  data-sector={project.sectorKey}
-                  className={`project-card group cursor-pointer rounded-xl overflow-hidden bg-white border border-ink/5 transition-all duration-300 ${
-                    isFiltered ? 'filtered-out' : ''
-                  }`}
-                  onClick={() => !isFiltered && setSelectedProjectId(project.id)}
-                >
+            {projects
+              .filter((p) => {
+                const matchesCurrentFilter = !selectedFilter || p.sectorKey === selectedFilter;
+                const isExiting = exitingIds.has(p.id);
+                return matchesCurrentFilter || isExiting;
+              })
+              .map((project) => {
+                const pc = projectContent[project.id][language];
+                const isExiting = exitingIds.has(project.id);
+                return (
+                  <div
+                    key={project.id}
+                    data-sector={project.sectorKey}
+                    className={`project-card group cursor-pointer rounded-xl overflow-hidden bg-white border border-ink/5 transition-all duration-300 ${
+                      isExiting ? 'filtered-out' : ''
+                    }`}
+                    onClick={() => !isExiting && setSelectedProjectId(project.id)}
+                  >
                   {/* Project logo as full cover */}
                   <div className="h-48 relative overflow-hidden bg-white">
                     <img
