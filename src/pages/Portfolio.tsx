@@ -26,8 +26,6 @@ const projects: Project[] = [
   { id: 'empatheatry', title: 'EMPATHEATRY', sectorKey: 'empatia', color: 'from-orange-900 to-orange-700', link: 'https://empatheatry.eu/', logo: '/images/projects/logo-empatheatry.png' },
 ];
 
-const sectorKeys: SectorKey[] = ['migracion', 'discurso-odio', 'patrimonio', 'genero', 'inclusion55', 'edi', 'empatia'];
-
 const sectorLabels: Record<Language, Record<SectorKey, string>> = {
   es: { migracion: 'Migración', 'discurso-odio': 'Discurso de odio', patrimonio: 'Patrimonio', genero: 'Género', inclusion55: 'Inclusión 55+', edi: 'EDI', empatia: 'Empatía' },
   en: { migracion: 'Migration', 'discurso-odio': 'Hate speech', patrimonio: 'Heritage', genero: 'Gender', inclusion55: 'Inclusion 55+', edi: 'EDI', empatia: 'Empathy' },
@@ -142,67 +140,100 @@ const uiLabels = {
 };
 
 export const Portfolio = ({ language }: PortfolioProps) => {
-  const [selectedFilter, setSelectedFilter] = useState<SectorKey | null>(null);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
-  const [exitingIds, setExitingIds] = useState<Set<string>>(new Set());
-  const gridRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [carouselInView, setCarouselInView] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const prevBtnRef = useRef<HTMLButtonElement>(null);
+  const nextBtnRef = useRef<HTMLButtonElement>(null);
   const labels = uiLabels[language];
   const selectedProject = projects.find((p) => p.id === selectedProjectId) || null;
-
-  const handleFilterChange = (newFilter: SectorKey | null) => {
-    if (newFilter === selectedFilter) return;
-
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-    const cardsToExit = projects
-      .filter((p) => newFilter && p.sectorKey !== newFilter)
-      .map((p) => p.id);
-
-    setExitingIds(new Set(cardsToExit));
-    timeoutRef.current = setTimeout(() => {
-      setSelectedFilter(newFilter);
-      setExitingIds(new Set());
-      timeoutRef.current = null;
-    }, 300);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
-      if (gridRef.current) {
-        gridRef.current.querySelectorAll('.project-card:not(.filtered-out)').forEach(el => {
-          el.classList.add('in-view');
-        });
-      }
+      setCarouselInView(true);
       return;
     }
 
-    const grid = gridRef.current;
-    if (!grid) return;
+    const carousel = carouselRef.current;
+    if (!carousel) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          const cards = grid.querySelectorAll('.project-card:not(.filtered-out)');
-          cards.forEach((el, i) => {
-            setTimeout(() => el.classList.add('in-view'), i * 90);
-          });
-          observer.unobserve(grid);
+          setCarouselInView(true);
+          observer.unobserve(carousel);
         }
       },
       { threshold: 0.1 }
     );
 
-    observer.observe(grid);
+    observer.observe(carousel);
     return () => observer.disconnect();
-  }, [selectedFilter]);
+  }, []);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    const prevBtn = prevBtnRef.current;
+    const nextBtn = nextBtnRef.current;
+
+    if (!track || !prevBtn || !nextBtn) return;
+
+    const scrollByCard = (dir: number) => {
+      const card = track.querySelector('.project-card') as HTMLElement;
+      if (!card) return;
+      const cardWidth = card.getBoundingClientRect().width + 24;
+      track.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+    };
+
+    const updateButtonStates = () => {
+      prevBtn.disabled = track.scrollLeft <= 4;
+      nextBtn.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+    };
+
+    prevBtn.addEventListener('click', () => scrollByCard(-1));
+    nextBtn.addEventListener('click', () => scrollByCard(1));
+    track.addEventListener('scroll', updateButtonStates);
+
+    let isDown = false, startX = 0, scrollLeftStart = 0, dragDistance = 0;
+
+    track.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX;
+      scrollLeftStart = track.scrollLeft;
+      dragDistance = 0;
+    });
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDown) return;
+      const dx = e.pageX - startX;
+      dragDistance = Math.abs(dx);
+      if (dragDistance > 5) {
+        e.preventDefault();
+        track.scrollLeft = scrollLeftStart - dx;
+      }
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+    };
+
+    track.addEventListener('mouseleave', handleMouseUp);
+    track.addEventListener('mouseup', handleMouseUp);
+    track.addEventListener('mousemove', handleMouseMove);
+
+    updateButtonStates();
+
+    return () => {
+      prevBtn.removeEventListener('click', () => scrollByCard(-1));
+      nextBtn.removeEventListener('click', () => scrollByCard(1));
+      track.removeEventListener('scroll', updateButtonStates);
+      track.removeEventListener('mouseleave', handleMouseUp);
+      track.removeEventListener('mouseup', handleMouseUp);
+      track.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
 
   return (
@@ -216,55 +247,26 @@ export const Portfolio = ({ language }: PortfolioProps) => {
 
       <section className="pb-12 md:pb-16">
         <div className="container-wide">
-          {/* Filters */}
-          <div className="mb-12">
-            <h3 className="text-sm font-medium mb-4 text-gray-warm uppercase tracking-wider">{labels.filters}</h3>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => handleFilterChange(null)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  selectedFilter === null
-                    ? 'bg-ink text-white'
-                    : 'bg-white text-ink/70 hover:bg-ink/5 border border-ink/10'
-                }`}
-              >
-                {labels.all}
-              </button>
-              {sectorKeys.map((key) => (
-                <button
-                  key={key}
-                  onClick={() => handleFilterChange(key)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    selectedFilter === key
-                      ? 'bg-ink text-white'
-                      : 'bg-white text-ink/70 hover:bg-ink/5 border border-ink/10'
-                  }`}
-                >
-                  {sectorLabels[language][key]}
-                </button>
-              ))}
-            </div>
-          </div>
+          {/* Carousel */}
+          <div ref={carouselRef} className={`carousel-wrapper ${carouselInView ? 'in-view' : ''}`}>
+            <button
+              ref={prevBtnRef}
+              className="carousel-arrow carousel-arrow--prev"
+              aria-label={language === 'es' ? 'Proyecto anterior' : language === 'en' ? 'Previous project' : 'Projecte anterior'}
+              disabled
+            >
+              ‹
+            </button>
 
-          {/* Project Grid */}
-          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects
-              .filter((p) => {
-                const matchesCurrentFilter = !selectedFilter || p.sectorKey === selectedFilter;
-                const isExiting = exitingIds.has(p.id);
-                return matchesCurrentFilter || isExiting;
-              })
-              .map((project) => {
+            <div ref={trackRef} className="carousel-track">
+              {projects.map((project) => {
                 const pc = projectContent[project.id][language];
-                const isExiting = exitingIds.has(project.id);
                 return (
                   <div
                     key={project.id}
                     data-sector={project.sectorKey}
-                    className={`project-card group cursor-pointer rounded-xl overflow-hidden bg-white border border-ink/5 transition-all duration-300 ${
-                      isExiting ? 'filtered-out' : ''
-                    }`}
-                    onClick={() => !isExiting && setSelectedProjectId(project.id)}
+                    className="project-card group cursor-pointer rounded-xl overflow-hidden bg-white border border-ink/5 transition-all duration-300 flex-shrink-0"
+                    onClick={() => setSelectedProjectId(project.id)}
                   >
                   {/* Project logo as full cover */}
                   <div className="h-48 relative overflow-hidden bg-white">
@@ -294,6 +296,16 @@ export const Portfolio = ({ language }: PortfolioProps) => {
                 </div>
               );
             })}
+            </div>
+
+            <button
+              ref={nextBtnRef}
+              className="carousel-arrow carousel-arrow--next"
+              aria-label={language === 'es' ? 'Proyecto siguiente' : language === 'en' ? 'Next project' : 'Projecte següent'}
+              disabled
+            >
+              ›
+            </button>
           </div>
         </div>
       </section>

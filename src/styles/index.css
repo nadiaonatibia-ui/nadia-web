@@ -325,56 +325,118 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar-thumb { background: var(--vino); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--vino-2); }
 
-/* PORTFOLIO — JOYITAS TANDA 1 */
+/* PORTFOLIO — CARRUSEL */
 
-/* Base: filter + scroll reveal + hover */
-.project-card {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.25s ease;
-}
-
-/* 1. Filter animation: fade out + scale down */
-.project-card.filtered-out {
+/* Carousel container */
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
   opacity: 0;
-  transform: scale(0.92);
-  pointer-events: none;
+  transition: opacity 0.5s ease-out;
 }
-
-/* 2. Grid reveal on scroll: fade in + rise up */
-.project-card.in-view {
+.carousel-wrapper.in-view {
   opacity: 1;
-  transform: translateY(0);
 }
 @media (prefers-reduced-motion: reduce) {
-  .project-card {
+  .carousel-wrapper {
     opacity: 1;
-    transform: none;
     transition: none;
-  }
-  .project-card.filtered-out {
-    display: none;
   }
 }
 
-/* 3. Hover elevation + box shadow */
-.project-card:hover {
+/* Carousel track and scroll */
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  flex: 1;
+  scrollbar-width: none;
+}
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+.carousel-track:active {
+  cursor: grabbing;
+}
+
+/* Project card in carousel */
+.carousel-track .project-card {
+  flex: 0 0 calc((100% - 2 * 24px) / 3.15);
+  scroll-snap-align: start;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.carousel-track .project-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(36, 17, 41, 0.12);
 }
 
+/* Carousel arrows */
+.carousel-arrow {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--crudo);
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s ease;
+  padding: 0;
+}
+.carousel-arrow:hover:not(:disabled) {
+  background: var(--vino);
+}
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.carousel-arrow--prev {
+  order: -1;
+}
+
+/* Tag sector color on hover */
 .tag-sector {
   transition: background-color 0.25s ease;
 }
+.carousel-track .project-card:hover .tag-sector--migracion { background-color: var(--coral) !important; }
+.carousel-track .project-card:hover .tag-sector--discurso-odio { background-color: var(--rojo) !important; }
+.carousel-track .project-card:hover .tag-sector--patrimonio { background-color: var(--teal) !important; }
+.carousel-track .project-card:hover .tag-sector--genero { background-color: var(--rosa) !important; }
+.carousel-track .project-card:hover .tag-sector--inclusion55 { background-color: var(--vino) !important; }
+.carousel-track .project-card:hover .tag-sector--edi { background-color: var(--vino-2) !important; }
+.carousel-track .project-card:hover .tag-sector--empatia { background-color: var(--coral) !important; }
 
-/* Sector color mapping (hover) */
-.project-card:hover .tag-sector--migracion { background-color: var(--coral) !important; }
-.project-card:hover .tag-sector--discurso-odio { background-color: var(--rojo) !important; }
-.project-card:hover .tag-sector--patrimonio { background-color: var(--teal) !important; }
-.project-card:hover .tag-sector--genero { background-color: var(--rosa) !important; }
-.project-card:hover .tag-sector--inclusion55 { background-color: var(--vino) !important; }
-.project-card:hover .tag-sector--edi { background-color: var(--vino-2) !important; }
-.project-card:hover .tag-sector--empatia { background-color: var(--coral) !important; }
+/* Tablet: 2 cards + peek */
+@media (max-width: 1024px) {
+  .carousel-track .project-card {
+    flex: 0 0 calc((100% - 24px) / 2.15);
+  }
+}
+
+/* Mobile: 1 card full-width with peek */
+@media (max-width: 640px) {
+  .carousel-track {
+    gap: 16px;
+  }
+  .carousel-track .project-card {
+    flex: 0 0 92%;
+  }
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 1.25rem;
+  }
+}
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
