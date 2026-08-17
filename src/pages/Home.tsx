@@ -8,7 +8,8 @@ interface HomeProps {
 
 function TypewriterParagraph({ text, delay }: { text: string; delay: number }) {
   const ref = useRef<HTMLParagraphElement>(null);
-  const hasPlayed = useRef(false);
+  const fullyExited = useRef(true);
+  const animTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -23,26 +24,43 @@ function TypewriterParagraph({ text, delay }: { text: string; delay: number }) {
     el.textContent = '';
     el.style.minHeight = '1.6em';
 
+    const runAnimation = () => {
+      if (animTimer.current) clearInterval(animTimer.current);
+      el.textContent = '';
+      const charDelay = 700 / text.length;
+      let i = 0;
+      animTimer.current = setInterval(() => {
+        el.textContent = text.slice(0, i + 1);
+        i++;
+        if (i >= text.length) {
+          clearInterval(animTimer.current!);
+          animTimer.current = null;
+        }
+      }, charDelay);
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !hasPlayed.current) {
-          hasPlayed.current = true;
-          observer.disconnect();
-          const charDelay = (700 / text.length);
-          let i = 0;
-          const timer = setInterval(() => {
-            el.textContent = text.slice(0, i + 1);
-            i++;
-            if (i >= text.length) clearInterval(timer);
-          }, charDelay);
+        if (entry.intersectionRatio === 0) {
+          fullyExited.current = true;
+          if (animTimer.current) {
+            clearInterval(animTimer.current);
+            animTimer.current = null;
+          }
+          return;
+        }
+        if (entry.isIntersecting && fullyExited.current) {
+          fullyExited.current = false;
+          setTimeout(runAnimation, delay);
         }
       },
-      { threshold: 0.3 }
+      { threshold: [0, 0.3] }
     );
 
-    const startTimer = setTimeout(() => observer.observe(el), delay);
+    const startTimer = setTimeout(() => observer.observe(el), 50);
     return () => {
       clearTimeout(startTimer);
+      if (animTimer.current) clearInterval(animTimer.current);
       observer.disconnect();
     };
   }, [text, delay]);
@@ -51,7 +69,7 @@ function TypewriterParagraph({ text, delay }: { text: string; delay: number }) {
     <p
       ref={ref}
       className="text-base md:text-lg leading-relaxed text-gray-warm"
-      style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+      style={{ fontFamily: "'IBM Plex Mono', monospace", lineHeight: 1.75 }}
     />
   );
 }
@@ -192,92 +210,48 @@ export const Home = ({ language }: HomeProps) => {
   const [selectedRole, setSelectedRole] = useState<number | null>(null);
   const t = content[language];
 
-  const letterARef = useRef<HTMLSpanElement>(null);
-  const letterNRef = useRef<HTMLSpanElement>(null);
-  const connectorSvgRef = useRef<SVGSVGElement>(null);
-  const heroRef = useRef<HTMLElement>(null);
-
-  const updateConnector = useCallback(() => {
-    const a = letterARef.current;
-    const n = letterNRef.current;
-    const svg = connectorSvgRef.current;
-    const hero = heroRef.current;
-    if (!a || !n || !svg || !hero) return;
-
-    const heroRect = hero.getBoundingClientRect();
-    const aRect = a.getBoundingClientRect();
-    const nRect = n.getBoundingClientRect();
-
-    const x1 = aRect.left + aRect.width / 2 - heroRect.left;
-    const y1 = aRect.bottom - heroRect.top;
-    const x2 = nRect.left + nRect.width / 2 - heroRect.left;
-    const y2 = nRect.top - heroRect.top;
-
-    const cpY = y1 + (y2 - y1) * 0.4;
-
-    const path = svg.querySelector('path');
-    if (path) {
-      const d = `M ${x1} ${y1} C ${x1} ${cpY}, ${x2} ${cpY}, ${x2} ${y2}`;
-      path.setAttribute('d', d);
-      const len = path.getTotalLength();
-      path.style.strokeDasharray = `${len}`;
-      path.style.strokeDashoffset = `${len}`;
-      path.getBoundingClientRect();
-      path.style.transition = 'stroke-dashoffset 1.2s ease-in-out';
-      path.style.strokeDashoffset = '0';
-    }
-  }, []);
+  const ctaSectionRef = useRef<HTMLElement>(null);
+  const ctaBtnRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
+    const section = ctaSectionRef.current;
+    const btn = ctaBtnRef.current;
+    if (!section || !btn) return;
+
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return;
 
-    const timer = setTimeout(updateConnector, 400);
-
-    const onResize = () => {
-      const path = connectorSvgRef.current?.querySelector('path');
-      if (path) {
-        path.style.transition = 'none';
-      }
-      updateConnector();
-    };
-    window.addEventListener('resize', onResize);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', onResize);
-    };
-  }, [updateConnector]);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          btn.classList.add('breathe-once');
+          observer.unobserve(section);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <main>
       {/* ===== HERO — DARK/CINEMATIC ===== */}
-      <section ref={heroRef} className="relative bg-crudo-dark min-h-[85vh] flex items-center overflow-hidden">
+      <section className="relative bg-crudo-dark min-h-[85vh] flex items-center overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-crudo-dark via-crudo-dark to-vino/20" />
-
-        {/* Ñ connector SVG */}
-        <svg
-          ref={connectorSvgRef}
-          className="absolute inset-0 w-full h-full pointer-events-none z-10"
-          aria-hidden="true"
-        >
-          <path
-            fill="none"
-            stroke="var(--coral)"
-            strokeWidth="2"
-            strokeLinecap="round"
-            opacity="0.5"
-          />
-        </svg>
 
         <div className="container-wide relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
           {/* Left: Text */}
           <div>
             <p className="eyebrow-mono mb-2">{t.heroEyebrow}</p>
             <p className="text-sm text-white/40 mb-6 font-mono tracking-widest">{t.heroLocation}</p>
-            <h1 className="text-6xl md:text-8xl font-extrabold text-white leading-none tracking-tight mb-6">
-              NADI<span ref={letterARef}>A</span><br />O<span ref={letterNRef}>Ñ</span>ATIBIA
+            <h1 className="hero-name text-6xl md:text-8xl font-extrabold text-white leading-none tracking-tight mb-6">
+              NADIA<br />O<span className="enye-wrap">Ñ
+                <svg className="enye-tilde-mark" viewBox="0 0 40 14" aria-hidden="true">
+                  <path d="M4,10 Q14,2 20,7 T36,4" stroke="var(--vino)" strokeWidth="3" strokeLinecap="round" fill="none" />
+                </svg>
+              </span>ATIBIA
             </h1>
             <p className="text-lg md:text-xl text-white/70 max-w-lg leading-relaxed">
               {t.heroTagline.split(' · ').map((part: string, i: number) => (
@@ -362,7 +336,7 @@ export const Home = ({ language }: HomeProps) => {
       {/* ===== ROLE MODAL ===== */}
       {selectedRole !== null && (
         <div className="modal-overlay" onClick={() => setSelectedRole(null)}>
-          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+          <div className={`modal-card modal-role--${selectedRole}`} onClick={(e) => e.stopPropagation()}>
             <button className="modal-close" onClick={() => setSelectedRole(null)}>
               ✕
             </button>
@@ -375,7 +349,7 @@ export const Home = ({ language }: HomeProps) => {
               />
               <div className="modal-card-header-overlay">
                 <div>
-                  <span className="text-coral font-mono text-xs tracking-widest uppercase">
+                  <span className={`modal-number font-mono text-xs tracking-widest uppercase`}>
                     {t.roles[selectedRole].number}
                   </span>
                   <h3 className="text-3xl font-extrabold text-white whitespace-pre-line">
@@ -387,7 +361,7 @@ export const Home = ({ language }: HomeProps) => {
 
             {/* Modal body */}
             <div className="modal-card-body">
-              <div className="text-base md:text-lg leading-relaxed text-gray-warm space-y-4">
+              <div className="modal-accent-bar text-base md:text-lg leading-relaxed text-gray-warm space-y-4">
                 {t.roles[selectedRole].body.split('\n\n').map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
@@ -407,7 +381,7 @@ export const Home = ({ language }: HomeProps) => {
       )}
 
       {/* ===== CTA FINAL ===== */}
-      <section className="py-20 bg-crudo-dark text-center">
+      <section ref={ctaSectionRef} className="py-20 bg-crudo-dark text-center">
         <div className="container-wide">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-8">
             {language === 'es' ? 'Hablemos' : language === 'en' ? "Let's talk" : 'Parlem'}
@@ -416,7 +390,7 @@ export const Home = ({ language }: HomeProps) => {
             <Link to="/portfolio" className="btn bg-white text-crudo-dark hover:bg-white/90 font-semibold">
               {t.ctaPortfolio}
             </Link>
-            <Link to="/contact" className="btn border border-white/30 text-white hover:bg-white/10 font-medium">
+            <Link to="/contact" ref={ctaBtnRef} className="btn btn-contactar border border-white/30 text-white hover:bg-white/10 font-medium">
               {t.ctaContact}
             </Link>
           </div>
