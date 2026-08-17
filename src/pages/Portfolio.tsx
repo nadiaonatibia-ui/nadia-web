@@ -184,6 +184,7 @@ export const Portfolio = ({ language }: PortfolioProps) => {
     let momentumFrame: number | null = null;
 
     const smoothScrollTo = (targetLeft: number, duration = 500) => {
+      track.style.scrollSnapType = 'none';
       const startLeft = track.scrollLeft;
       const distance = targetLeft - startLeft;
       const startTime = performance.now();
@@ -194,7 +195,11 @@ export const Portfolio = ({ language }: PortfolioProps) => {
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
         track.scrollLeft = startLeft + distance * easeOutCubic(progress);
-        if (progress < 1) momentumFrame = requestAnimationFrame(step);
+        if (progress < 1) {
+          momentumFrame = requestAnimationFrame(step);
+        } else {
+          track.style.scrollSnapType = 'x proximity';
+        }
       };
       momentumFrame = requestAnimationFrame(step);
     };
@@ -324,7 +329,7 @@ export const Portfolio = ({ language }: PortfolioProps) => {
                       alt={`${project.title} logo`}
                       className="w-full h-full object-contain p-4"
                     />
-                    <span className={`tag-sector tag-sector--${project.sectorKey} absolute bottom-3 left-3 inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-ink/80 text-white backdrop-blur-sm transition-colors duration-300`}>
+                    <span className={`tag-sector tag-sector--${project.sectorKey} absolute bottom-4 right-4 inline-block px-2.5 py-1 rounded-full text-xs font-medium bg-ink/80 text-white backdrop-blur-sm transition-colors duration-300`}>
                       {sectorLabels[language][project.sectorKey]}
                     </span>
                   </div>
