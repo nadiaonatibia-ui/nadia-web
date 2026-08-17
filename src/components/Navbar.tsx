@@ -31,18 +31,19 @@ export const Navbar = ({ language, onLanguageChange }: NavbarProps) => {
       <div className="container-wide">
         <div className="flex justify-between items-center py-4 gap-4">
           <Link to="/" onClick={handleLogoClick} className="hover:text-vino transition-colors" aria-label="Inicio">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-ink hover:text-vino transition-colors">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-ink hover:text-vino transition-colors">
+              <path d="M3 12.5 L12 4 L21 13" />
+              <path d="M5 11 V20 H19 V11" />
+              <path d="M9.5 20 V14.3 H14.5 V20" />
             </svg>
           </Link>
 
-          <div className="hidden md:flex gap-8">
+          <div className="hidden md:flex gap-7">
             {items.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
-                className={`text-sm font-medium transition-colors ${
+                className={`text-base font-medium transition-colors ${
                   location.pathname === item.href ? 'text-vino' : 'text-ink/60 hover:text-ink'
                 }`}
               >

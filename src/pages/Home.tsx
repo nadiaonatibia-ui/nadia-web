@@ -210,30 +210,6 @@ export const Home = ({ language }: HomeProps) => {
   const [selectedRole, setSelectedRole] = useState<number | null>(null);
   const t = content[language];
 
-  const ctaSectionRef = useRef<HTMLElement>(null);
-  const ctaBtnRef = useRef<HTMLAnchorElement>(null);
-
-  useEffect(() => {
-    const section = ctaSectionRef.current;
-    const btn = ctaBtnRef.current;
-    if (!section || !btn) return;
-
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          btn.classList.add('breathe-once');
-          observer.unobserve(section);
-        }
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <main>
       {/* ===== HERO — DARK/CINEMATIC ===== */}
@@ -246,20 +222,24 @@ export const Home = ({ language }: HomeProps) => {
           <div>
             <p className="eyebrow-mono mb-2">{t.heroEyebrow}</p>
             <p className="text-sm text-white/40 mb-6 font-mono tracking-widest">{t.heroLocation}</p>
-            <h1 className="hero-name text-6xl md:text-8xl font-extrabold text-white leading-none tracking-tight mb-6">
-              NADIA<br />O<span className="enye-wrap">Ñ
-                <svg className="enye-tilde-mark" viewBox="0 0 40 14" aria-hidden="true">
-                  <path d="M4,10 Q14,2 20,7 T36,4" stroke="var(--vino)" strokeWidth="3" strokeLinecap="round" fill="none" />
-                </svg>
-              </span>ATIBIA
+            <h1 className="text-6xl md:text-8xl font-extrabold text-white leading-none tracking-tight mb-6">
+              NADIA<br />OÑATIBIA
             </h1>
             <p className="text-lg md:text-xl text-white/70 max-w-lg leading-relaxed">
-              {t.heroTagline.split(' · ').map((part: string, i: number) => (
-                <span key={i}>
-                  {i > 0 && <span className="mx-1 opacity-50">·</span>}
-                  <span className={`tagline-segment tagline-segment--${i}`}>{part}</span>
-                </span>
-              ))}
+              {t.heroTagline.split(' · ').map((part: string, i: number) => {
+                const cardIds = ['card-pm', 'card-facilitadora', 'card-productora'];
+                return (
+                  <span key={i}>
+                    {i > 0 && <span className="mx-1 opacity-50">·</span>}
+                    <button
+                      className={`tagline-btn tagline-segment tagline-segment--${i}`}
+                      onClick={() => document.getElementById(cardIds[i])?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+                    >
+                      {part}
+                    </button>
+                  </span>
+                );
+              })}
             </p>
             <div className="flex gap-4 mt-10">
               <Link
@@ -315,9 +295,12 @@ export const Home = ({ language }: HomeProps) => {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {t.roles.map((role, i) => (
+            {t.roles.map((role, i) => {
+              const cardIds = ['card-pm', 'card-facilitadora', 'card-productora'];
+              return (
               <div
                 key={role.number}
+                id={cardIds[i]}
                 className="role-card"
                 onClick={() => setSelectedRole(i)}
               >
@@ -328,7 +311,8 @@ export const Home = ({ language }: HomeProps) => {
                   <span className="role-card-cta">{role.cta}</span>
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </section>
@@ -381,7 +365,7 @@ export const Home = ({ language }: HomeProps) => {
       )}
 
       {/* ===== CTA FINAL ===== */}
-      <section ref={ctaSectionRef} className="py-20 bg-crudo-dark text-center">
+      <section className="py-20 bg-crudo-dark text-center">
         <div className="container-wide">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-8">
             {language === 'es' ? 'Hablemos' : language === 'en' ? "Let's talk" : 'Parlem'}
@@ -390,7 +374,7 @@ export const Home = ({ language }: HomeProps) => {
             <Link to="/portfolio" className="btn bg-white text-crudo-dark hover:bg-white/90 font-semibold">
               {t.ctaPortfolio}
             </Link>
-            <Link to="/contact" ref={ctaBtnRef} className="btn btn-contactar border border-white/30 text-white hover:bg-white/10 font-medium">
+            <Link to="/contact" className="btn border border-white/30 text-white hover:bg-white/10 font-medium">
               {t.ctaContact}
             </Link>
           </div>
