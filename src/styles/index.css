@@ -91,6 +91,9 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
+.role-card-number--0 { color: var(--teal); }
+.role-card-number--1 { color: var(--rosa); }
+.role-card-number--2 { color: var(--coral); }
 .role-card-title {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
@@ -192,6 +195,54 @@ h1, h2, h3, h4, h5, h6 {
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* HERO PHOTO GLOW */
+.hero-photo-glow {
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(122, 20, 64, 0.35) 0%, rgba(232, 121, 78, 0.15) 40%, transparent 70%);
+  filter: blur(40px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* TAGLINE HOVER */
+.tagline-segment {
+  position: relative;
+  cursor: default;
+  transition: color 0.3s ease;
+}
+.tagline-segment::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  transition: width 0.3s ease;
+}
+.tagline-segment:hover { color: #fff; }
+.tagline-segment--0::after { background: var(--teal); }
+.tagline-segment--1::after { background: var(--rosa); }
+.tagline-segment--2::after { background: var(--coral); }
+.tagline-segment:hover::after { width: 100%; }
+
+/* SPOTLIGHT CURSOR */
+.spotlight-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(122, 20, 64, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  will-change: transform;
 }
 
 /* SCROLLBAR */

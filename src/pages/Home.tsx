@@ -1,9 +1,59 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import type { Language } from '../../types';
 
 interface HomeProps {
   language: Language;
+}
+
+function TypewriterParagraph({ text, delay }: { text: string; delay: number }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const hasPlayed = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      el.textContent = text;
+      return;
+    }
+
+    el.textContent = '';
+    el.style.minHeight = '1.6em';
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasPlayed.current) {
+          hasPlayed.current = true;
+          observer.disconnect();
+          const charDelay = (700 / text.length);
+          let i = 0;
+          const timer = setInterval(() => {
+            el.textContent = text.slice(0, i + 1);
+            i++;
+            if (i >= text.length) clearInterval(timer);
+          }, charDelay);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    const startTimer = setTimeout(() => observer.observe(el), delay);
+    return () => {
+      clearTimeout(startTimer);
+      observer.disconnect();
+    };
+  }, [text, delay]);
+
+  return (
+    <p
+      ref={ref}
+      className="text-base md:text-lg leading-relaxed text-gray-warm"
+      style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+    />
+  );
 }
 
 const content = {
@@ -142,12 +192,84 @@ export const Home = ({ language }: HomeProps) => {
   const [selectedRole, setSelectedRole] = useState<number | null>(null);
   const t = content[language];
 
+  const letterARef = useRef<HTMLSpanElement>(null);
+  const letterNRef = useRef<HTMLSpanElement>(null);
+  const connectorSvgRef = useRef<SVGSVGElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+
+  const updateConnector = useCallback(() => {
+    const a = letterARef.current;
+    const n = letterNRef.current;
+    const svg = connectorSvgRef.current;
+    const hero = heroRef.current;
+    if (!a || !n || !svg || !hero) return;
+
+    const heroRect = hero.getBoundingClientRect();
+    const aRect = a.getBoundingClientRect();
+    const nRect = n.getBoundingClientRect();
+
+    const x1 = aRect.left + aRect.width / 2 - heroRect.left;
+    const y1 = aRect.bottom - heroRect.top;
+    const x2 = nRect.left + nRect.width / 2 - heroRect.left;
+    const y2 = nRect.top - heroRect.top;
+
+    const cpY = y1 + (y2 - y1) * 0.4;
+
+    const path = svg.querySelector('path');
+    if (path) {
+      const d = `M ${x1} ${y1} C ${x1} ${cpY}, ${x2} ${cpY}, ${x2} ${y2}`;
+      path.setAttribute('d', d);
+      const len = path.getTotalLength();
+      path.style.strokeDasharray = `${len}`;
+      path.style.strokeDashoffset = `${len}`;
+      path.getBoundingClientRect();
+      path.style.transition = 'stroke-dashoffset 1.2s ease-in-out';
+      path.style.strokeDashoffset = '0';
+    }
+  }, []);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    const timer = setTimeout(updateConnector, 400);
+
+    const onResize = () => {
+      const path = connectorSvgRef.current?.querySelector('path');
+      if (path) {
+        path.style.transition = 'none';
+      }
+      updateConnector();
+    };
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', onResize);
+    };
+  }, [updateConnector]);
+
   return (
     <main>
       {/* ===== HERO — DARK/CINEMATIC ===== */}
-      <section className="relative bg-crudo-dark min-h-[85vh] flex items-center overflow-hidden">
+      <section ref={heroRef} className="relative bg-crudo-dark min-h-[85vh] flex items-center overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-crudo-dark via-crudo-dark to-vino/20" />
+
+        {/* Ñ connector SVG */}
+        <svg
+          ref={connectorSvgRef}
+          className="absolute inset-0 w-full h-full pointer-events-none z-10"
+          aria-hidden="true"
+        >
+          <path
+            fill="none"
+            stroke="var(--coral)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            opacity="0.5"
+          />
+        </svg>
 
         <div className="container-wide relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
           {/* Left: Text */}
@@ -155,10 +277,15 @@ export const Home = ({ language }: HomeProps) => {
             <p className="eyebrow-mono mb-2">{t.heroEyebrow}</p>
             <p className="text-sm text-white/40 mb-6 font-mono tracking-widest">{t.heroLocation}</p>
             <h1 className="text-6xl md:text-8xl font-extrabold text-white leading-none tracking-tight mb-6">
-              NADIA<br />OÑATIBIA
+              NADI<span ref={letterARef}>A</span><br />O<span ref={letterNRef}>Ñ</span>ATIBIA
             </h1>
             <p className="text-lg md:text-xl text-white/70 max-w-lg leading-relaxed">
-              {t.heroTagline}
+              {t.heroTagline.split(' · ').map((part: string, i: number) => (
+                <span key={i}>
+                  {i > 0 && <span className="mx-1 opacity-50">·</span>}
+                  <span className={`tagline-segment tagline-segment--${i}`}>{part}</span>
+                </span>
+              ))}
             </p>
             <div className="flex gap-4 mt-10">
               <Link
@@ -184,9 +311,7 @@ export const Home = ({ language }: HomeProps) => {
                 alt="Nadia Onatibia"
                 className="w-full rounded-2xl shadow-2xl"
               />
-              {/* Accent decoration */}
-              <div className="absolute -bottom-4 -left-4 w-24 h-24 border-2 border-coral/40 rounded-2xl -z-10" />
-              <div className="absolute -top-4 -right-4 w-16 h-16 border-2 border-teal/30 rounded-full -z-10" />
+              <div className="hero-photo-glow" />
             </div>
           </div>
         </div>
@@ -200,10 +325,8 @@ export const Home = ({ language }: HomeProps) => {
             {t.manifiestoTitle}
           </h2>
           <div className="space-y-6">
-            {t.manifiestoParagraphs.map((p, i) => (
-              <p key={i} className="text-base md:text-lg leading-relaxed text-gray-warm">
-                {p}
-              </p>
+            {t.manifiestoParagraphs.map((p: string, i: number) => (
+              <TypewriterParagraph key={`${language}-${i}`} text={p} delay={i * 800} />
             ))}
           </div>
         </div>
@@ -226,7 +349,7 @@ export const Home = ({ language }: HomeProps) => {
               >
                 <img src={role.image} alt={role.title.replace('\n', ' ')} />
                 <div className="role-card-overlay">
-                  <span className="role-card-number">{role.number}</span>
+                  <span className={`role-card-number role-card-number--${i}`}>{role.number}</span>
                   <h3 className="role-card-title whitespace-pre-line">{role.title}</h3>
                   <span className="role-card-cta">{role.cta}</span>
                 </div>
