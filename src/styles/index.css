@@ -327,22 +327,21 @@ h1, h2, h3, h4, h5, h6 {
 
 /* PORTFOLIO — JOYITAS TANDA 1 */
 
-/* 1. Filter animation on change */
+/* Base: filter + scroll reveal + hover */
 .project-card {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.25s ease;
 }
+
+/* 1. Filter animation: fade out + scale down */
 .project-card.filtered-out {
   opacity: 0;
   transform: scale(0.92);
   pointer-events: none;
 }
 
-/* 2. Grid reveal on scroll */
-.project-card {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-}
+/* 2. Grid reveal on scroll: fade in + rise up */
 .project-card.in-view {
   opacity: 1;
   transform: translateY(0);
@@ -353,12 +352,12 @@ h1, h2, h3, h4, h5, h6 {
     transform: none;
     transition: none;
   }
+  .project-card.filtered-out {
+    display: none;
+  }
 }
 
-/* 3. Hover elevation + tag color by sector */
-.project-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
+/* 3. Hover elevation + box shadow */
 .project-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(36, 17, 41, 0.12);
