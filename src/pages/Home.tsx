@@ -216,7 +216,7 @@ const scrollToCard = (index: number) => {
   setTimeout(() => {
     card.classList.add('card-flash');
     card.style.setProperty('--card-color', cardColors[index]);
-    setTimeout(() => card.classList.remove('card-flash'), 900);
+    setTimeout(() => card.classList.remove('card-flash'), 700);
   }, 500);
 };
 

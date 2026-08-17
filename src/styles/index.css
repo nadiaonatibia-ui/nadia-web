@@ -74,11 +74,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* CARD FLASH — scroll-to highlight */
 .card-flash {
-  animation: flash-highlight 0.9s ease-out;
+  animation: flash-glow 0.7s ease-out;
 }
-@keyframes flash-highlight {
-  0%   { box-shadow: 0 0 0 0 var(--card-color); }
-  30%  { box-shadow: 0 0 0 6px var(--card-color); }
+@keyframes flash-glow {
+  0%   { box-shadow: 0 0 0 0 transparent; }
+  40%  { box-shadow: 0 0 32px 6px color-mix(in srgb, var(--card-color) 55%, transparent); }
   100% { box-shadow: 0 0 0 0 transparent; }
 }
 
