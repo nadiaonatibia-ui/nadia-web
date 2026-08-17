@@ -351,8 +351,8 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   gap: 24px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  scroll-behavior: auto;
   -webkit-overflow-scrolling: touch;
   cursor: grab;
   flex: 1;
@@ -382,22 +382,23 @@ h1, h2, h3, h4, h5, h6 {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--ink);
-  color: var(--crudo);
+  background: var(--vino);
+  color: white;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.25s ease;
+  transition: background 0.2s ease;
   padding: 0;
 }
 .carousel-arrow:hover:not(:disabled) {
-  background: var(--vino);
+  background: var(--vino-2);
 }
 .carousel-arrow:disabled {
-  opacity: 0.3;
+  background: var(--gray-warm);
+  opacity: 0.4;
   cursor: not-allowed;
 }
 .carousel-arrow--prev {

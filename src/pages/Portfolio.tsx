@@ -180,11 +180,30 @@ export const Portfolio = ({ language }: PortfolioProps) => {
 
     if (!track || !prevBtn || !nextBtn) return;
 
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+    let momentumFrame: number | null = null;
+
+    const smoothScrollTo = (targetLeft: number, duration = 500) => {
+      const startLeft = track.scrollLeft;
+      const distance = targetLeft - startLeft;
+      const startTime = performance.now();
+
+      if (momentumFrame) cancelAnimationFrame(momentumFrame);
+
+      const step = (now: number) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        track.scrollLeft = startLeft + distance * easeOutCubic(progress);
+        if (progress < 1) momentumFrame = requestAnimationFrame(step);
+      };
+      momentumFrame = requestAnimationFrame(step);
+    };
+
     const scrollByCard = (dir: number) => {
       const card = track.querySelector('.project-card') as HTMLElement;
       if (!card) return;
       const cardWidth = card.getBoundingClientRect().width + 24;
-      track.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+      smoothScrollTo(track.scrollLeft + dir * cardWidth, 500);
     };
 
     const updateButtonStates = () => {
@@ -197,12 +216,28 @@ export const Portfolio = ({ language }: PortfolioProps) => {
     track.addEventListener('scroll', updateButtonStates);
 
     let isDown = false, startX = 0, scrollLeftStart = 0, dragDistance = 0;
+    let velocity = 0, lastX = 0, lastTime = 0;
+
+    const applyMomentum = () => {
+      let v = velocity * 16;
+      const step = () => {
+        if (Math.abs(v) < 0.5) return;
+        track.scrollLeft -= v;
+        v *= 0.95;
+        momentumFrame = requestAnimationFrame(step);
+      };
+      momentumFrame = requestAnimationFrame(step);
+    };
 
     track.addEventListener('mousedown', (e) => {
       isDown = true;
       startX = e.pageX;
       scrollLeftStart = track.scrollLeft;
       dragDistance = 0;
+      lastX = e.pageX;
+      lastTime = performance.now();
+      velocity = 0;
+      if (momentumFrame) cancelAnimationFrame(momentumFrame);
     });
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -213,13 +248,26 @@ export const Portfolio = ({ language }: PortfolioProps) => {
         e.preventDefault();
         track.scrollLeft = scrollLeftStart - dx;
       }
+      const now = performance.now();
+      const dt = now - lastTime;
+      if (dt > 0) velocity = (e.pageX - lastX) / dt;
+      lastX = e.pageX;
+      lastTime = now;
     };
 
     const handleMouseUp = () => {
       isDown = false;
+      applyMomentum();
     };
 
-    track.addEventListener('mouseleave', handleMouseUp);
+    const handleMouseLeave = () => {
+      if (isDown) {
+        isDown = false;
+        applyMomentum();
+      }
+    };
+
+    track.addEventListener('mouseleave', handleMouseLeave);
     track.addEventListener('mouseup', handleMouseUp);
     track.addEventListener('mousemove', handleMouseMove);
 
@@ -229,9 +277,10 @@ export const Portfolio = ({ language }: PortfolioProps) => {
       prevBtn.removeEventListener('click', () => scrollByCard(-1));
       nextBtn.removeEventListener('click', () => scrollByCard(1));
       track.removeEventListener('scroll', updateButtonStates);
-      track.removeEventListener('mouseleave', handleMouseUp);
+      track.removeEventListener('mouseleave', handleMouseLeave);
       track.removeEventListener('mouseup', handleMouseUp);
       track.removeEventListener('mousemove', handleMouseMove);
+      if (momentumFrame) cancelAnimationFrame(momentumFrame);
     };
   }, []);
 
