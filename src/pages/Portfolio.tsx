@@ -146,22 +146,32 @@ export const Portfolio = ({ language }: PortfolioProps) => {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [exitingIds, setExitingIds] = useState<Set<string>>(new Set());
   const gridRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const labels = uiLabels[language];
   const selectedProject = projects.find((p) => p.id === selectedProjectId) || null;
 
   const handleFilterChange = (newFilter: SectorKey | null) => {
     if (newFilter === selectedFilter) return;
 
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
     const cardsToExit = projects
       .filter((p) => newFilter && p.sectorKey !== newFilter)
       .map((p) => p.id);
 
     setExitingIds(new Set(cardsToExit));
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       setSelectedFilter(newFilter);
       setExitingIds(new Set());
+      timeoutRef.current = null;
     }, 300);
   };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
