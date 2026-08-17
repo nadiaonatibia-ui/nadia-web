@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react';
 
 export function SpotlightCursor() {
   const ref = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number | null>(null);
+  const posRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const el = ref.current;
@@ -20,8 +22,15 @@ export function SpotlightCursor() {
     }
 
     const onMove = (e: MouseEvent) => {
-      el.style.transform = `translate(${e.clientX - 200}px, ${e.clientY - 200}px)`;
+      posRef.current = { x: e.clientX, y: e.clientY };
       el.style.opacity = '1';
+
+      if (!frameRef.current) {
+        frameRef.current = requestAnimationFrame(() => {
+          el.style.transform = `translate(${posRef.current.x - 200}px, ${posRef.current.y - 200}px)`;
+          frameRef.current = null;
+        });
+      }
     };
 
     const onLeave = () => {
@@ -33,6 +42,7 @@ export function SpotlightCursor() {
     return () => {
       document.removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseleave', onLeave);
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
     };
   }, []);
 

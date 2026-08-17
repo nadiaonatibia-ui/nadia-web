@@ -9,7 +9,8 @@ interface HomeProps {
 function TypewriterParagraph({ text, delay }: { text: string; delay: number }) {
   const ref = useRef<HTMLParagraphElement>(null);
   const fullyExited = useRef(true);
-  const animTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const animFrame = useRef<number | null>(null);
+  const lastUpdate = useRef<number>(0);
 
   useEffect(() => {
     const el = ref.current;
@@ -25,27 +26,32 @@ function TypewriterParagraph({ text, delay }: { text: string; delay: number }) {
     el.style.minHeight = '1.6em';
 
     const runAnimation = () => {
-      if (animTimer.current) clearInterval(animTimer.current);
       el.textContent = '';
+      lastUpdate.current = performance.now();
       const charDelay = 700 / text.length;
       let i = 0;
-      animTimer.current = setInterval(() => {
-        el.textContent = text.slice(0, i + 1);
-        i++;
-        if (i >= text.length) {
-          clearInterval(animTimer.current!);
-          animTimer.current = null;
+
+      const animate = (now: number) => {
+        if (now - lastUpdate.current >= charDelay) {
+          el.textContent = text.slice(0, i + 1);
+          i++;
+          lastUpdate.current = now;
         }
-      }, charDelay);
+        if (i < text.length) {
+          animFrame.current = requestAnimationFrame(animate);
+        }
+      };
+
+      animFrame.current = requestAnimationFrame(animate);
     };
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.intersectionRatio === 0) {
           fullyExited.current = true;
-          if (animTimer.current) {
-            clearInterval(animTimer.current);
-            animTimer.current = null;
+          if (animFrame.current) {
+            cancelAnimationFrame(animFrame.current);
+            animFrame.current = null;
           }
           return;
         }
@@ -60,7 +66,7 @@ function TypewriterParagraph({ text, delay }: { text: string; delay: number }) {
     const startTimer = setTimeout(() => observer.observe(el), 50);
     return () => {
       clearTimeout(startTimer);
-      if (animTimer.current) clearInterval(animTimer.current);
+      if (animFrame.current) cancelAnimationFrame(animFrame.current);
       observer.disconnect();
     };
   }, [text, delay]);
@@ -208,15 +214,24 @@ const content = {
 
 const cardIds = ['card-pm', 'card-facilitadora', 'card-productora'];
 const cardColors = ['var(--teal)', 'var(--rosa)', 'var(--coral)'];
+let scrolling = false;
 
 const scrollToCard = (index: number) => {
+  if (scrolling) return;
+  scrolling = true;
   const card = document.getElementById(cardIds[index]);
-  if (!card) return;
+  if (!card) {
+    scrolling = false;
+    return;
+  }
   card.scrollIntoView({ behavior: 'smooth', block: 'center' });
   setTimeout(() => {
     card.classList.add('card-flash');
     card.style.setProperty('--card-color', cardColors[index]);
-    setTimeout(() => card.classList.remove('card-flash'), 700);
+    setTimeout(() => {
+      card.classList.remove('card-flash');
+      scrolling = false;
+    }, 700);
   }, 500);
 };
 
@@ -224,6 +239,22 @@ export const Home = ({ language }: HomeProps) => {
   const [selectedRole, setSelectedRole] = useState<number | null>(null);
   const t = content[language];
   const registrosRef = useRef<HTMLElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (selectedRole !== null) {
+      document.body.style.overflow = 'hidden';
+      const closeOnEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') setSelectedRole(null);
+      };
+      document.addEventListener('keydown', closeOnEscape);
+      modalRef.current?.focus();
+      return () => {
+        document.removeEventListener('keydown', closeOnEscape);
+        document.body.style.overflow = '';
+      };
+    }
+  }, [selectedRole]);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -352,8 +383,8 @@ export const Home = ({ language }: HomeProps) => {
 
       {/* ===== ROLE MODAL ===== */}
       {selectedRole !== null && (
-        <div className="modal-overlay" onClick={() => setSelectedRole(null)}>
-          <div className={`modal-card modal-role--${selectedRole}`} onClick={(e) => e.stopPropagation()}>
+        <div className="modal-overlay" onClick={() => setSelectedRole(null)} role="presentation">
+          <div ref={modalRef} tabIndex={-1} className={`modal-card modal-role--${selectedRole}`} onClick={(e) => e.stopPropagation()} aria-modal="true" role="dialog">
             <button className="modal-close" onClick={() => setSelectedRole(null)}>
               ✕
             </button>

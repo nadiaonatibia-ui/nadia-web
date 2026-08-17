@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -50,6 +50,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn {
   @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 cursor-pointer inline-block;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--vino);
+  outline-offset: 2px;
 }
 
 /* ROLE CARDS — photo-first grid */
@@ -216,6 +220,10 @@ h1, h2, h3, h4, h5, h6 {
 .modal-close:hover {
   background: rgba(255,255,255,0.3);
 }
+.modal-close:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.8);
+  outline-offset: 2px;
+}
 
 /* MODAL — per-role accent colors */
 .modal-number { color: var(--coral); }
@@ -293,6 +301,7 @@ h1, h2, h3, h4, h5, h6 {
 .tagline-segment--1::after { background: var(--rosa); }
 .tagline-segment--2::after { background: var(--coral); }
 .tagline-segment:hover::after { width: 100%; }
+.tagline-segment:focus-visible { outline: 1px solid currentColor; outline-offset: 2px; border-radius: 2px; }
 
 /* SPOTLIGHT CURSOR */
 .spotlight-cursor {
