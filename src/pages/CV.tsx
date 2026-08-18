@@ -918,7 +918,7 @@ export const CV = ({ language }: CVProps) => {
                     <div
                       style={{
                         display: 'grid',
-                        gridTemplateRows: isExpanded ? '1fr' : '0fr',
+                        gridTemplateRows: isExpanded ? '1fr' : '0px',
                         overflow: 'hidden',
                         transition: 'grid-template-rows 0.3s ease-out',
                       } as React.CSSProperties}
