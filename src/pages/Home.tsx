@@ -290,10 +290,10 @@ export const Home = ({ language }: HomeProps) => {
           <div className="w-full">
             <p className="eyebrow-mono mb-2">{t.heroEyebrow}</p>
             <p className="text-sm text-white/40 mb-6 font-mono tracking-widest">{t.heroLocation}</p>
-            <h1 className="text-6xl md:text-8xl font-extrabold text-white leading-none tracking-tight mb-6">
+            <h1 className="text-6xl lg:text-8xl font-extrabold text-white leading-none tracking-tight mb-6">
               NADIA<br />OÑATIBIA
             </h1>
-            <p className="text-lg md:text-xl text-white/70 max-w-lg leading-relaxed">
+            <p className="text-lg lg:text-xl text-white/70 max-w-lg leading-relaxed">
               {t.heroTagline.split(' · ').map((part: string, i: number) => (
                 <span key={i}>
                   {i > 0 && <span className="mx-1 opacity-50">·</span>}
