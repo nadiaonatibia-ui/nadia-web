@@ -14,76 +14,11 @@ interface Reflexion {
   /** Images are at /images/reflexiones/{id}-slide-{n}.jpg */
 }
 
-function TypewriterParagraph({ text, delay }: { text: string; delay: number }) {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const fullyExited = useRef(true);
-  const animFrame = useRef<number | null>(null);
-  const lastUpdate = useRef<number>(0);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-      el.textContent = text;
-      return;
-    }
-
-    el.textContent = '';
-    el.style.minHeight = '1.6em';
-
-    const runAnimation = () => {
-      el.textContent = '';
-      lastUpdate.current = performance.now();
-      const charDelay = 700 / text.length;
-      let i = 0;
-
-      const animate = (now: number) => {
-        if (now - lastUpdate.current >= charDelay) {
-          el.textContent = text.slice(0, i + 1);
-          i++;
-          lastUpdate.current = now;
-        }
-        if (i < text.length) {
-          animFrame.current = requestAnimationFrame(animate);
-        }
-      };
-
-      animFrame.current = requestAnimationFrame(animate);
-    };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.intersectionRatio === 0) {
-          fullyExited.current = true;
-          if (animFrame.current) {
-            cancelAnimationFrame(animFrame.current);
-            animFrame.current = null;
-          }
-          return;
-        }
-        if (entry.isIntersecting && fullyExited.current) {
-          fullyExited.current = false;
-          setTimeout(runAnimation, delay);
-        }
-      },
-      { threshold: [0, 0.3] }
-    );
-
-    const startTimer = setTimeout(() => observer.observe(el), 50);
-    return () => {
-      clearTimeout(startTimer);
-      if (animFrame.current) cancelAnimationFrame(animFrame.current);
-      observer.disconnect();
-    };
-  }, [text, delay]);
-
+function TypewriterParagraph({ text }: { text: string; delay?: number }) {
   return (
-    <p
-      ref={ref}
-      className="blog-intro-typewriter"
-    />
+    <p className="blog-intro-typewriter">
+      {text}
+    </p>
   );
 }
 
@@ -269,7 +204,7 @@ export const Blog = ({ language }: BlogProps) => {
       {/* Intro Panel — gradient + typewriter */}
       <section className="blog-intro-panel">
         <div className="blog-intro-panel-content">
-          <TypewriterParagraph text={t.intro} delay={0} />
+          <TypewriterParagraph key={`blog-intro-${language}`} text={t.intro} delay={0} />
         </div>
       </section>
 
