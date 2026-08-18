@@ -112,6 +112,7 @@ const cvData: Record<Language, CVData> = {
           {
             institution: 'Colegio San Tarcisio',
             location: 'Buenos Aires, Argentina',
+            url: 'https://santarsicio.edu.ar/inicio.php',
             role: 'Profesora de Teatro',
             years: '2021–2024',
             tasks: [
@@ -266,8 +267,8 @@ const cvData: Record<Language, CVData> = {
       { institution: 'EDA Escuela de Dirección de Arte', url: 'https://www.direcciondearte.com.ar/', degree: 'Curso de dirección de arte dictado por Paula Taratuto', year: '2020' },
       { institution: 'CODERHOUSE', url: 'https://www.coderhouse.com/', degree: 'Certificado en Copywriting', year: '2023' },
       { institution: 'COSATYC Andamio 90', url: 'https://andamio90.org/', degree: 'Profesorado en Artes con orientación Teatro', years: '2010–2014' },
-      { institution: 'FCE — Universidad de Buenos Aires', degree: 'Organización de Eventos', year: '2014' },
-      { institution: 'FCE — Universidad de Buenos Aires', degree: 'Ceremonial y Protocolo', year: '2014' },
+      { institution: 'FCE — Universidad de Buenos Aires', url: 'https://www.uba.ar/', degree: 'Organización de Eventos', year: '2014' },
+      { institution: 'FCE — Universidad de Buenos Aires', url: 'https://www.uba.ar/', degree: 'Ceremonial y Protocolo', year: '2014' },
     ],
     languages: [
       { language: 'Español', level: 'Nativo' },
@@ -375,6 +376,7 @@ const cvData: Record<Language, CVData> = {
           {
             institution: 'Colegio San Tarcisio',
             location: 'Buenos Aires, Argentina',
+            url: 'https://santarsicio.edu.ar/inicio.php',
             role: 'Theatre Faculty',
             years: '2021–2024',
             tasks: [
@@ -513,8 +515,8 @@ const cvData: Record<Language, CVData> = {
       { institution: 'EDA School of Art Direction', url: 'https://www.direcciondearte.com.ar/', degree: 'Art Direction Course taught by Paula Taratuto', year: '2020' },
       { institution: 'CODERHOUSE', url: 'https://www.coderhouse.com/', degree: 'Certificate in Copywriting', year: '2023' },
       { institution: 'COSATYC Andamio 90', url: 'https://andamio90.org/', degree: 'Professorship in Arts with Theater Orientation', years: '2010–2014' },
-      { institution: 'FCE — University of Buenos Aires', degree: 'Event Organization', year: '2014' },
-      { institution: 'FCE — University of Buenos Aires', degree: 'Ceremonial and Protocol', year: '2014' },
+      { institution: 'FCE — University of Buenos Aires', url: 'https://www.uba.ar/', degree: 'Event Organization', year: '2014' },
+      { institution: 'FCE — University of Buenos Aires', url: 'https://www.uba.ar/', degree: 'Ceremonial and Protocol', year: '2014' },
     ],
     languages: [
       { language: 'Spanish', level: 'Native' },
@@ -757,8 +759,8 @@ const cvData: Record<Language, CVData> = {
       { institution: "EDA Escola de Direcció d'Art", degree: "Curs de direcció d'art impartit per Paula Taratuto", year: '2020' },
       { institution: 'CODERHOUSE', degree: 'Certificat en Copywriting', year: '2023' },
       { institution: 'COSATYC Andamio 90', url: 'https://andamio90.org/', degree: "Professorat d'Arts amb orientació Teatre", years: '2010–2014' },
-      { institution: 'FCE — Universitat de Buenos Aires', degree: "Organització d'Events", year: '2014' },
-      { institution: 'FCE — Universitat de Buenos Aires', degree: 'Cerimonial i Protocol', year: '2014' },
+      { institution: 'FCE — Universitat de Buenos Aires', url: 'https://www.uba.ar/', degree: "Organització d'Events", year: '2014' },
+      { institution: 'FCE — Universitat de Buenos Aires', url: 'https://www.uba.ar/', degree: 'Cerimonial i Protocol', year: '2014' },
     ],
     languages: [
       { language: 'Castellà', level: 'Natiu' },
