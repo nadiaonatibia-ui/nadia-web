@@ -14,11 +14,75 @@ interface Reflexion {
   /** Images are at /images/reflexiones/{id}-slide-{n}.jpg */
 }
 
-function TypewriterParagraph({ text }: { text: string; delay?: number }) {
+function TypewriterParagraph({ text, delay = 0 }: { text: string; delay?: number }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const fullyExited = useRef(true);
+  const animFrame = useRef<number | null>(null);
+  const lastUpdate = useRef<number>(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      el.textContent = text;
+      return;
+    }
+
+    el.textContent = '';
+    el.style.minHeight = '1.6em';
+
+    const runAnimation = () => {
+      el.textContent = '';
+      lastUpdate.current = performance.now();
+      const charDelay = 700 / text.length;
+      let i = 0;
+
+      const animate = (now: number) => {
+        if (now - lastUpdate.current >= charDelay) {
+          el.textContent = text.slice(0, i + 1);
+          i++;
+          lastUpdate.current = now;
+        }
+        if (i < text.length) {
+          animFrame.current = requestAnimationFrame(animate);
+        }
+      };
+
+      animFrame.current = requestAnimationFrame(animate);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.intersectionRatio === 0) {
+          fullyExited.current = true;
+          if (animFrame.current) {
+            cancelAnimationFrame(animFrame.current);
+            animFrame.current = null;
+          }
+          return;
+        }
+        if (entry.isIntersecting && fullyExited.current) {
+          fullyExited.current = false;
+          setTimeout(runAnimation, delay);
+        }
+      },
+      { threshold: [0, 0.3] }
+    );
+
+    observer.observe(el);
+    return () => {
+      if (animFrame.current) cancelAnimationFrame(animFrame.current);
+      observer.disconnect();
+    };
+  }, [text, delay]);
+
   return (
-    <p className="blog-intro-typewriter">
-      {text}
-    </p>
+    <p
+      ref={ref}
+      className="blog-intro-typewriter"
+    />
   );
 }
 
@@ -176,7 +240,7 @@ export const Blog = ({ language }: BlogProps) => {
   return (
     <main className="min-h-screen bg-crudo">
       {/* Header */}
-      <section className="pt-8 pb-4 md:pt-12 md:pb-6">
+      <section className="pt-8 pb-8 md:pt-12 md:pb-8">
         <div className="container-wide max-w-3xl mx-auto">
           <p className="eyebrow-mono mb-4">{t.eyebrow}</p>
           <h1 className="text-4xl md:text-5xl font-extrabold text-ink mb-6">{t.title}</h1>
