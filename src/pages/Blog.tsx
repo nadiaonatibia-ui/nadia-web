@@ -76,7 +76,6 @@ export const Blog = ({ language }: BlogProps) => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [selectedReflexion, setSelectedReflexion] = useState<Reflexion | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [paperInView, setPaperInView] = useState(false);
   const paperRef = useRef<HTMLDivElement>(null);
   const reflexionesRef = useRef<HTMLDivElement>(null);
   const t = uiLabels[language];
@@ -86,20 +85,22 @@ export const Blog = ({ language }: BlogProps) => {
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Paper animation
+    // Paper animation — cortina horizontal
     const paperEl = paperRef.current;
     if (paperEl) {
       if (prefersReduced) {
-        setPaperInView(true);
+        paperEl.classList.add('in-view');
       } else {
         const obs = new IntersectionObserver(
-          ([entry]) => {
-            if (entry.isIntersecting) {
-              setPaperInView(true);
-              obs.unobserve(paperEl);
-            }
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                obs.unobserve(entry.target);
+              }
+            });
           },
-          { threshold: 0.1 }
+          { threshold: 0.2 }
         );
         obs.observe(paperEl);
         return () => obs.disconnect();
@@ -110,7 +111,7 @@ export const Blog = ({ language }: BlogProps) => {
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Reflexiones reveal animation
+    // Reflexiones reveal animation — staggered fade-in
     const reflexionesEl = reflexionesRef.current;
     if (reflexionesEl) {
       if (prefersReduced) {
@@ -119,14 +120,16 @@ export const Blog = ({ language }: BlogProps) => {
         });
       } else {
         const obs = new IntersectionObserver(
-          ([entry]) => {
-            if (entry.isIntersecting) {
-              const cards = reflexionesEl.querySelectorAll('.reflexion-card');
-              cards.forEach((el, i) => {
-                setTimeout(() => el.classList.add('in-view'), i * 90);
-              });
-              obs.unobserve(reflexionesEl);
-            }
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const cards = entry.target.querySelectorAll('.reflexion-card');
+                cards.forEach((el, i) => {
+                  setTimeout(() => el.classList.add('in-view'), i * 90);
+                });
+                obs.unobserve(entry.target);
+              }
+            });
           },
           { threshold: 0.1 }
         );
@@ -198,7 +201,7 @@ export const Blog = ({ language }: BlogProps) => {
       {/* Paper principal */}
       <section className="pb-12 md:pb-16">
         <div className="container-wide max-w-3xl mx-auto">
-          <div ref={paperRef} className={`paper-card-wrap ${paperInView ? 'in-view' : ''}`}>
+          <div ref={paperRef} className="paper-card-wrap">
             <div className="paper-card-curtain" />
             <div className="bg-white rounded-xl border border-ink/5 p-8 md:p-10 relative z-0">
               <p className="eyebrow-mono mb-3">{t.paperDate}</p>
