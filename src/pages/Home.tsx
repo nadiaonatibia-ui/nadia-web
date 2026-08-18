@@ -415,15 +415,6 @@ export const Home = ({ language }: HomeProps) => {
                   <p key={i}>{p}</p>
                 ))}
               </div>
-              <div className="mt-8">
-                <Link
-                  to="/portfolio"
-                  className="btn bg-vino text-white hover:bg-vino-2 font-medium"
-                  onClick={() => setSelectedRole(null)}
-                >
-                  {t.ctaPortfolio}
-                </Link>
-              </div>
             </div>
           </div>
         </div>
