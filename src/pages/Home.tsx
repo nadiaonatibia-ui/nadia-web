@@ -327,7 +327,6 @@ export const Home = ({ language }: HomeProps) => {
         <div
           className="hero-photo-panel"
           style={{
-            width: '45%',
             backgroundImage: 'url(/images/hero-headshot.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'top center',
