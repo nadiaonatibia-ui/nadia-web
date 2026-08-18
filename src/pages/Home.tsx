@@ -26,7 +26,12 @@ function TypewriterParagraph({ text, delay }: { text: string; delay: number }) {
     el.style.minHeight = '1.6em';
 
     const runAnimation = () => {
+      // Measure full height before clearing
+      el.textContent = text;
+      const fullHeight = el.scrollHeight;
+      el.style.minHeight = `${fullHeight}px`;
       el.textContent = '';
+
       lastUpdate.current = performance.now();
       const charDelay = 700 / text.length;
       let i = 0;
@@ -325,7 +330,7 @@ export const Home = ({ language }: HomeProps) => {
 
         {/* Right: Hero Photo Panel — edge to edge, full height */}
         <div
-          className="hero-photo-panel relative w-full h-[70vh] md:absolute md:right-0 md:w-[45%] md:h-auto md:top-0 md:bottom-0"
+          className="hero-photo-panel relative w-full h-[70vh] md:absolute md:right-0 md:w-[45%] md:h-auto md:top-0 md:bottom-0 mt-8 md:mt-0"
           style={{
             backgroundImage: 'url(/images/hero-headshot.jpg)',
             backgroundRepeat: 'no-repeat',

@@ -12,9 +12,9 @@ export const Navbar = ({ language, onLanguageChange }: NavbarProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navItems = {
-    es: [{ label: 'Inicio', href: '/' }, { label: 'Portfolio', href: '/portfolio' }, { label: 'Blog', href: '/blog' }, { label: 'CV', href: '/cv' }, { label: 'Contacto', href: '/contact' }],
-    en: [{ label: 'Home', href: '/' }, { label: 'Portfolio', href: '/portfolio' }, { label: 'Blog', href: '/blog' }, { label: 'CV', href: '/cv' }, { label: 'Contact', href: '/contact' }],
-    ca: [{ label: 'Inici', href: '/' }, { label: 'Portafoli', href: '/portfolio' }, { label: 'Blog', href: '/blog' }, { label: 'CV', href: '/cv' }, { label: 'Contacte', href: '/contact' }],
+    es: [{ label: 'Portfolio', href: '/portfolio' }, { label: 'Blog', href: '/blog' }, { label: 'CV', href: '/cv' }, { label: 'Contacto', href: '/contact' }],
+    en: [{ label: 'Portfolio', href: '/portfolio' }, { label: 'Blog', href: '/blog' }, { label: 'CV', href: '/cv' }, { label: 'Contact', href: '/contact' }],
+    ca: [{ label: 'Portafoli', href: '/portfolio' }, { label: 'Blog', href: '/blog' }, { label: 'CV', href: '/cv' }, { label: 'Contacte', href: '/contact' }],
   };
   const items = navItems[language];
 

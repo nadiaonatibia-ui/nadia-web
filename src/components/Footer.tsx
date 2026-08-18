@@ -18,7 +18,7 @@ export const Footer = ({ language }: FooterProps) => {
   return (
     <footer className="bg-crudo-dark text-white/50 py-8">
       <div className="container-wide flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-        <span>&copy; {year} Nadia Onatibia</span>
+        <span>&copy; {year} Nadia Oñatibia</span>
         <div className="flex gap-6">
           <Link to="/legal" className="hover:text-white transition-colors">{t.legal}</Link>
           <Link to="/privacy" className="hover:text-white transition-colors">{t.privacy}</Link>

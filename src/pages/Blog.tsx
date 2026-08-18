@@ -34,7 +34,12 @@ function TypewriterParagraph({ text, delay = 0 }: { text: string; delay?: number
     el.style.minHeight = '1.6em';
 
     const runAnimation = () => {
+      // Measure full height before clearing
+      el.textContent = text;
+      const fullHeight = el.scrollHeight;
+      el.style.minHeight = `${fullHeight}px`;
       el.textContent = '';
+
       lastUpdate.current = performance.now();
       const charDelay = 700 / text.length;
       let i = 0;
