@@ -340,6 +340,14 @@ h1, h2, h3, h4, h5, h6 {
   will-change: transform;
 }
 
+/* CV COLLAPSIBLE — grid-based collapse */
+button[aria-expanded="false"] ~ div[style*="grid-template-rows"] {
+  grid-template-rows: 0px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 /* SCROLLBAR */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--crudo); }
