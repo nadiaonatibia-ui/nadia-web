@@ -916,11 +916,12 @@ export const CV = ({ language }: CVProps) => {
                     </button>
 
                     <div
-                      className={`overflow-hidden transition-all duration-300 ${
-                        isExpanded ? 'opacity-100 visible' : 'opacity-0 invisible'
-                      }`}
+                      className="overflow-hidden"
                       style={{
                         maxHeight: isExpanded ? '1200px' : '0',
+                        opacity: isExpanded ? 1 : 0,
+                        visibility: isExpanded ? 'visible' : 'hidden',
+                        transition: 'all 0.3s ease-out',
                       } as React.CSSProperties}
                     >
                       <div className="pl-6 pb-4 space-y-4">
