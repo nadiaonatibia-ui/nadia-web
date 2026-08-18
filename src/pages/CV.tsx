@@ -70,7 +70,7 @@ const cvData: Record<Language, CVData> = {
       experience: 'Experiencia Profesional',
       education: 'Formación Académica',
       languages: 'Idiomas',
-      skills: 'Skills (Herramientas)',
+      skills: 'Herramientas',
       expertise: 'Áreas de Expertise',
       responsibilities: 'Responsabilidades:',
       impact: 'Impacto:',
@@ -241,7 +241,22 @@ const cvData: Record<Language, CVData> = {
         impact: [
           'Escalado de producción de contenido educativo',
           'Crecimiento orgánico del 123%',
-          'Posicionamiento como uno de los mayores canales educativos en español',
+        ],
+      },
+      {
+        organization: 'FETI — Festival Efímero de Teatro Independiente',
+        location: 'Buenos Aires, Argentina',
+        url: 'https://www.instagram.com/fetiteatro/',
+        position: 'Productora y Curadora',
+        years: '2013–2017',
+        description: 'Producción y curaduría de un festival internacional de teatro independiente, a lo largo de tres ediciones.',
+        responsibilities: [
+          'Producción, gestión e interacción de los distintos equipos y elencos participantes.',
+          'Curaduría y selección final de las obras participantes en cada edición.',
+        ],
+        impact: [
+          'Más de 150 propuestas recibidas por convocatoria abierta, con una programación de alrededor de 25 obras seleccionadas por edición.',
+          'Más de 15.000 personas de público a lo largo de 3 ediciones.',
         ],
       },
     ],
@@ -260,13 +275,13 @@ const cvData: Record<Language, CVData> = {
       { language: 'Catalán', level: 'Intermedio en progreso' },
     ],
     skills: [
-      'Trello', 'Asana', 'Monday.com', 'Kanban board', 'Slack',
+      'Trello', 'Asana', 'Monday.com', 'Tablero Kanban', 'Slack',
       'Canva', 'Doodly', 'Filmora', 'Capcut',
       'Google Workspace', 'Microsoft Office',
     ],
     expertise: [
       {
-        category: 'Programme & Project Management',
+        category: 'Gestión de Programas y Proyectos',
         items: [
           'Coordinación de programas financiados por subvenciones europeas',
           'Gestión de consorcios multi-partner y multi-stakeholder',
@@ -276,7 +291,7 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Cultural Production & Creative Leadership',
+        category: 'Producción Cultural y Liderazgo Creativo',
         items: [
           'Producción cultural y artística (teatro, eventos, contenido digital)',
           'Gestión de proyectos creativos multidisciplinares',
@@ -285,26 +300,26 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Community & Participatory Practice',
+        category: 'Comunidad y Práctica Participativa',
         items: [
           'Mediación artística en contextos educativos y comunitarios',
           'Diseño y facilitación de procesos artísticos participativos',
           'Metodologías arts-based y educación artística transformadora',
-          'Teatro del Oprimido y Teatro Forum',
+          'Teatro del Oprimido y Teatro Fórum',
           'Teatro Comunitario como espacio de encuentro y cambio social',
-          'Culture and democratic participation',
-          'Intercultural and intergenerational dialogue',
-          'Community-based cultural initiatives',
+          'Cultura y participación democrática',
+          'Diálogo intercultural e intergeneracional',
+          'Iniciativas culturales de base comunitaria',
         ],
       },
       {
-        category: 'Strategic & Operational',
+        category: 'Estratégico y Operativo',
         items: [
           'Planificación operativa y presupuestaria',
           'Gestión de proveedores y teams multidisciplinares',
           'Fundraising y desarrollo de estrategias de financiación',
           'Colaboración institucional y stakeholder management',
-          'International team coordination',
+          'Coordinación internacional de equipos',
         ],
       },
     ],
@@ -507,13 +522,13 @@ const cvData: Record<Language, CVData> = {
       { language: 'Catalan', level: 'Intermediate (in progress)' },
     ],
     skills: [
-      'Trello', 'Asana', 'Monday.com', 'Kanban board', 'Slack',
+      'Trello', 'Asana', 'Monday.com', 'Tablero Kanban', 'Slack',
       'Canva', 'Doodly', 'Filmora', 'Capcut',
       'Google Workspace', 'Microsoft Office',
     ],
     expertise: [
       {
-        category: 'Programme & Project Management',
+        category: 'Gestión de Programas y Proyectos',
         items: [
           'Coordination of EU-grant-funded programmes',
           'Multi-partner and multi-stakeholder consortium management',
@@ -523,7 +538,7 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Cultural Production & Creative Leadership',
+        category: 'Producción Cultural y Liderazgo Creativo',
         items: [
           'Cultural and artistic production (theatre, events, digital content)',
           'Multidisciplinary creative project management',
@@ -532,17 +547,17 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Community & Participatory Practice',
+        category: 'Comunidad y Práctica Participativa',
         items: [
           'Artistic mediation in educational and community settings',
           'Design and facilitation of participatory artistic processes',
-          'Culture and democratic participation',
-          'Intercultural and intergenerational dialogue',
-          'Community-based cultural initiatives',
+          'Cultura y participación democrática',
+          'Diálogo intercultural e intergeneracional',
+          'Iniciativas culturales de base comunitaria',
         ],
       },
       {
-        category: 'Strategic & Operational',
+        category: 'Estratégico y Operativo',
         items: [
           'Operational and budget planning',
           'Supplier and multidisciplinary team management',
@@ -751,13 +766,13 @@ const cvData: Record<Language, CVData> = {
       { language: 'Català', level: 'Intermedi (en progrés)' },
     ],
     skills: [
-      'Trello', 'Asana', 'Monday.com', 'Kanban board', 'Slack',
+      'Trello', 'Asana', 'Monday.com', 'Tablero Kanban', 'Slack',
       'Canva', 'Doodly', 'Filmora', 'Capcut',
       'Google Workspace', 'Microsoft Office',
     ],
     expertise: [
       {
-        category: 'Programme & Project Management',
+        category: 'Gestión de Programas y Proyectos',
         items: [
           'Coordinació de programes finançats per subvencions europees',
           'Gestió de consorcis multi-partner i multi-stakeholder',
@@ -767,7 +782,7 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Cultural Production & Creative Leadership',
+        category: 'Producción Cultural y Liderazgo Creativo',
         items: [
           'Producció cultural i artística (teatre, esdeveniments, contingut digital)',
           'Gestió de projectes creatius multidisciplinars',
@@ -776,7 +791,7 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Community & Participatory Practice',
+        category: 'Comunidad y Práctica Participativa',
         items: [
           'Mediació artística en contextos educatius i comunitaris',
           "Disseny i facilitació de processos artístics participatius",
@@ -786,7 +801,7 @@ const cvData: Record<Language, CVData> = {
         ],
       },
       {
-        category: 'Strategic & Operational',
+        category: 'Estratégico y Operativo',
         items: [
           'Planificació operativa i pressupostària',
           "Gestió de proveïdors i equips multidisciplinars",
