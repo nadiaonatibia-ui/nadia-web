@@ -281,13 +281,13 @@ export const Home = ({ language }: HomeProps) => {
   return (
     <main>
       {/* ===== HERO — DARK/CINEMATIC ===== */}
-      <section className="relative bg-crudo-dark min-h-[85vh] flex items-center overflow-hidden">
+      <section className="relative bg-crudo-dark min-h-[85vh] flex overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-crudo-dark via-crudo-dark to-vino/20" />
 
-        <div className="container-wide relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
-          {/* Left: Text */}
-          <div>
+        <div className="flex-1 relative z-10 flex items-center">
+          <div className="container-wide max-w-2xl">
+            {/* Text content */}
             <p className="eyebrow-mono mb-2">{t.heroEyebrow}</p>
             <p className="text-sm text-white/40 mb-6 font-mono tracking-widest">{t.heroLocation}</p>
             <h1 className="text-6xl md:text-8xl font-extrabold text-white leading-none tracking-tight mb-6">
@@ -321,18 +321,18 @@ export const Home = ({ language }: HomeProps) => {
               </Link>
             </div>
           </div>
+        </div>
 
-          {/* Right: Hero Photo */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative w-72 md:w-96 overflow-hidden rounded-2xl">
-              <img
-                src="/images/hero-headshot.jpg"
-                alt="Nadia Onatibia"
-                className="w-full shadow-2xl"
-              />
-              <div className="hero-photo-curtain" />
-              <div className="hero-photo-glow" />
-            </div>
+        {/* Right: Hero Photo Panel — edge to edge */}
+        <div className="hidden lg:flex flex-1 relative">
+          <div className="hero-photo-panel">
+            <img
+              src="/images/hero-headshot.jpg"
+              alt="Nadia Onatibia"
+              className="w-full h-full object-cover"
+            />
+            <div className="hero-photo-curtain" />
+            <div className="hero-photo-glow" />
           </div>
         </div>
       </section>
