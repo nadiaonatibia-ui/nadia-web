@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Language } from '../../types';
 
 interface CVProps { language: Language; }
@@ -819,6 +820,21 @@ const cvData: Record<Language, CVData> = {
 
 export const CV = ({ language }: CVProps) => {
   const d = cvData[language];
+  const [expandedExp, setExpandedExp] = useState<number[]>([0]); // La Xixa starts expanded
+
+  const getExpColor = (organization: string, position?: string): string => {
+    if (organization.includes('Xixa')) return 'var(--teal)';
+    if (position?.includes('Docencia') || organization.includes('Pompapetriyasos') || organization.includes('Escuela')) return 'var(--rosa)';
+    if (position?.includes('Productora') || position?.includes('Curadora')) return 'var(--coral)';
+    if (position?.includes('Manager')) return 'var(--teal)'; // Infolibros as PM
+    return 'var(--vino)';
+  };
+
+  const toggleExp = (idx: number) => {
+    setExpandedExp((prev) =>
+      prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx]
+    );
+  };
 
   return (
     <main className="min-h-screen bg-crudo">
@@ -834,8 +850,28 @@ export const CV = ({ language }: CVProps) => {
       <div className="section-padding">
         <div className="container-wide max-w-4xl mx-auto">
 
+          {/* Navigation Index */}
+          <nav className="flex flex-wrap gap-2 mb-12 font-mono text-sm text-gray-warm">
+            <a href="#experiencia" className="hover:text-vino transition-colors">Experiencia</a>
+            <span>·</span>
+            <a href="#formacion" className="hover:text-vino transition-colors">Formación</a>
+            <span>·</span>
+            <a href="#idiomas" className="hover:text-vino transition-colors">Idiomas</a>
+            <span>·</span>
+            <a href="#herramientas" className="hover:text-vino transition-colors">Herramientas</a>
+            <span>·</span>
+            <a href="#expertise" className="hover:text-vino transition-colors">Áreas de Expertise</a>
+          </nav>
+
+          {/* Download button top */}
+          <div className="text-center mb-12">
+            <a href="/documents/CV_Nadia_Oñatibia.pdf" target="_blank" rel="noopener noreferrer" className="btn bg-vino text-white hover:bg-vino-2 font-medium">
+              {d.download}
+            </a>
+          </div>
+
           {/* Experience */}
-          <section className="mb-16">
+          <section className="mb-16" id="experiencia">
             <h2 className="text-3xl font-bold mb-8 text-ink border-b-2 border-vino pb-4">
               {d.sections.experience}
             </h2>
@@ -907,7 +943,7 @@ export const CV = ({ language }: CVProps) => {
           </section>
 
           {/* Education */}
-          <section className="mb-16">
+          <section className="mb-16" id="formacion">
             <h2 className="text-3xl font-bold mb-8 text-ink border-b-2 border-vino pb-4">
               {d.sections.education}
             </h2>
@@ -929,7 +965,7 @@ export const CV = ({ language }: CVProps) => {
           </section>
 
           {/* Languages */}
-          <section className="mb-16">
+          <section className="mb-16" id="idiomas">
             <h2 className="text-3xl font-bold mb-8 text-ink border-b-2 border-vino pb-4">
               {d.sections.languages}
             </h2>
@@ -944,7 +980,7 @@ export const CV = ({ language }: CVProps) => {
           </section>
 
           {/* Skills */}
-          <section className="mb-16">
+          <section className="mb-16" id="herramientas">
             <h2 className="text-3xl font-bold mb-8 text-ink border-b-2 border-vino pb-4">
               {d.sections.skills}
             </h2>
@@ -958,7 +994,7 @@ export const CV = ({ language }: CVProps) => {
           </section>
 
           {/* Expertise */}
-          <section className="mb-16">
+          <section className="mb-16" id="expertise">
             <h2 className="text-3xl font-bold mb-8 text-ink border-b-2 border-vino pb-4">
               {d.sections.expertise}
             </h2>
