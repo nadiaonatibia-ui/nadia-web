@@ -920,7 +920,10 @@ export const CV = ({ language }: CVProps) => {
                         display: 'grid',
                         gridTemplateRows: isExpanded ? '1fr' : '0px',
                         overflow: 'hidden',
-                        transition: 'grid-template-rows 0.3s ease-out',
+                        transition: 'all 0.3s ease-out',
+                        opacity: isExpanded ? 1 : 0,
+                        visibility: isExpanded ? 'visible' : 'hidden',
+                        pointerEvents: isExpanded ? 'auto' : 'none',
                       } as React.CSSProperties}
                     >
                       <div className="pl-6 pb-4 space-y-4">
