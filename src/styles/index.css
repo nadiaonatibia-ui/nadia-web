@@ -439,6 +439,132 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* BLOG — JOYITAS TANDA 1 */
+
+/* Paper card with horizontal curtain reveal */
+.paper-card-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.paper-card-curtain {
+  position: absolute;
+  inset: 0;
+  background: var(--crudo);
+  z-index: 1;
+  transform: translateX(-100%);
+  transition: transform 0.7s ease-out;
+}
+.paper-card-wrap.in-view .paper-card-curtain {
+  transform: translateX(100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .paper-card-curtain {
+    display: none;
+  }
+}
+
+/* Reflexion cards — reveal escalonado + hover depth effect */
+.reflexion-card {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out, box-shadow 0.25s ease;
+  position: relative;
+}
+.reflexion-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reflexion-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Hover depth effect — pseudo-element behind */
+.reflexion-card::after {
+  content: '';
+  position: absolute;
+  inset: 4px -6px -6px 4px;
+  background: var(--crudo-dark);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.reflexion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(36, 17, 41, 0.12);
+}
+.reflexion-card:hover::after {
+  opacity: 0.3;
+  transform: translate(4px, 4px);
+}
+
+/* Reflexion modal — fixed controls, scrollable content */
+.reflexion-modal {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+.reflexion-slide-image {
+  flex: 0 0 auto;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--crudo-dark);
+}
+.reflexion-slide-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.reflexion-controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 101;
+  background: white;
+  border-top: 1px solid var(--ink)/5;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  touch-action: manipulation;
+}
+.reflexion-nav-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--ink)/10;
+  background: white;
+  color: var(--ink)/60;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+.reflexion-nav-button:hover:not(:disabled) {
+  background: var(--ink)/5;
+  color: var(--ink);
+}
+.reflexion-nav-button:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+.reflexion-indicator {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .section-padding { padding: 3rem 1rem; }

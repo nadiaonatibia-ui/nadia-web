@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { Language } from '../../types';
 import type { BlogPost } from '../../types';
 import { supabase } from '../lib/supabase';
@@ -76,9 +76,76 @@ export const Blog = ({ language }: BlogProps) => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [selectedReflexion, setSelectedReflexion] = useState<Reflexion | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [paperInView, setPaperInView] = useState(false);
+  const paperRef = useRef<HTMLDivElement>(null);
+  const reflexionesRef = useRef<HTMLDivElement>(null);
   const t = uiLabels[language];
 
   useEffect(() => { fetchPosts(); }, []);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Paper animation
+    const paperEl = paperRef.current;
+    if (paperEl) {
+      if (prefersReduced) {
+        setPaperInView(true);
+      } else {
+        const obs = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setPaperInView(true);
+              obs.unobserve(paperEl);
+            }
+          },
+          { threshold: 0.1 }
+        );
+        obs.observe(paperEl);
+        return () => obs.disconnect();
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Reflexiones reveal animation
+    const reflexionesEl = reflexionesRef.current;
+    if (reflexionesEl) {
+      if (prefersReduced) {
+        reflexionesEl.querySelectorAll('.reflexion-card').forEach(el => {
+          el.classList.add('in-view');
+        });
+      } else {
+        const obs = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              const cards = reflexionesEl.querySelectorAll('.reflexion-card');
+              cards.forEach((el, i) => {
+                setTimeout(() => el.classList.add('in-view'), i * 90);
+              });
+              obs.unobserve(reflexionesEl);
+            }
+          },
+          { threshold: 0.1 }
+        );
+        obs.observe(reflexionesEl);
+        return () => obs.disconnect();
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!selectedReflexion) return;
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'Escape') closeReflexion();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedReflexion, currentSlide]);
 
   const fetchPosts = async () => {
     try {
@@ -121,7 +188,7 @@ export const Blog = ({ language }: BlogProps) => {
   return (
     <main className="min-h-screen pt-8 bg-crudo">
       {/* Header */}
-      <section className="section-padding pb-8">
+      <section className="pt-8 pb-4 md:pt-12 md:pb-6">
         <div className="container-wide">
           <p className="eyebrow-mono mb-4">{t.eyebrow}</p>
           <h1 className="text-4xl md:text-5xl font-extrabold text-ink mb-4">{t.title}</h1>
@@ -129,35 +196,42 @@ export const Blog = ({ language }: BlogProps) => {
       </section>
 
       {/* Paper principal */}
-      <section className="section-padding pt-0">
+      <section className="pb-12 md:pb-16">
         <div className="container-wide max-w-3xl mx-auto">
-          <div className="bg-white rounded-xl border border-ink/5 p-8 md:p-10">
-            <p className="eyebrow-mono mb-3">{t.paperDate}</p>
-            <h2 className="text-2xl md:text-3xl font-extrabold text-ink mb-2">{t.paperTitle}</h2>
-            <p className="text-vino font-medium italic mb-6">{t.paperSubtitle}</p>
-            <p className="text-gray-warm leading-relaxed mb-8">{t.paperIntro}</p>
-            <a
-              href="/documents/Paper_Culture_as_Democratic_Infrastructure.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-vino font-medium hover:text-coral transition-colors"
-            >
-              {t.readPaper}
-            </a>
+          <div ref={paperRef} className={`paper-card-wrap ${paperInView ? 'in-view' : ''}`}>
+            <div className="paper-card-curtain" />
+            <div className="bg-white rounded-xl border border-ink/5 p-8 md:p-10 relative z-0">
+              <p className="eyebrow-mono mb-3">{t.paperDate}</p>
+              <h2 className="text-2xl md:text-3xl font-extrabold text-ink mb-2">{t.paperTitle}</h2>
+              <p className="text-vino font-medium italic mb-6">{t.paperSubtitle}</p>
+              {/* PENDIENTE: Párrafo intro de copy */}
+              <p className="text-sm text-gray-warm italic mb-4 min-h-6">
+                {/* La redacción final se cierra en la conversación de copy */}
+              </p>
+              <p className="text-gray-warm leading-relaxed mb-8">{t.paperIntro}</p>
+              <a
+                href="/documents/Paper_Culture_as_Democratic_Infrastructure.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-vino font-medium hover:text-coral transition-colors"
+              >
+                {t.readPaper}
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Reflexiones — clickable cards → modal con carrusel */}
-      <section className="section-padding pt-0">
-        <div className="container-wide max-w-3xl mx-auto">
+      <section className="pb-12 md:pb-16">
+        <div className="container-wide max-w-3xl mx-auto" ref={reflexionesRef}>
           <h2 className="text-2xl font-extrabold text-ink mb-6">{t.reflexionesTitle}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {reflexionesData.map((r) => (
               <div
                 key={r.id}
                 onClick={() => openReflexion(r)}
-                className="group cursor-pointer rounded-xl overflow-hidden bg-white border border-ink/5 hover:shadow-lg transition-all duration-300"
+                className="reflexion-card group cursor-pointer rounded-xl overflow-hidden bg-white border border-ink/5 transition-all duration-300 relative"
               >
                 {/* Use slide 1 as cover image */}
                 <div className="aspect-square overflow-hidden">
@@ -208,50 +282,71 @@ export const Blog = ({ language }: BlogProps) => {
         </section>
       )}
 
-      {/* Modal carrusel de reflexión — muestra imágenes de slides */}
+      {/* Modal carrusel de reflexión — controles fijos */}
       {selectedReflexion && (
-        <div className="modal-overlay" onClick={closeReflexion}>
-          <div className="modal-card max-w-md p-0 overflow-hidden" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close z-10" onClick={closeReflexion}>✕</button>
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={closeReflexion}
+          onTouchStart={(e) => {
+            const touch = e.touches[0];
+            (e.currentTarget as any).touchStartX = touch.clientX;
+          }}
+          onTouchEnd={(e) => {
+            const startX = (e.currentTarget as any).touchStartX;
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            if (Math.abs(diff) > 50) {
+              if (diff > 0) nextSlide();
+              else prevSlide();
+            }
+          }}
+        >
+          <div
+            className="bg-white rounded-2xl overflow-hidden max-w-lg w-full max-h-[90vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={closeReflexion}
+              className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center text-white bg-black/40 hover:bg-black/60 rounded-full transition-colors"
+              aria-label={t.close}
+            >
+              ✕
+            </button>
 
             {/* Slide image */}
-            <div className="relative">
+            <div className="relative aspect-square overflow-hidden bg-crudo-dark">
               <img
                 src={getSlideUrl(selectedReflexion.id, currentSlide + 1)}
                 alt={`${selectedReflexion.title} - slide ${currentSlide + 1}`}
-                className="w-full aspect-square object-cover"
+                className="w-full h-full object-cover"
               />
-              {/* Counter overlay */}
               <span className="absolute top-4 left-4 bg-black/50 text-white text-xs font-mono px-3 py-1 rounded-full backdrop-blur-sm">
                 {currentSlide + 1} / {selectedReflexion.slideCount}
               </span>
             </div>
 
-            {/* Navigation */}
-            <div className="flex items-center justify-between px-6 py-4 bg-white">
+            {/* Fixed navigation controls */}
+            <div className="px-6 py-4 border-t border-ink/5 flex items-center justify-between gap-4">
               <button
                 onClick={prevSlide}
                 disabled={currentSlide === 0}
-                className="w-10 h-10 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:bg-ink/5 disabled:opacity-20 disabled:cursor-not-allowed transition-all"
+                className="reflexion-nav-button"
+                aria-label="Slide anterior"
               >
                 ←
               </button>
-              {/* Dots */}
-              <div className="flex gap-2">
-                {Array.from({ length: selectedReflexion.slideCount }).map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentSlide(i)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      i === currentSlide ? 'bg-vino w-4' : 'bg-ink/20 hover:bg-ink/40'
-                    }`}
-                  />
-                ))}
-              </div>
+
+              {/* Indicator */}
+              <span className="reflexion-indicator flex-1 text-center">
+                {currentSlide + 1} / {selectedReflexion.slideCount}
+              </span>
+
               <button
                 onClick={nextSlide}
                 disabled={currentSlide === selectedReflexion.slideCount - 1}
-                className="w-10 h-10 rounded-full border border-ink/10 flex items-center justify-center text-ink/60 hover:bg-ink/5 disabled:opacity-20 disabled:cursor-not-allowed transition-all"
+                className="reflexion-nav-button"
+                aria-label="Siguiente slide"
               >
                 →
               </button>
