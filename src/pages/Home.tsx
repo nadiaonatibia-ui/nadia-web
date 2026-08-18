@@ -281,7 +281,7 @@ export const Home = ({ language }: HomeProps) => {
   return (
     <main>
       {/* ===== HERO — DARK/CINEMATIC ===== */}
-      <section className="relative bg-crudo-dark min-h-[85vh] flex overflow-hidden">
+      <section className="hero-section relative bg-crudo-dark min-h-[85vh] flex overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-crudo-dark via-crudo-dark to-vino/20" />
 
@@ -325,7 +325,7 @@ export const Home = ({ language }: HomeProps) => {
 
         {/* Right: Hero Photo Panel — edge to edge, full height */}
         <div
-          className="hero-photo-panel hidden lg:block"
+          className="hero-photo-panel"
           style={{
             width: '45%',
             backgroundImage: 'url(/images/hero-headshot.jpg)',

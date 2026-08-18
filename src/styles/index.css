@@ -578,5 +578,17 @@ h1, h2, h3, h4, h5, h6 {
   .role-card { aspect-ratio: 4/3; }
   .role-card-title { font-size: 1.25rem; }
   .modal-card-body { padding: 1.5rem; }
-  .hero-photo-panel { position: static; height: 70vh; background-size: auto 130%; }
+
+  /* Hero layout en mobile: cambiar a columna */
+  .hero-section {
+    flex-direction: column;
+  }
+
+  /* Hero photo en mobile */
+  .hero-photo-panel {
+    position: static;
+    width: 100%;
+    height: 70vh;
+    background-size: auto 130%;
+  }
 }
