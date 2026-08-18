@@ -201,18 +201,12 @@ export const Blog = ({ language }: BlogProps) => {
 
   return (
     <main className="min-h-screen bg-crudo">
-      {/* Intro Panel — gradient + typewriter */}
-      <section className="blog-intro-panel">
-        <div className="blog-intro-panel-content">
-          <TypewriterParagraph key={`blog-intro-${language}`} text={t.intro} delay={0} />
-        </div>
-      </section>
-
       {/* Header */}
       <section className="pt-8 pb-4 md:pt-12 md:pb-6">
         <div className="container-wide max-w-3xl mx-auto">
           <p className="eyebrow-mono mb-4">{t.eyebrow}</p>
           <h1 className="text-4xl md:text-5xl font-extrabold text-ink mb-6">{t.title}</h1>
+          <TypewriterParagraph key={`blog-intro-${language}`} text={t.intro} delay={0} />
         </div>
       </section>
 
