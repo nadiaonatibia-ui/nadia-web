@@ -135,6 +135,10 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   letter-spacing: 0.02em;
   line-height: 1.1;
+  transition: color 0.3s ease;
+}
+.role-card:hover .role-card-title {
+  color: var(--card-color);
 }
 .role-card-cta {
   font-family: 'IBM Plex Mono', monospace;
