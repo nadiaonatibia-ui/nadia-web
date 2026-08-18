@@ -876,69 +876,113 @@ export const CV = ({ language }: CVProps) => {
               {d.sections.experience}
             </h2>
 
-            <div className="space-y-12">
-              {d.experiences.map((exp, idx) => (
-                <div key={idx} className="border-l-4 border-vino pl-6">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2">
-                    <div>
-                      <h3 className="text-xl font-bold text-ink">
-                        {exp.url ? (
-                          <a href={exp.url} target="_blank" rel="noopener noreferrer" className="text-vino hover:text-vino-2 underline">{exp.organization}</a>
-                        ) : exp.organization}
-                      </h3>
-                      <p className="text-sm text-gray-warm">{exp.location}</p>
-                    </div>
-                    <span className="text-sm font-semibold text-coral whitespace-nowrap">{exp.years}</span>
-                  </div>
+            <div className="space-y-6">
+              {d.experiences.map((exp, idx) => {
+                const expColor = getExpColor(exp.organization, exp.position);
+                const isExpanded = expandedExp.includes(idx);
 
-                  <p className="text-lg font-semibold text-ink mb-2">{exp.position}</p>
-                  <p className="text-gray-warm mb-4">{exp.description}</p>
+                return (
+                  <div
+                    key={idx}
+                    className="border-l-4 transition-colors"
+                    style={{ borderLeftColor: expColor }}
+                  >
+                    <button
+                      onClick={() => toggleExp(idx)}
+                      className="w-full flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 py-4 pl-6 text-left hover:opacity-80 transition-opacity"
+                      aria-expanded={isExpanded}
+                    >
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-bold text-ink">
+                          {exp.url ? (
+                            <a href={exp.url} target="_blank" rel="noopener noreferrer" className="hover:text-vino underline">
+                              {exp.organization}
+                            </a>
+                          ) : exp.organization}
+                        </h3>
+                        <p className="text-sm text-gray-warm mt-1">{exp.location}</p>
+                      </div>
+                      <div className="flex items-center gap-3 sm:flex-col sm:items-end">
+                        <span className="text-sm font-semibold text-gray-warm whitespace-nowrap">{exp.years}</span>
+                        <svg
+                          className={`w-5 h-5 text-gray-warm transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 9l6 6 6-6" />
+                        </svg>
+                      </div>
+                    </button>
 
-                  {exp.isTeaching && exp.teachingRoles ? (
-                    <div className="space-y-4">
-                      {exp.teachingRoles.map((role, roleIdx) => (
-                        <div key={roleIdx} className="bg-white rounded-xl border border-ink/5 p-5">
-                          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-1">
-                            <div>
-                              <p className="font-bold text-ink">
-                                {role.url ? (
-                                  <a href={role.url} target="_blank" rel="noopener noreferrer" className="text-vino hover:text-vino-2 underline">{role.institution}</a>
-                                ) : role.institution}
-                              </p>
-                              <p className="text-xs text-gray-warm">{role.location}</p>
-                            </div>
-                            <span className="text-xs font-semibold text-coral whitespace-nowrap">{role.years}</span>
+                    <div
+                      className="overflow-hidden transition-all"
+                      style={{
+                        maxHeight: isExpanded ? '1000px' : '0px',
+                        opacity: isExpanded ? 1 : 0,
+                        visibility: isExpanded ? 'visible' : 'hidden',
+                      }}
+                    >
+                      <div className="pl-6 pb-4 space-y-4">
+                        <div>
+                          <p className="text-base font-medium mb-1" style={{ color: expColor }}>
+                            {exp.position}
+                          </p>
+                          <p className="text-gray-warm">{exp.description}</p>
+                        </div>
+
+                        {exp.isTeaching && exp.teachingRoles ? (
+                          <div className="space-y-3">
+                            {exp.teachingRoles.map((role, roleIdx) => (
+                              <div key={roleIdx} className="bg-white rounded-lg border border-ink/5 p-4">
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 mb-2">
+                                  <div>
+                                    <p className="font-semibold text-ink text-sm">
+                                      {role.url ? (
+                                        <a href={role.url} target="_blank" rel="noopener noreferrer" className="text-vino hover:text-vino-2 underline">
+                                          {role.institution}
+                                        </a>
+                                      ) : role.institution}
+                                    </p>
+                                    <p className="text-xs text-gray-warm">{role.location}</p>
+                                  </div>
+                                  <span className="text-xs font-semibold text-gray-warm whitespace-nowrap">{role.years}</span>
+                                </div>
+                                <p className="text-sm font-medium text-ink mb-2" style={{ color: expColor }}>
+                                  {role.role}
+                                </p>
+                                <ul className="list-disc pl-5 space-y-1">
+                                  {role.tasks.map((task, taskIdx) => (
+                                    <li key={taskIdx} className="text-sm text-gray-warm">{task}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
                           </div>
-                          <p className="text-sm font-semibold text-vino mb-2">{role.role}</p>
+                        ) : exp.responsibilities ? (
+                          <div>
+                            <p className="font-semibold text-ink text-sm mb-2">{d.sections.responsibilities}</p>
+                            <ul className="list-disc pl-5 space-y-1">
+                              {exp.responsibilities.map((resp, respIdx) => (
+                                <li key={respIdx} className="text-sm text-gray-warm">{resp}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        ) : null}
+
+                        <div className="rounded-lg border p-4" style={{ backgroundColor: `color-mix(in srgb, ${expColor} 5%, white)`, borderColor: `color-mix(in srgb, ${expColor} 20%, white)` }}>
+                          <p className="font-semibold text-ink text-sm mb-2">{d.sections.impact}</p>
                           <ul className="list-disc pl-5 space-y-1">
-                            {role.tasks.map((task, taskIdx) => (
-                              <li key={taskIdx} className="text-sm text-gray-warm">{task}</li>
+                            {exp.impact.map((imp, impIdx) => (
+                              <li key={impIdx} className="text-sm text-gray-warm">{imp}</li>
                             ))}
                           </ul>
                         </div>
-                      ))}
+                      </div>
                     </div>
-                  ) : exp.responsibilities ? (
-                    <div className="mb-4">
-                      <p className="font-semibold text-ink text-sm mb-2">{d.sections.responsibilities}</p>
-                      <ul className="list-disc pl-5 space-y-1">
-                        {exp.responsibilities.map((resp, respIdx) => (
-                          <li key={respIdx} className="text-sm text-gray-warm">{resp}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-
-                  <div className="mt-4 bg-coral/5 rounded-lg border border-coral/10 p-4">
-                    <p className="font-semibold text-ink text-sm mb-2">{d.sections.impact}</p>
-                    <ul className="list-disc pl-5 space-y-1">
-                      {exp.impact.map((imp, impIdx) => (
-                        <li key={impIdx} className="text-sm text-gray-warm">{imp}</li>
-                      ))}
-                    </ul>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </section>
 
