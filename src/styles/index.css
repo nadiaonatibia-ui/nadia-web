@@ -247,11 +247,14 @@ h1, h2, h3, h4, h5, h6 {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* HERO PHOTO PANEL — edge to edge */
+/* HERO PHOTO PANEL — edge to edge, full height */
 .hero-photo-panel {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
   overflow: hidden;
+  border-radius: 0;
 }
 
 /* HERO PHOTO CURTAIN */

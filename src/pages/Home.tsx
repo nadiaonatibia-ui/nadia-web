@@ -285,9 +285,9 @@ export const Home = ({ language }: HomeProps) => {
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-crudo-dark via-crudo-dark to-vino/20" />
 
-        <div className="flex-1 relative z-10 flex items-center">
+        {/* Left: Text content */}
+        <div className="flex-1 z-10 flex items-center">
           <div className="container-wide max-w-2xl">
-            {/* Text content */}
             <p className="eyebrow-mono mb-2">{t.heroEyebrow}</p>
             <p className="text-sm text-white/40 mb-6 font-mono tracking-widest">{t.heroLocation}</p>
             <h1 className="text-6xl md:text-8xl font-extrabold text-white leading-none tracking-tight mb-6">
@@ -323,17 +323,16 @@ export const Home = ({ language }: HomeProps) => {
           </div>
         </div>
 
-        {/* Right: Hero Photo Panel — edge to edge */}
-        <div className="hidden lg:flex flex-1 relative">
-          <div className="hero-photo-panel">
-            <img
-              src="/images/hero-headshot.jpg"
-              alt="Nadia Onatibia"
-              className="w-full h-full object-cover"
-            />
-            <div className="hero-photo-curtain" />
-            <div className="hero-photo-glow" />
-          </div>
+        {/* Right: Hero Photo Panel — edge to edge, full height */}
+        <div className="hero-photo-panel hidden lg:block" style={{ width: '45%' }}>
+          <img
+            src="/images/hero-headshot.jpg"
+            alt="Nadia Onatibia"
+            className="w-full h-full object-cover"
+            style={{ objectPosition: 'top center' }}
+          />
+          <div className="hero-photo-curtain" />
+          <div className="hero-photo-glow" />
         </div>
       </section>
 
