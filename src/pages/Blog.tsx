@@ -31,10 +31,11 @@ const uiLabels = {
   es: {
     eyebrow: 'HOJA APARTE',
     title: 'Papers y reflexiones',
+    intro: 'De tanto en tanto me tomo el tiempo de profundizar algunas reflexiones sobre cultura, gestión y participación que van decantando de mi práctica. Son ideas que maduran entre proyecto y proyecto, hasta que siento que están listas para poner en palabras y compartir. Acá publico algunas de ellas:',
     paperDate: 'Febrero 2026 · Barcelona',
     paperTitle: 'CULTURE AS DEMOCRATIC INFRASTRUCTURE',
     paperSubtitle: '"Participatory Practice and Culture as a Public Right"',
-    paperIntro: 'Un ensayo breve sobre la cultura participativa como infraestructura democrática, a partir de cuatro procesos reales: Rassif, SMASH, MIRETAGE y Beyond Gender. Sostiene que la democracia no se debilita porque exista el conflicto, sino cuando no quedan espacios capaces de sostenerlo.',
+    paperIntro: 'Trabajo con la convicción de que la cultura no es solo un sector: es infraestructura democrática. Creo en los proyectos que abren espacios para que más personas se reconozcan como productoras de sentido, con voz propia para contar su historia y ocupar un lugar en la conversación pública.\n\nAhí encuentro mi lugar: diseño proyectos, coordino equipos y consigo los recursos para que una idea llegue a existir sin perder su sentido en el camino.\n\nGestionar un proyecto cultural y subirme a un escenario nunca fueron oficios distintos: son dos formas de construir las condiciones para que algo significativo ocurra.',
     readPaper: 'Leer el paper (PDF, inglés) →',
     reflexionesTitle: 'Reflexiones',
     slides: 'slides',
@@ -45,10 +46,11 @@ const uiLabels = {
   en: {
     eyebrow: 'LOOSE PAGE',
     title: 'Papers & reflections',
+    intro: 'From time to time I take the space to deepen some reflections on culture, management and participation that emerge from my practice. These are ideas that mature between one project and another, until I feel they are ready to put into words and share. Here I publish some of them:',
     paperDate: 'February 2026 · Barcelona',
     paperTitle: 'CULTURE AS DEMOCRATIC INFRASTRUCTURE',
     paperSubtitle: '"Participatory Practice and Culture as a Public Right"',
-    paperIntro: "A short essay on participatory culture as democratic infrastructure, drawing on four real processes: Rassif, SMASH, MIRETAGE and Beyond Gender. It argues that democracy doesn't weaken because conflict exists, but when no spaces remain capable of holding it.",
+    paperIntro: "I work with the conviction that culture is not just a sector: it is democratic infrastructure. I believe in projects that open spaces for more people to recognize themselves as producers of meaning, with their own voice to tell their story and occupy a place in public conversation.\n\nThat's where I find my place: I design projects, coordinate teams and secure the resources for an idea to come into being without losing its meaning along the way.\n\nManaging a cultural project and stepping onto a stage were never two different trades: they are two ways of building the conditions for something meaningful to happen.",
     readPaper: 'Read the paper (PDF) →',
     reflexionesTitle: 'Reflections',
     slides: 'slides',
@@ -59,10 +61,11 @@ const uiLabels = {
   ca: {
     eyebrow: 'FULL A PART',
     title: 'Papers i reflexions',
+    intro: 'De tant en tant em pren el temps de profunditzar algunes reflexions sobre cultura, gestió i participació que van decantant de la meva pràctica. Són idees que maduren entre projecte i projecte, fins que sento que estan listes per posar en paraules i compartir. Aquí publico algunes d\'elles:',
     paperDate: 'Febrer 2026 · Barcelona',
     paperTitle: 'CULTURE AS DEMOCRATIC INFRASTRUCTURE',
     paperSubtitle: '"Participatory Practice and Culture as a Public Right"',
-    paperIntro: "Un assaig breu sobre la cultura participativa com a infraestructura democràtica, a partir de quatre processos reals: Rassif, SMASH, MIRETAGE i Beyond Gender. Sosté que la democràcia no s'afebleix perquè existeixi el conflicte, sinó quan no queden espais capaços de sostenir-lo.",
+    paperIntro: "Treballo amb la convicció que la cultura no és només un sector: és infraestructura democràtica. Crec en els projectes que obren espais perquè més persones es reconeguin com a productores de sentit, amb veu pròpia per explicar la seva història i ocupar un lloc a la conversa pública.\n\nAquí trobo el meu lloc: dissenyo projectes, coordino equips i aconsegueixo els recursos perquè una idea arribi a existir sense perdre el seu sentit pel camí.\n\nGestionar un projecte cultural i pujar a un escenari mai van ser oficis diferents: són dues maneres de construir les condicions perquè alguna cosa significativa passi.",
     readPaper: 'Llegir el paper (PDF, anglès) →',
     reflexionesTitle: 'Reflexions',
     slides: 'diapositives',
@@ -192,9 +195,10 @@ export const Blog = ({ language }: BlogProps) => {
     <main className="min-h-screen pt-8 bg-crudo">
       {/* Header */}
       <section className="pt-8 pb-4 md:pt-12 md:pb-6">
-        <div className="container-wide">
+        <div className="container-wide max-w-3xl mx-auto">
           <p className="eyebrow-mono mb-4">{t.eyebrow}</p>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-ink mb-4">{t.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-ink mb-6">{t.title}</h1>
+          <p className="text-lg text-gray-warm leading-relaxed">{t.intro}</p>
         </div>
       </section>
 
@@ -206,12 +210,12 @@ export const Blog = ({ language }: BlogProps) => {
             <div className="bg-white rounded-xl border border-ink/5 p-8 md:p-10 relative z-0">
               <p className="eyebrow-mono mb-3">{t.paperDate}</p>
               <h2 className="text-2xl md:text-3xl font-extrabold text-ink mb-2">{t.paperTitle}</h2>
-              <p className="text-vino font-medium italic mb-6">{t.paperSubtitle}</p>
-              {/* PENDIENTE: Párrafo intro de copy */}
-              <p className="text-sm text-gray-warm italic mb-4 min-h-6">
-                {/* La redacción final se cierra en la conversación de copy */}
-              </p>
-              <p className="text-gray-warm leading-relaxed mb-8">{t.paperIntro}</p>
+              <p className="text-vino font-medium italic mb-8">{t.paperSubtitle}</p>
+              <div className="space-y-4 text-gray-warm leading-relaxed mb-8">
+                {t.paperIntro.split('\n\n').map((paragraph, i) => (
+                  <p key={i}>{paragraph}</p>
+                ))}
+              </div>
               <a
                 href="/documents/Paper_Culture_as_Democratic_Infrastructure.pdf"
                 target="_blank"
