@@ -286,7 +286,7 @@ export const Home = ({ language }: HomeProps) => {
         <div className="absolute inset-0 bg-gradient-to-br from-crudo-dark via-crudo-dark to-vino/20" />
 
         {/* Left: Text content */}
-        <div className="z-10 flex items-center" style={{ flex: '0 1 55%', paddingLeft: '1.5rem', paddingRight: '32px' }}>
+        <div className="z-10 flex items-center" style={{ flex: '0 1 61%', paddingLeft: '1.5rem', paddingRight: '32px' }}>
           <div className="w-full">
             <p className="eyebrow-mono mb-2">{t.heroEyebrow}</p>
             <p className="text-sm text-white/40 mb-6 font-mono tracking-widest">{t.heroLocation}</p>

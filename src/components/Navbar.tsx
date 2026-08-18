@@ -30,7 +30,7 @@ export const Navbar = ({ language, onLanguageChange }: NavbarProps) => {
     <nav className="sticky top-0 bg-crudo/95 backdrop-blur-md z-50 border-b border-ink/5">
       <div className="container-wide">
         <div className="flex justify-between items-center py-4 gap-4">
-          <Link to="/" onClick={handleLogoClick} className="hover:text-vino transition-colors" aria-label="Inicio">
+          <Link to="/" onClick={handleLogoClick} className="hover:text-vino transition-colors ml-0" aria-label="Inicio">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-ink hover:text-vino transition-colors">
               <path d="M3 12.5 L12 4 L21 13" />
               <path d="M5 11 V20 H19 V11" />
@@ -43,9 +43,10 @@ export const Navbar = ({ language, onLanguageChange }: NavbarProps) => {
               <Link
                 key={item.href}
                 to={item.href}
-                className={`text-base font-medium transition-colors ${
+                className={`text-[17px] font-medium uppercase transition-colors ${
                   location.pathname === item.href ? 'text-vino' : 'text-ink/60 hover:text-ink'
                 }`}
+                style={{ letterSpacing: '0.03em' }}
               >
                 {item.label}
               </Link>
