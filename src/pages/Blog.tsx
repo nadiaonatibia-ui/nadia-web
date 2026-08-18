@@ -96,32 +96,6 @@ export const Blog = ({ language }: BlogProps) => {
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Paper animation — cortina horizontal
-    const paperEl = paperRef.current;
-    if (paperEl) {
-      if (prefersReduced) {
-        paperEl.classList.add('in-view');
-      } else {
-        const obs = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
-                obs.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.2 }
-        );
-        obs.observe(paperEl);
-        return () => obs.disconnect();
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
     // Reflexiones reveal animation — staggered fade-in
     const reflexionesEl = reflexionesRef.current;
     if (reflexionesEl) {
@@ -214,7 +188,6 @@ export const Blog = ({ language }: BlogProps) => {
       <section className="pb-12 md:pb-16">
         <div className="container-wide max-w-3xl mx-auto">
           <div ref={paperRef} className="paper-card-wrap">
-            <div className="paper-card-curtain" />
             <div className="bg-white rounded-xl border border-ink/5 p-8 md:p-10 relative z-0">
               <p className="eyebrow-mono mb-3">{t.paperDate}</p>
               <h2 className="text-2xl md:text-3xl font-extrabold text-ink mb-2">{t.paperTitle}</h2>

@@ -324,13 +324,16 @@ export const Home = ({ language }: HomeProps) => {
         </div>
 
         {/* Right: Hero Photo Panel — edge to edge, full height */}
-        <div className="hero-photo-panel hidden lg:block" style={{ width: '45%' }}>
-          <img
-            src="/images/hero-headshot.jpg"
-            alt="Nadia Onatibia"
-            className="w-full h-full object-cover"
-            style={{ objectPosition: 'top center' }}
-          />
+        <div
+          className="hero-photo-panel hidden lg:block"
+          style={{
+            width: '45%',
+            backgroundImage: 'url(/images/hero-headshot.jpg)',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'top center',
+            backgroundSize: 'auto 115%'
+          }}
+        >
           <div className="hero-photo-curtain" />
           <div className="hero-photo-glow" />
         </div>
