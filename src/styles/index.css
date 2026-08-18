@@ -254,11 +254,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* HERO PHOTO PANEL — edge to edge, full height, background-image */
 .hero-photo-panel {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 45%;
   overflow: hidden;
   border-radius: 0;
   background-size: auto 115%;
@@ -586,11 +581,4 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
   }
 
-  /* Hero photo en mobile */
-  .hero-photo-panel {
-    position: static;
-    width: 100%;
-    height: 70vh;
-    background-size: auto 130%;
-  }
 }

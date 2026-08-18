@@ -325,7 +325,7 @@ export const Home = ({ language }: HomeProps) => {
 
         {/* Right: Hero Photo Panel — edge to edge, full height */}
         <div
-          className="hero-photo-panel"
+          className="hero-photo-panel relative w-full h-[70vh] md:absolute md:right-0 md:w-[45%] md:h-auto md:top-0 md:bottom-0"
           style={{
             backgroundImage: 'url(/images/hero-headshot.jpg)',
             backgroundRepeat: 'no-repeat',
