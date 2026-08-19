@@ -900,7 +900,7 @@ export const CV = ({ language }: CVProps) => {
                       aria-expanded={isExpanded}
                     >
                       <div className="flex-1">
-                        <h3 className="text-2xl font-bold text-ink">
+                        <h3 className="text-xl font-bold text-ink">
                           {exp.url ? (
                             <a href={exp.url} target="_blank" rel="noopener noreferrer" className="hover:text-vino underline">
                               {exp.organization}
