@@ -822,12 +822,20 @@ export const CV = ({ language }: CVProps) => {
   const [expandedExp, setExpandedExp] = useState<number[]>([]); // All collapsed by default
 
   const getExpColor = (organization: string, position?: string): string => {
-    if (organization.includes('Xixa')) return 'var(--teal)'; // PM
-    if (organization.includes('Docencia') || organization.includes('Pompapetriyasos') || organization.includes('Escuela')) return 'var(--rosa)'; // Facilitadora
+    // Check position first (more specific)
+    if (position?.includes('Manager')) return 'var(--teal)'; // PM
     if (position?.includes('Productora') || position?.includes('Curadora')) return 'var(--coral)'; // Productora
-    if (position?.includes('Manager')) return 'var(--teal)'; // PM - Infolibros
-    if (organization.includes('Festival')) return 'var(--coral)'; // Festival Latitude 40° - Productora
-    if (organization.includes('FETI')) return 'var(--coral)'; // FETI - Productora y Curadora
+    if (position?.includes('Coordinadora Pedagógica') || position?.includes('Docencia')) return 'var(--rosa)'; // Facilitadora
+    if (position?.includes('Profesora') || position?.includes('Profesor')) return 'var(--rosa)'; // Facilitadora
+
+    // Check organization (less specific)
+    if (organization.includes('Xixa')) return 'var(--teal)'; // PM
+    if (organization.includes('Docencia')) return 'var(--rosa)'; // Facilitadora
+    if (organization.includes('Escuela')) return 'var(--rosa)'; // Facilitadora
+    if (organization.includes('Festival')) return 'var(--coral)'; // Productora
+    if (organization.includes('FETI')) return 'var(--coral)'; // Productora
+    if (organization.includes('Pompapetriyasos')) return 'var(--rosa)'; // Default for teaching roles
+
     return 'var(--vino)';
   };
 
