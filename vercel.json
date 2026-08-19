@@ -2,12 +2,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "trailingSlash": false,
-  "env": {},
-  "routes": [
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/documents/(.*)", "dest": "/documents/$1" },
-    { "src": "/images/(.*)", "dest": "/images/$1" },
-    { "src": "/(favicon\\.(svg|ico)|apple-touch-icon\\.png)$", "dest": "/$1" },
-    { "src": "/(.*)", "dest": "/index.html" }
-  ]
+  "cleanUrls": true,
+  "env": {}
 }
