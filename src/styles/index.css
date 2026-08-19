@@ -471,8 +471,83 @@ button[aria-expanded="false"] ~ div[style*="grid-template-rows"] {
 /* BLOG — JOYITAS TANDA 1 */
 
 /* Paper card with horizontal curtain reveal */
-.paper-card-wrap {
-  /* cortina removida, card estática */
+/* Paper colapsable — reutiliza componentes del CV */
+.paper-entry {
+  border: 1px solid var(--ink);
+  border-opacity: 0.05;
+  border-radius: 8px;
+  background: white;
+  padding: 0;
+}
+
+.paper-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 20px;
+  transition: opacity 0.2s ease;
+}
+
+.paper-header:hover {
+  opacity: 0.8;
+}
+
+.paper-summary {
+  flex: 1;
+}
+
+.paper-meta {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--rojo);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.paper-summary h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.paper-subtitle {
+  font-style: italic;
+  color: var(--vino);
+  font-size: 15px;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.paper-intro {
+  color: var(--gray-warm);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.paper-link {
+  color: var(--vino);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.paper-link:hover {
+  color: var(--coral);
+}
+
+.exp-content-inner {
+  padding: 0 20px 20px 20px;
+  overflow: hidden;
+  min-height: 0;
 }
 
 /* Reflexion cards — reveal escalonado + hover depth effect */

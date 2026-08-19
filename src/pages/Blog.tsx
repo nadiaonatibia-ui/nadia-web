@@ -156,9 +156,14 @@ export const Blog = ({ language }: BlogProps) => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [selectedReflexion, setSelectedReflexion] = useState<Reflexion | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [expandedPaper, setExpandedPaper] = useState(false);
   const paperRef = useRef<HTMLDivElement>(null);
   const reflexionesRef = useRef<HTMLDivElement>(null);
   const t = uiLabels[language];
+
+  const togglePaper = () => {
+    setExpandedPaper(!expandedPaper);
+  };
 
   useEffect(() => { fetchPosts(); }, []);
 
@@ -253,27 +258,51 @@ export const Blog = ({ language }: BlogProps) => {
         </div>
       </section>
 
-      {/* Paper principal */}
+      {/* Paper principal — colapsable */}
       <section className="pb-12 md:pb-16">
         <div className="container-wide max-w-3xl mx-auto">
-          <div ref={paperRef} className="paper-card-wrap">
-            <div className="bg-white rounded-xl border border-ink/5 p-8 md:p-10 relative z-0">
-              <p className="eyebrow-mono mb-3">{t.paperDate}</p>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-ink mb-2">{t.paperTitle}</h2>
-              <p className="text-vino font-medium italic mb-8">{t.paperSubtitle}</p>
-              <div className="space-y-4 text-gray-warm leading-relaxed mb-8">
-                {t.paperIntro.split('\n\n').map((paragraph, i) => (
-                  <p key={i}>{paragraph}</p>
-                ))}
+          <div ref={paperRef} className="paper-entry" data-expanded={expandedPaper}>
+            <button
+              className="paper-header"
+              onClick={togglePaper}
+              aria-expanded={expandedPaper}
+              aria-controls="paper-content"
+            >
+              <div className="paper-summary">
+                <span className="paper-meta">{t.paperDate.toUpperCase()}</span>
+                <h3>{t.paperTitle}</h3>
               </div>
-              <a
-                href="/documents/Paper_Culture_as_Democratic_Infrastructure.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-vino font-medium hover:text-coral transition-colors"
-              >
-                {t.readPaper}
-              </a>
+              <span className={`toggle-icon ${expandedPaper ? 'rotate-45' : ''}`}>+</span>
+            </button>
+
+            <div
+              id="paper-content"
+              className="exp-content-wrapper"
+              style={{
+                display: 'grid',
+                gridTemplateRows: expandedPaper ? '1fr' : '0px',
+                overflow: 'hidden',
+                transition: 'all 0.3s ease-out',
+                opacity: expandedPaper ? 1 : 0,
+                visibility: expandedPaper ? 'visible' : 'hidden',
+                pointerEvents: expandedPaper ? 'auto' : 'none',
+              } as React.CSSProperties}
+            >
+              <div className="exp-content-inner">
+                <p className="paper-subtitle">{t.paperSubtitle}</p>
+                <p className="paper-intro">
+                  {/* TODO: Agregar intro corta pendiente de copy */}
+                  {t.paperIntro.split('\n\n')[0]}
+                </p>
+                <a
+                  href="/documents/Paper_Culture_as_Democratic_Infrastructure.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="paper-link"
+                >
+                  {t.readPaper}
+                </a>
+              </div>
             </div>
           </div>
         </div>
