@@ -820,7 +820,7 @@ const cvData: Record<Language, CVData> = {
 
 export const CV = ({ language }: CVProps) => {
   const d = cvData[language];
-  const [expandedExp, setExpandedExp] = useState<number[]>([0]); // La Xixa starts expanded
+  const [expandedExp, setExpandedExp] = useState<number[]>([]); // All collapsed by default
 
   const getExpColor = (organization: string, position?: string): string => {
     if (organization.includes('Xixa')) return 'var(--teal)';
