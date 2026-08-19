@@ -897,6 +897,9 @@ export const CV = ({ language }: CVProps) => {
                             </a>
                           ) : exp.organization}
                         </h3>
+                        <p className="text-base font-medium mt-1" style={{ color: expColor }}>
+                          {exp.position}
+                        </p>
                         <p className="text-sm text-gray-warm mt-1">{exp.location}</p>
                       </div>
                       <div className="flex items-center gap-3 sm:flex-col sm:items-end">
@@ -922,9 +925,6 @@ export const CV = ({ language }: CVProps) => {
                     >
                       <div className="pl-6 pb-4 space-y-4">
                         <div>
-                          <p className="text-base font-medium mb-1" style={{ color: expColor }}>
-                            {exp.position}
-                          </p>
                           <p className="text-gray-warm">{exp.description}</p>
                         </div>
 
