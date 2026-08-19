@@ -862,7 +862,7 @@ export const CV = ({ language }: CVProps) => {
               <span>·</span>
               <a href="#expertise" className="hover:text-vino transition-colors">Áreas de Expertise</a>
             </nav>
-            <a href="/documents/CV_Nadia_Oñatibia.pdf" className="font-mono text-sm text-rojo no-underline whitespace-nowrap hover:text-vino hover:underline transition-colors" style={{ letterSpacing: '0.02em' }}>
+            <a href="/documents/CV_Nadia_Onatibia.pdf" className="font-mono text-sm text-rojo no-underline whitespace-nowrap hover:text-vino hover:underline transition-colors" style={{ letterSpacing: '0.02em' }}>
               {d.download}
             </a>
           </div>
@@ -1055,7 +1055,7 @@ export const CV = ({ language }: CVProps) => {
 
           {/* Download */}
           <div className="text-center">
-            <a href="/documents/CV_Nadia_Oñatibia.pdf" target="_blank" rel="noopener noreferrer" className="btn bg-vino text-white hover:bg-vino-2 font-medium">
+            <a href="/documents/CV_Nadia_Onatibia.pdf" target="_blank" rel="noopener noreferrer" className="btn bg-vino text-white hover:bg-vino-2 font-medium">
               {d.download}
             </a>
           </div>
