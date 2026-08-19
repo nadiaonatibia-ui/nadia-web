@@ -849,22 +849,20 @@ export const CV = ({ language }: CVProps) => {
       <div className="section-padding">
         <div className="container-wide max-w-4xl mx-auto">
 
-          {/* Navigation Index */}
-          <nav className="flex flex-wrap gap-2 mb-12 font-mono text-sm text-gray-warm">
-            <a href="#experiencia" className="hover:text-vino transition-colors">Experiencia</a>
-            <span>·</span>
-            <a href="#formacion" className="hover:text-vino transition-colors">Formación</a>
-            <span>·</span>
-            <a href="#idiomas" className="hover:text-vino transition-colors">Idiomas</a>
-            <span>·</span>
-            <a href="#herramientas" className="hover:text-vino transition-colors">Herramientas</a>
-            <span>·</span>
-            <a href="#expertise" className="hover:text-vino transition-colors">Áreas de Expertise</a>
-          </nav>
-
-          {/* Download button top */}
-          <div className="text-center mb-12">
-            <a href="/documents/CV_Nadia_Oñatibia.pdf" target="_blank" rel="noopener noreferrer" className="btn bg-vino text-white hover:bg-vino-2 font-medium">
+          {/* Navigation Index + Download Link */}
+          <div className="flex justify-between items-center flex-wrap gap-4 mb-12">
+            <nav className="flex flex-wrap gap-2 font-mono text-sm text-gray-warm">
+              <a href="#experiencia" className="hover:text-vino transition-colors">Experiencia</a>
+              <span>·</span>
+              <a href="#formacion" className="hover:text-vino transition-colors">Formación</a>
+              <span>·</span>
+              <a href="#idiomas" className="hover:text-vino transition-colors">Idiomas</a>
+              <span>·</span>
+              <a href="#herramientas" className="hover:text-vino transition-colors">Herramientas</a>
+              <span>·</span>
+              <a href="#expertise" className="hover:text-vino transition-colors">Áreas de Expertise</a>
+            </nav>
+            <a href="/documents/CV_Nadia_Oñatibia.pdf" className="font-mono text-sm text-rojo no-underline whitespace-nowrap hover:text-vino hover:underline transition-colors" style={{ letterSpacing: '0.02em' }}>
               {d.download}
             </a>
           </div>
@@ -903,14 +901,11 @@ export const CV = ({ language }: CVProps) => {
                       </div>
                       <div className="flex items-center gap-3 sm:flex-col sm:items-end">
                         <span className="text-sm font-semibold text-gray-warm whitespace-nowrap">{exp.years}</span>
-                        <svg
-                          className={`w-5 h-5 text-gray-warm transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                        <span
+                          className={`text-lg text-gray-warm transition-transform inline-block ${isExpanded ? 'rotate-45' : ''}`}
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 9l6 6 6-6" />
-                        </svg>
+                          +
+                        </span>
                       </div>
                     </button>
 
