@@ -873,7 +873,7 @@ export const CV = ({ language }: CVProps) => {
           {/* Experience */}
           <section className="mb-16" id="experiencia">
             <h2 className="text-3xl font-bold mb-8 text-ink border-b-2 border-vino pb-4">
-              ✅ {d.sections.experience}
+              {d.sections.experience}
             </h2>
 
             <div className="space-y-6">
