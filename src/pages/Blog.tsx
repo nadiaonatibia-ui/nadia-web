@@ -271,6 +271,7 @@ export const Blog = ({ language }: BlogProps) => {
               <div className="paper-summary">
                 <span className="paper-meta">{t.paperDate.toUpperCase()}</span>
                 <h3>{t.paperTitle}</h3>
+                <p className="paper-subtitle">{t.paperSubtitle}</p>
               </div>
               <span className={`toggle-icon ${expandedPaper ? 'rotate-45' : ''}`}>+</span>
             </button>
@@ -289,10 +290,8 @@ export const Blog = ({ language }: BlogProps) => {
               } as React.CSSProperties}
             >
               <div className="exp-content-inner">
-                <p className="paper-subtitle">{t.paperSubtitle}</p>
                 <p className="paper-intro">
-                  {/* TODO: Agregar intro corta pendiente de copy */}
-                  {t.paperIntro.split('\n\n')[0]}
+                  {t.paperIntro}
                 </p>
                 <a
                   href="/documents/Paper_Culture_as_Democratic_Infrastructure.pdf"
