@@ -64,7 +64,7 @@ export const Navbar = ({ language, onLanguageChange }: NavbarProps) => {
                     : 'text-ink/30 hover:text-ink/60'
                 }`}
               >
-                {lang.toUpperCase()}
+                {lang === 'ca' ? 'CAT' : lang.toUpperCase()}
               </button>
             ))}
             <button
