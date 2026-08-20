@@ -1,14 +1,5 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "trailingSlash": false,
-  "routes": [
-    { "src": "/images/(.*)", "dest": "/images/$1" },
-    { "src": "/documents/(.*)", "dest": "/documents/$1" },
-    { "src": "/favicon.ico", "dest": "/favicon.ico" },
-    { "src": "/favicon.svg", "dest": "/favicon.svg" },
-    { "src": "/apple-touch-icon.png", "dest": "/apple-touch-icon.png" },
-    { "src": "/(.*)", "dest": "/index.html" }
-  ],
-  "env": {}
+  "rewrites": [
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
 }
