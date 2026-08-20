@@ -134,9 +134,58 @@ const projectContent: Record<string, Record<Language, { bullets: string[]; descr
 };
 
 const uiLabels = {
-  es: { eyebrow: 'REPERTORIO', title: 'Proyectos destacados', filters: 'Filtrar por sector', all: 'Todos', details: 'Ver detalles', visit: 'Visitar sitio del proyecto →', close: 'Cerrar' },
-  en: { eyebrow: 'REPERTOIRE', title: 'Featured projects', filters: 'Filter by sector', all: 'All', details: 'View details', visit: 'Visit project site →', close: 'Close' },
-  ca: { eyebrow: 'REPERTORI', title: 'Projectes destacats', filters: 'Filtrar per sector', all: 'Tots', details: 'Veure detalls', visit: 'Visitar lloc del projecte →', close: 'Tancar' },
+  es: { eyebrow: 'REPERTORIO', title: 'Proyectos destacados', filters: 'Filtrar por sector', all: 'Todos', details: 'Ver detalles', visit: 'Visitar sitio del proyecto →', close: 'Cerrar', partners: 'Con el apoyo de:' },
+  en: { eyebrow: 'REPERTOIRE', title: 'Featured projects', filters: 'Filter by sector', all: 'All', details: 'View details', visit: 'Visit project site →', close: 'Close', partners: 'With support from:' },
+  ca: { eyebrow: 'REPERTORI', title: 'Projectes destacats', filters: 'Filtrar per sector', all: 'Tots', details: 'Veure detalls', visit: 'Visitar lloc del projecte →', close: 'Tancar', partners: 'Amb el suport de:' },
+};
+
+const partnerLogos: Record<string, string[]> = {
+  rassif: ['ajuntament-barcelona.jpg', 'casal-dels-infants.png', 'eu-co-funded.jpg', 'la-xixa.png'],
+  smash: ['centro-sviluppo-creativo-danilo-dolci.png', 'eu-co-funded.jpg', 'la-xixa.png', 'panevezio-teatras.png', 'respectzone.png', 'the-critical.png', 'xamfra.png'],
+  miretage: ['eu-co-funded.jpg', 'frh.png', 'ku-leuven-y-kadoc-COMBINADO.png', 'la-xixa.png', 'moslim-archief.png', 'mozaika.png', 'storytelling-centre.png', 'uab.png', 'university-of-groningen.png'],
+  'beyond-gender': ['acathi.png', 'ajuntament-barcelona.jpg', 'brulantes.png', 'diputacio-barcelona.png', 'elan-interculturel.png', 'eu-co-funded.jpg', 'generalitat-departament-igualtat.jpg', 'la-xixa.png'],
+  reignite: ['bicc-sandanski.png', 'elan-interculturel.png', 'eseniors.png', 'eu-co-funded.jpg', 'fundacja-zdrowia-i-rozwoju-czlowieka.jpg', 'inova-aspire.png', 'la-xixa.png'],
+  'edi-go': ['adice.png', 'centro-sviluppo-creativo-danilo-dolci.png', 'eu-co-funded.jpg', 'forum-for-freedom-in-education.png', 'humananova.png', 'kmop.png', 'la-xixa.png'],
+  empatheatry: ['drustvo-impro.png', 'eu-co-funded.jpg', 'la-xixa.png', 're-dial.png', 'step-institute.png', 'toekomst-atelier-de-lavenir.png'],
+};
+
+const getPartnerAltText = (filename: string): string => {
+  const nameMap: Record<string, string> = {
+    'ajuntament-barcelona.jpg': 'Ajuntament de Barcelona',
+    'casal-dels-infants.png': 'Casal dels Infants',
+    'eu-co-funded.jpg': 'Co-funded by the European Union',
+    'la-xixa.png': 'La Xixa',
+    'centro-sviluppo-creativo-danilo-dolci.png': 'Centro Sviluppo Creativo Danilo Dolci',
+    'panevezio-teatras.png': 'Panevėžio teatras',
+    'respectzone.png': 'RespectZone',
+    'the-critical.png': 'The Critical',
+    'xamfra.png': 'Xamfrà',
+    'frh.png': 'FRH',
+    'ku-leuven-y-kadoc-COMBINADO.png': 'KU Leuven / KADOC',
+    'moslim-archief.png': 'Moslim Archief',
+    'mozaika.png': 'Mozaika',
+    'storytelling-centre.png': 'Storytelling Centre',
+    'uab.png': 'UAB',
+    'university-of-groningen.png': 'University of Groningen',
+    'acathi.png': 'ACATHI',
+    'brulantes.png': 'Brulantes',
+    'diputacio-barcelona.png': 'Diputació Barcelona',
+    'elan-interculturel.png': 'Élan Interculturel',
+    'generalitat-departament-igualtat.jpg': 'Generalitat de Catalunya - Departament d\'Igualtat',
+    'bicc-sandanski.png': 'BICC Sandanski',
+    'eseniors.png': 'eSeniors',
+    'fundacja-zdrowia-i-rozwoju-czlowieka.jpg': 'Fundacja Zdrowia i Rozwoju Człowieka',
+    'inova-aspire.png': 'Inova Aspire',
+    'adice.png': 'ADICE',
+    'forum-for-freedom-in-education.png': 'Forum for Freedom in Education',
+    'humananova.png': 'Humananova',
+    'kmop.png': 'KMOP',
+    'drustvo-impro.png': 'Društvo Impro',
+    're-dial.png': 'Re-Dial',
+    'step-institute.png': 'STEP Institute',
+    'toekomst-atelier-de-lavenir.png': 'Toekomst / Atelier de l\'Avenir',
+  };
+  return nameMap[filename] || filename;
 };
 
 export const Portfolio = ({ language }: PortfolioProps) => {
@@ -403,6 +452,23 @@ export const Portfolio = ({ language }: PortfolioProps) => {
               >
                 {labels.visit}
               </a>
+
+              {/* Partner logos section */}
+              <div className="mt-8 pt-6 border-t border-ink/5">
+                <p className="font-mono text-xs uppercase tracking-widest text-gray-warm mb-4">
+                  {labels.partners}
+                </p>
+                <div className="flex flex-wrap items-center gap-6">
+                  {partnerLogos[selectedProject.id]?.map((logo) => (
+                    <img
+                      key={logo}
+                      src={`/images/partners/${selectedProject.id}/${logo}`}
+                      alt={getPartnerAltText(logo)}
+                      className="h-10 w-auto object-contain opacity-100 transition-opacity duration-200 hover:opacity-85"
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>

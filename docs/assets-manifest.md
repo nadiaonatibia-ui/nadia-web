@@ -7,20 +7,19 @@ Regla de nombres: kebab-case, sin tildes, sin espacios.
 ## Logos de partners por proyecto (van DENTRO del modal de cada proyecto en Portfolio)
 
 Ruta base: public/images/partners/[proyecto]/
+El logo `eu-co-funded.jpg` aparece en todos los proyectos (cofinanciación UE).
 
-| proyecto | archivo | ruta final |
-|----------|---------|------------|
-| rassif   | PENDIENTE | public/images/partners/rassif/PENDIENTE.png |
-| smash    | PENDIENTE | public/images/partners/smash/PENDIENTE.png |
-| miretage | PENDIENTE | public/images/partners/miretage/PENDIENTE.png |
-| beyond-gender | PENDIENTE | public/images/partners/beyond-gender/PENDIENTE.png |
-| reignite | PENDIENTE | public/images/partners/reignite/PENDIENTE.png |
-| edi-go   | PENDIENTE | public/images/partners/edi-go/PENDIENTE.png |
-| empatheatry | PENDIENTE | public/images/partners/empatheatry/PENDIENTE.png |
+| proyecto | logos |
+|----------|-------|
+| **rassif** | ajuntament-barcelona.jpg, casal-dels-infants.png, eu-co-funded.jpg, la-xixa.png |
+| **smash** | centro-sviluppo-creativo-danilo-dolci.png, eu-co-funded.jpg, la-xixa.png, panevezio-teatras.png, respectzone.png, the-critical.png, xamfra.png |
+| **miretage** | eu-co-funded.jpg, frh.png, ku-leuven-y-kadoc-COMBINADO.png, la-xixa.png, moslim-archief.png, mozaika.png, storytelling-centre.png, uab.png, university-of-groningen.png |
+| **beyond-gender** | acathi.png, ajuntament-barcelona.jpg, brulantes.png, diputacio-barcelona.png, elan-interculturel.png, eu-co-funded.jpg, generalitat-departament-igualtat.jpg, la-xixa.png |
+| **reignite** | bicc-sandanski.png, elan-interculturel.png, eseniors.png, eu-co-funded.jpg, fundacja-zdrowia-i-rozwoju-czlowieka.jpg, inova-aspire.png, la-xixa.png |
+| **edi-go** | adice.png, centro-sviluppo-creativo-danilo-dolci.png, eu-co-funded.jpg, forum-for-freedom-in-education.png, humananova.png, kmop.png, la-xixa.png |
+| **empatheatry** | drustvo-impro.png, eu-co-funded.jpg, la-xixa.png, re-dial.png, step-institute.png, toekomst-atelier-de-lavenir.png |
 
-NOTA: los archivos reales ya fueron organizados en un zip por proyecto. Rodrigo/Nadia
-los copian a las rutas de arriba; Code solo escribe el JSX apuntando a esas rutas
-exactas, sin explorar carpetas ni adivinar nombres.
+GENERICOS (public/images/partners/_genericos/): casal-dels-infants-variante-color.png, eu-co-funded.jpg
 
 ## Logos de proyecto (portada de cada card en Portfolio)
 Ruta base: public/images/projects/
