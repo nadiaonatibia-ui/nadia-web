@@ -279,7 +279,7 @@ const cvData: Record<Language, CVData> = {
     skills: [
       'Trello', 'Asana', 'Monday.com', 'Tablero Kanban', 'Slack',
       'Canva', 'Doodly', 'Filmora', 'Capcut',
-      'Google Workspace', 'Microsoft Office',
+      'Google Workspace', 'Microsoft Office', 'Happyscribe', 'IA',
     ],
     expertise: [
       {
@@ -526,7 +526,7 @@ const cvData: Record<Language, CVData> = {
     skills: [
       'Trello', 'Asana', 'Monday.com', 'Tablero Kanban', 'Slack',
       'Canva', 'Doodly', 'Filmora', 'Capcut',
-      'Google Workspace', 'Microsoft Office',
+      'Google Workspace', 'Microsoft Office', 'Happyscribe', 'AI',
     ],
     expertise: [
       {
@@ -770,7 +770,7 @@ const cvData: Record<Language, CVData> = {
     skills: [
       'Trello', 'Asana', 'Monday.com', 'Tablero Kanban', 'Slack',
       'Canva', 'Doodly', 'Filmora', 'Capcut',
-      'Google Workspace', 'Microsoft Office',
+      'Google Workspace', 'Microsoft Office', 'Happyscribe', 'IA',
     ],
     expertise: [
       {
