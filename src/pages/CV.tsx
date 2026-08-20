@@ -872,7 +872,7 @@ export const CV = ({ language }: CVProps) => {
               <span>·</span>
               <a href="#expertise" className="hover:text-vino transition-colors">Áreas de Expertise</a>
             </nav>
-            <a href="/documents/CV_Nadia_Onatibia.pdf" className="font-mono text-sm text-rojo no-underline whitespace-nowrap hover:text-vino hover:underline transition-colors" style={{ letterSpacing: '0.02em' }}>
+            <a href={`/documents/CV_Nadia_Onatibia_${language.toUpperCase()}.pdf`} className="font-mono text-sm text-rojo no-underline whitespace-nowrap hover:text-vino hover:underline transition-colors" style={{ letterSpacing: '0.02em' }}>
               {d.download}
             </a>
           </div>
