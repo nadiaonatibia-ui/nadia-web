@@ -2,14 +2,13 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "trailingSlash": false,
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/images/(.*)", "destination": "/images/$1" },
-    { "source": "/documents/(.*)", "destination": "/documents/$1" },
-    { "source": "/favicon.ico", "destination": "/favicon.ico" },
-    { "source": "/favicon.svg", "destination": "/favicon.svg" },
-    { "source": "/apple-touch-icon.png", "destination": "/apple-touch-icon.png" },
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "src": "/images/(.*)", "dest": "/images/$1" },
+    { "src": "/documents/(.*)", "dest": "/documents/$1" },
+    { "src": "/favicon.ico", "dest": "/favicon.ico" },
+    { "src": "/favicon.svg", "dest": "/favicon.svg" },
+    { "src": "/apple-touch-icon.png", "dest": "/apple-touch-icon.png" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ],
   "env": {}
 }
