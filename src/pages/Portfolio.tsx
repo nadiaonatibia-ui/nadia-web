@@ -460,12 +460,13 @@ export const Portfolio = ({ language }: PortfolioProps) => {
                 </p>
                 <div className="flex flex-wrap items-center gap-6">
                   {partnerLogos[selectedProject.id]?.map((logo) => (
-                    <img
-                      key={logo}
-                      src={`/images/partners/${selectedProject.id}/${logo}`}
-                      alt={getPartnerAltText(logo)}
-                      className="h-10 w-auto object-contain opacity-100 transition-opacity duration-200 hover:opacity-85"
-                    />
+                    <div key={logo} className="h-10 max-w-[110px] flex items-center justify-center">
+                      <img
+                        src={`/images/partners/${selectedProject.id}/${logo}`}
+                        alt={getPartnerAltText(logo)}
+                        className="h-full w-full object-contain opacity-100 transition-opacity duration-200 hover:opacity-85"
+                      />
+                    </div>
                   ))}
                 </div>
               </div>
