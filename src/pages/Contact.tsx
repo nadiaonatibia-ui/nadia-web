@@ -86,6 +86,12 @@ export const Contact = ({ language }: ContactProps) => {
       setFormData({ name: '', email: '', message: '' });
       setConsent(false);
       setTimeout(() => setSubmitted(false), 5000);
+
+      // Send notification email (fire-and-forget, don't block user feedback)
+      supabase.functions.invoke('send-contact-email', { body: formData })
+        .catch((err) => {
+          console.warn('Email notification failed (non-critical):', err);
+        });
     } catch (err) {
       setError(t.errorMessage);
       console.error('Error:', err);
