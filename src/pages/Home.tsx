@@ -96,7 +96,7 @@ const content = {
     manifiestoParagraphs: [
       'Creo en los proyectos que abren espacios para que más personas se reconozcan como productoras de sentido, con voz propia para contar su historia y ocupar un lugar en la conversación pública.',
       'Ahí encuentro mi lugar: diseño proyectos, coordino equipos y consigo los recursos para que una idea llegue a existir sin perder su sentido en el camino.',
-      'Gestionar un proyecto cultural y subirme a un escenario nunca fueron oficios distintos: son dos formas de construir las condiciones para que algo significativo ocurra.',
+      'Gestionar un proyecto cultural y sostener un proceso creativo colectivo nunca fueron oficios distintos: son dos formas de construir las condiciones para que algo significativo ocurra.',
     ],
     rolesEyebrow: 'CAMBIO DE ESCENA',
     rolesTitle: 'Tres registros, un mismo oficio',
@@ -139,7 +139,7 @@ const content = {
     manifiestoParagraphs: [
       'I believe in projects that open spaces for more people to recognise themselves as producers of meaning, with a voice of their own to tell their story and take part in public conversation.',
       "That's where I find my place: I design projects, coordinate teams and secure the resources for an idea to come into being without losing its meaning along the way.",
-      'Managing a cultural project and stepping onto a stage were never two different trades: they are two ways of building the conditions for something meaningful to happen.',
+      'Managing a cultural project and sustaining a collective creative process were never two different trades: they are two ways of building the conditions for something meaningful to happen.',
     ],
     rolesEyebrow: 'SCENE CHANGE',
     rolesTitle: 'Three registers, one craft',
@@ -182,7 +182,7 @@ const content = {
     manifiestoParagraphs: [
       "Crec en els projectes que obren espais perquè més persones es reconeguin com a productores de sentit, amb veu pròpia per explicar la seva història i ocupar un lloc a la conversa pública.",
       "Aquí trobo el meu lloc: dissenyo projectes, coordino equips i aconsegueixo els recursos perquè una idea arribi a existir sense perdre el seu sentit pel camí.",
-      "Gestionar un projecte cultural i pujar a un escenari mai van ser oficis diferents: són dues maneres de construir les condicions perquè alguna cosa significativa passi.",
+      "Gestionar un projecte cultural i sostenir un procés creatiu col·lectiu mai van ser oficis diferents: són dues maneres de construir les condicions perquè alguna cosa significativa passi.",
     ],
     rolesEyebrow: "CANVI D'ESCENA",
     rolesTitle: 'Tres registres, un mateix ofici',
