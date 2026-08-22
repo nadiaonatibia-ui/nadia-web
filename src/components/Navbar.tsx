@@ -77,7 +77,7 @@ export const Navbar = ({ language, onLanguageChange }: NavbarProps) => {
         </div>
 
         {mobileOpen && (
-          <div className="md:hidden pb-4 flex flex-col gap-3">
+          <div className="md:hidden pb-4 px-6 flex flex-col gap-4">
             {items.map((item) => (
               <Link
                 key={item.href}
