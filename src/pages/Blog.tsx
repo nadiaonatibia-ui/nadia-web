@@ -106,7 +106,7 @@ const getSlideUrl = (id: string, n: number) => `/images/reflexiones/${id}-slide-
 
 const uiLabels = {
   es: {
-    eyebrow: 'HOJA APARTE',
+    eyebrow: '(HOJA APARTE)',
     title: 'Papers y reflexiones',
     intro: 'De tanto en tanto me tomo el tiempo de profundizar algunas reflexiones sobre cultura, gestión y participación que van decantando de mi práctica. Son ideas que maduran entre proyecto y proyecto, hasta que siento que están listas para poner en palabras y compartir. Acá publico algunas de ellas:',
     paperDate: 'Febrero 2026 · Barcelona',
@@ -121,7 +121,7 @@ const uiLabels = {
     author: 'Por Nadia Oñatibia',
   },
   en: {
-    eyebrow: 'LOOSE PAGE',
+    eyebrow: '(LOOSE PAGE)',
     title: 'Papers & reflections',
     intro: 'From time to time I take the space to deepen some reflections on culture, management and participation that emerge from my practice. These are ideas that mature between one project and another, until I feel they are ready to put into words and share. Here I publish some of them:',
     paperDate: 'February 2026 · Barcelona',
@@ -136,7 +136,7 @@ const uiLabels = {
     author: 'By Nadia Oñatibia',
   },
   ca: {
-    eyebrow: 'FULL A PART',
+    eyebrow: '(FULL A PART)',
     title: 'Papers i reflexions',
     intro: 'De tant en tant em pren el temps de profunditzar algunes reflexions sobre cultura, gestió i participació que van decantant de la meva pràctica. Són idees que maduren entre projecte i projecte, fins que sento que estan listes per posar en paraules i compartir. Aquí publico algunes d\'elles:',
     paperDate: 'Febrer 2026 · Barcelona',

@@ -134,9 +134,9 @@ const projectContent: Record<string, Record<Language, { bullets: string[]; descr
 };
 
 const uiLabels = {
-  es: { eyebrow: 'REPERTORIO', title: 'Proyectos destacados', filters: 'Filtrar por sector', all: 'Todos', details: 'Ver detalles', visit: 'Visitar sitio del proyecto →', close: 'Cerrar', partners: 'Con el apoyo de:' },
-  en: { eyebrow: 'REPERTOIRE', title: 'Featured projects', filters: 'Filter by sector', all: 'All', details: 'View details', visit: 'Visit project site →', close: 'Close', partners: 'With support from:' },
-  ca: { eyebrow: 'REPERTORI', title: 'Projectes destacats', filters: 'Filtrar per sector', all: 'Tots', details: 'Veure detalls', visit: 'Visitar lloc del projecte →', close: 'Tancar', partners: 'Amb el suport de:' },
+  es: { eyebrow: '(REPERTORIO)', title: 'Proyectos destacados', filters: 'Filtrar por sector', all: 'Todos', details: 'Ver detalles', visit: 'Visitar sitio del proyecto →', close: 'Cerrar', partners: 'Con el apoyo de:' },
+  en: { eyebrow: '(REPERTOIRE)', title: 'Featured projects', filters: 'Filter by sector', all: 'All', details: 'View details', visit: 'Visit project site →', close: 'Close', partners: 'With support from:' },
+  ca: { eyebrow: '(REPERTORI)', title: 'Projectes destacats', filters: 'Filtrar per sector', all: 'Tots', details: 'Veure detalls', visit: 'Visitar lloc del projecte →', close: 'Tancar', partners: 'Amb el suport de:' },
 };
 
 const partnerLogos: Record<string, string[]> = {

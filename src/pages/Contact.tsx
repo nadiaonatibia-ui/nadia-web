@@ -15,7 +15,7 @@ export const Contact = ({ language }: ContactProps) => {
 
   const labels = {
     es: {
-      eyebrow: 'TELÓN FINAL',
+      eyebrow: '(TELÓN FINAL)',
       heading: 'Hablemos',
       intro: 'Disponible para proyectos de gestión cultural, facilitación de procesos participativos y producción de eventos, en Barcelona o en remoto.',
       name: 'Nombre',
@@ -33,7 +33,7 @@ export const Contact = ({ language }: ContactProps) => {
       consentLink: 'Política de Privacidad',
     },
     en: {
-      eyebrow: 'FINAL CURTAIN',
+      eyebrow: '(FINAL CURTAIN)',
       heading: "Let's talk",
       intro: 'Available for cultural management projects, facilitation of participatory processes and event production, in Barcelona or remotely.',
       name: 'Name',
@@ -51,7 +51,7 @@ export const Contact = ({ language }: ContactProps) => {
       consentLink: 'Privacy Policy',
     },
     ca: {
-      eyebrow: 'TELÓ FINAL',
+      eyebrow: '(TELÓ FINAL)',
       heading: 'Parlem',
       intro: "Disponible per a projectes de gestió cultural, facilitació de processos participatius i producció d'esdeveniments, a Barcelona o en remot.",
       name: 'Nom',

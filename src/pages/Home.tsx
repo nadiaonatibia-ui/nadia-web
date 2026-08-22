@@ -87,10 +87,10 @@ function TypewriterParagraph({ text, delay }: { text: string; delay: number }) {
 
 const content = {
   es: {
-    heroEyebrow: 'SE ABRE EL TELÓN',
+    heroEyebrow: '(SE ABRE EL TELÓN)',
     heroTagline: 'Gestión cultural · Facilitación arts-based · Producción',
     heroLocation: 'Barcelona — Buenos Aires',
-    manifiestoEyebrow: 'MONÓLOGO',
+    manifiestoEyebrow: '(MONÓLOGO)',
     manifiestoTitle: 'Cultura como infraestructura democrática',
     manifiestoLead: 'Trabajo con la convicción de que la cultura no es solo un sector: es infraestructura democrática.',
     manifiestoParagraphs: [
@@ -98,7 +98,7 @@ const content = {
       'Ahí encuentro mi lugar: diseño proyectos, coordino equipos y consigo los recursos para que una idea llegue a existir sin perder su sentido en el camino.',
       'Gestionar un proyecto cultural y sostener un proceso creativo colectivo nunca fueron oficios distintos: son dos formas de construir las condiciones para que algo significativo ocurra.',
     ],
-    rolesEyebrow: 'CAMBIO DE ESCENA',
+    rolesEyebrow: '(CAMBIO DE ESCENA)',
     rolesTitle: 'Tres registros, un mismo oficio',
     roles: [
       {
@@ -130,10 +130,10 @@ const content = {
     ctaContact: 'Contactar',
   },
   en: {
-    heroEyebrow: 'CURTAIN UP',
+    heroEyebrow: '(CURTAIN UP)',
     heroTagline: 'Cultural management · Arts-based facilitation · Production',
     heroLocation: 'Barcelona — Buenos Aires',
-    manifiestoEyebrow: 'MONOLOGUE',
+    manifiestoEyebrow: '(MONOLOGUE)',
     manifiestoTitle: 'Culture as democratic infrastructure',
     manifiestoLead: 'I work with the conviction that culture is not just a sector: it is democratic infrastructure.',
     manifiestoParagraphs: [
@@ -141,7 +141,7 @@ const content = {
       "That's where I find my place: I design projects, coordinate teams and secure the resources for an idea to come into being without losing its meaning along the way.",
       'Managing a cultural project and sustaining a collective creative process were never two different trades: they are two ways of building the conditions for something meaningful to happen.',
     ],
-    rolesEyebrow: 'SCENE CHANGE',
+    rolesEyebrow: '(SCENE CHANGE)',
     rolesTitle: 'Three registers, one craft',
     roles: [
       {
@@ -173,10 +173,10 @@ const content = {
     ctaContact: 'Get in touch',
   },
   ca: {
-    heroEyebrow: "S'OBRE EL TELÓ",
+    heroEyebrow: "(S'OBRE EL TELÓ)",
     heroTagline: "Gestió cultural · Facilitació arts-based · Producció",
     heroLocation: 'Barcelona — Buenos Aires',
-    manifiestoEyebrow: 'MONÒLEG',
+    manifiestoEyebrow: '(MONÒLEG)',
     manifiestoTitle: "La cultura com a infraestructura democràtica",
     manifiestoLead: "Treballo amb la convicció que la cultura no és només un sector: és infraestructura democràtica.",
     manifiestoParagraphs: [
@@ -184,7 +184,7 @@ const content = {
       "Aquí trobo el meu lloc: dissenyo projectes, coordino equips i aconsegueixo els recursos perquè una idea arribi a existir sense perdre el seu sentit pel camí.",
       "Gestionar un projecte cultural i sostenir un procés creatiu col·lectiu mai van ser oficis diferents: són dues maneres de construir les condicions perquè alguna cosa significativa passi.",
     ],
-    rolesEyebrow: "CANVI D'ESCENA",
+    rolesEyebrow: "(CANVI D'ESCENA)",
     rolesTitle: 'Tres registres, un mateix ofici',
     roles: [
       {
