@@ -248,7 +248,6 @@ const cvData: Record<Language, CVData> = {
       {
         organization: 'FETI — Festival Efímero de Teatro Independiente',
         location: 'Buenos Aires, Argentina',
-        url: 'https://www.instagram.com/fetiteatro/',
         position: 'Productora y Curadora',
         years: '2013–2017',
         description: 'Producción y curaduría de un festival internacional de teatro independiente, a lo largo de tres ediciones.',
