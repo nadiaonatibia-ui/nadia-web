@@ -308,7 +308,6 @@ export const Blog = ({ language }: BlogProps) => {
               </div>
             </div>
           </div>
-          </div>
         </div>
       </section>
 
