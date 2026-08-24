@@ -108,7 +108,7 @@ const uiLabels = {
   es: {
     eyebrow: '(HOJA APARTE)',
     title: 'Notas de campo y reflexiones',
-    intro: 'De tanto en tanto me tomo el tiempo de profundizar algunas reflexiones sobre cultura, gestión y participación que van decantando de mi práctica. Son ideas que maduran entre proyecto y proyecto, hasta que siento que están listas para poner en palabras y compartir. Acá publico algunas de ellas:',
+    intro: 'De tanto en tanto me tomo el tiempo de profundizar algunos pensamientos sobre cultura, gestión y participación que van decantando de mi práctica. Son ideas que maduran entre proyecto y proyecto, hasta que siento que están listas para poner en palabras y compartir. Acá publico algunas de ellas:',
     notasTitle: 'Notas de Campo',
     paperDate: 'Febrero 2026 · Barcelona',
     paperTitle: 'CULTURA COMO INFRAESTRUCTURA DEMOCRÁTICA',
