@@ -114,7 +114,7 @@ const uiLabels = {
     paperTitle: 'CULTURA COMO INFRAESTRUCTURA DEMOCRÁTICA',
     paperSubtitle: '"Práctica participativa y cultura como derecho público"',
     paperIntro: 'Cuatro procesos culturales —migración, discurso de odio, memoria religiosa, conflicto generacional— y una misma pregunta de fondo: qué rol cumple la cultura cuando la sociedad no encuentra dónde alojar el desacuerdo.',
-    readPaper: 'Leer la nota completa (PDF, inglés) →',
+    readPaper: 'Leer la nota completa →',
     reflexionesTitle: 'Reflexiones',
     slides: 'slides',
     close: 'Cerrar',
@@ -130,7 +130,7 @@ const uiLabels = {
     paperTitle: 'CULTURE AS DEMOCRATIC INFRASTRUCTURE',
     paperSubtitle: '"Participatory Practice and Culture as a Public Right"',
     paperIntro: "Four cultural processes—migration, hate speech, religious memory, generational conflict—and the same underlying question: what role does culture play when society finds no place to harbor disagreement.",
-    readPaper: 'Read the complete note (PDF) →',
+    readPaper: 'Read the complete note →',
     reflexionesTitle: 'Reflections',
     slides: 'slides',
     close: 'Close',
@@ -146,7 +146,7 @@ const uiLabels = {
     paperTitle: 'LA CULTURA COM A INFRAESTRUCTURA DEMOCRÀTICA',
     paperSubtitle: '"Pràctica participativa i cultura com a dret públic"',
     paperIntro: "Quatre processos culturals —migració, discurs d'odi, memòria religiosa, conflicte generacional— i una mateixa pregunta de fons: quin rol cumpleix la cultura quan la societat no troba on allotjar el desacord.",
-    readPaper: 'Llegir la nota completa (PDF, anglès) →',
+    readPaper: 'Llegir la nota completa →',
     reflexionesTitle: 'Reflexions',
     slides: 'diapositives',
     close: 'Tancar',
@@ -298,7 +298,7 @@ export const Blog = ({ language }: BlogProps) => {
                   {t.paperIntro}
                 </p>
                 <a
-                  href="/documents/Paper_Culture_as_Democratic_Infrastructure.pdf"
+                  href={`/documents/Nota_Campo_Cultura_Democratica_${language === 'es' ? 'ES' : language === 'en' ? 'EN' : 'CAT'}.pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="paper-link"
