@@ -860,18 +860,30 @@ export const CV = ({ language }: CVProps) => {
       <div className="section-padding">
         <div className="container-wide max-w-4xl mx-auto">
 
+          {/* Contact Info */}
+          <div className="flex justify-center gap-2 font-mono text-xs text-gray-warm mb-8 flex-wrap">
+            <a href="mailto:nadiaonatibia@gmail.com" className="hover:text-vino transition-colors">nadiaonatibia@gmail.com</a>
+            <span>·</span>
+            <span>Poblenou, Barcelona</span>
+            <span>·</span>
+            <a href="https://linkedin.com/in/nadiaoñatibia" target="_blank" rel="noopener noreferrer" className="hover:text-vino transition-colors">LinkedIn</a>
+            <span>·</span>
+            <span>{language === 'en' ? 'Website' : language === 'ca' ? 'Web' : 'Web'}:</span>
+            <a href="https://nadiaonatibia.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-vino transition-colors">nadiaonatibia.vercel.app</a>
+          </div>
+
           {/* Navigation Index + Download Link */}
           <div className="flex justify-between items-center flex-wrap gap-4 mb-12">
             <nav className="flex flex-wrap gap-2 font-mono text-sm text-gray-warm">
-              <a href="#experiencia" className="hover:text-vino transition-colors">Experiencia</a>
+              <a href="#experiencia" className="hover:text-vino transition-colors">{language === 'en' ? 'Experience' : language === 'ca' ? 'Experiència' : 'Experiencia'}</a>
               <span>·</span>
-              <a href="#formacion" className="hover:text-vino transition-colors">Formación</a>
+              <a href="#formacion" className="hover:text-vino transition-colors">{language === 'en' ? 'Education' : language === 'ca' ? 'Formació' : 'Formación'}</a>
               <span>·</span>
-              <a href="#idiomas" className="hover:text-vino transition-colors">Idiomas</a>
+              <a href="#idiomas" className="hover:text-vino transition-colors">{language === 'en' ? 'Languages' : language === 'ca' ? 'Idiomes' : 'Idiomas'}</a>
               <span>·</span>
-              <a href="#herramientas" className="hover:text-vino transition-colors">Herramientas</a>
+              <a href="#herramientas" className="hover:text-vino transition-colors">{language === 'en' ? 'Tools' : language === 'ca' ? 'Eines' : 'Herramientas'}</a>
               <span>·</span>
-              <a href="#expertise" className="hover:text-vino transition-colors">Áreas de Expertise</a>
+              <a href="#expertise" className="hover:text-vino transition-colors">{language === 'en' ? 'Expertise' : language === 'ca' ? 'Expertise' : 'Áreas de Expertise'}</a>
             </nav>
             <a href={`/documents/CV_Nadia_Onatibia_${language.toUpperCase()}.pdf`} className="font-mono text-sm text-rojo no-underline whitespace-nowrap hover:text-vino hover:underline transition-colors" style={{ letterSpacing: '0.02em' }}>
               {d.download}
