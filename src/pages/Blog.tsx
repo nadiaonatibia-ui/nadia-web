@@ -107,13 +107,14 @@ const getSlideUrl = (id: string, n: number) => `/images/reflexiones/${id}-slide-
 const uiLabels = {
   es: {
     eyebrow: '(HOJA APARTE)',
-    title: 'Papers y reflexiones',
+    title: 'Notas de campo y reflexiones',
     intro: 'De tanto en tanto me tomo el tiempo de profundizar algunas reflexiones sobre cultura, gestión y participación que van decantando de mi práctica. Son ideas que maduran entre proyecto y proyecto, hasta que siento que están listas para poner en palabras y compartir. Acá publico algunas de ellas:',
+    notasTitle: 'Notas de Campo',
     paperDate: 'Febrero 2026 · Barcelona',
     paperTitle: 'CULTURA COMO INFRAESTRUCTURA DEMOCRÁTICA',
     paperSubtitle: '"Práctica participativa y cultura como derecho público"',
     paperIntro: 'Cuatro procesos culturales —migración, discurso de odio, memoria religiosa, conflicto generacional— y una misma pregunta de fondo: qué rol cumple la cultura cuando la sociedad no encuentra dónde alojar el desacuerdo.',
-    readPaper: 'Leer el paper (PDF, inglés) →',
+    readPaper: 'Leer la nota completa (PDF, inglés) →',
     reflexionesTitle: 'Reflexiones',
     slides: 'slides',
     close: 'Cerrar',
@@ -122,13 +123,14 @@ const uiLabels = {
   },
   en: {
     eyebrow: '(LOOSE PAGE)',
-    title: 'Papers & reflections',
+    title: 'Field notes & reflections',
     intro: 'From time to time I take the space to deepen some reflections on culture, management and participation that emerge from my practice. These are ideas that mature between one project and another, until I feel they are ready to put into words and share. Here I publish some of them:',
+    notasTitle: 'Field Notes',
     paperDate: 'February 2026 · Barcelona',
     paperTitle: 'CULTURE AS DEMOCRATIC INFRASTRUCTURE',
     paperSubtitle: '"Participatory Practice and Culture as a Public Right"',
     paperIntro: "Four cultural processes—migration, hate speech, religious memory, generational conflict—and the same underlying question: what role does culture play when society finds no place to harbor disagreement.",
-    readPaper: 'Read the paper (PDF) →',
+    readPaper: 'Read the complete note (PDF) →',
     reflexionesTitle: 'Reflections',
     slides: 'slides',
     close: 'Close',
@@ -137,13 +139,14 @@ const uiLabels = {
   },
   ca: {
     eyebrow: '(FULL A PART)',
-    title: 'Papers i reflexions',
+    title: 'Notes de camp i reflexions',
     intro: 'De tant en tant em pren el temps de profunditzar algunes reflexions sobre cultura, gestió i participació que van decantant de la meva pràctica. Són idees que maduren entre projecte i projecte, fins que sento que estan listes per posar en paraules i compartir. Aquí publico algunes d\'elles:',
+    notasTitle: 'Notes de Camp',
     paperDate: 'Febrer 2026 · Barcelona',
-    paperTitle: 'CULTURE AS DEMOCRATIC INFRASTRUCTURE',
-    paperSubtitle: '"Participatory Practice and Culture as a Public Right"',
+    paperTitle: 'LA CULTURA COM A INFRAESTRUCTURA DEMOCRÀTICA',
+    paperSubtitle: '"Pràctica participativa i cultura com a dret públic"',
     paperIntro: "Quatre processos culturals —migració, discurs d'odi, memòria religiosa, conflicte generacional— i una mateixa pregunta de fons: quin rol cumpleix la cultura quan la societat no troba on allotjar el desacord.",
-    readPaper: 'Llegir el paper (PDF, anglès) →',
+    readPaper: 'Llegir la nota completa (PDF, anglès) →',
     reflexionesTitle: 'Reflexions',
     slides: 'diapositives',
     close: 'Tancar',
@@ -261,6 +264,7 @@ export const Blog = ({ language }: BlogProps) => {
       {/* Paper principal — colapsable */}
       <section className="pb-12 md:pb-16">
         <div className="container-wide max-w-3xl mx-auto">
+          <h2 className="text-2xl font-extrabold text-ink mb-6">{t.notasTitle}</h2>
           <div ref={paperRef} className="paper-entry" data-expanded={expandedPaper}>
             <button
               className="paper-header"
@@ -303,6 +307,7 @@ export const Blog = ({ language }: BlogProps) => {
                 </a>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </section>
