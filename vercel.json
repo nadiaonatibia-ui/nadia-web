@@ -1,3 +1,4 @@
 {
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "buildCommand": "npx puppeteer browsers install chrome && npm run build"
 }

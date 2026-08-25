@@ -8,11 +8,12 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.join(__dirname, '..');
 
 let previewProcess = null;
-let detectedPort = 4173;
+const PORT = 4173;
+const BASE_URL = `http://localhost:${PORT}`;
 
 function runCommand(command) {
   return new Promise((resolve, reject) => {
-    exec(command, { cwd: projectRoot, shell: true }, (error, stdout, stderr) => {
+    exec(command, { cwd: projectRoot }, (error, stdout, stderr) => {
       if (error) {
         reject(error);
       } else {
@@ -22,48 +23,56 @@ function runCommand(command) {
   });
 }
 
-function findAvailablePort() {
-  return new Promise((resolve) => {
-    // Try to find which port is actually listening
-    let foundPort = false;
+function waitForServerReady(maxRetries = 30, retryDelay = 1000) {
+  return new Promise((resolve, reject) => {
+    let attempts = 0;
 
-    const checkPort = (port) => {
-      exec(`netstat -ano | findstr :${port}`, { shell: true }, (error, stdout) => {
-        if (!error && stdout.includes('LISTENING')) {
-          detectedPort = port;
-          console.log(`[Build] Found preview server on port: ${port}`);
-          resolve();
-        } else if (port < 5000) {
-          // Try next port
-          checkPort(port + 1);
-        } else {
-          // Fallback to 4173
-          detectedPort = 4173;
-          console.log(`[Build] Using fallback port: 4173`);
-          resolve();
-        }
-      });
+    const checkServer = () => {
+      fetch(`${BASE_URL}/`)
+        .then((response) => {
+          if (response.ok) {
+            console.log(`[Build] Preview server ready at ${BASE_URL}`);
+            resolve();
+          } else {
+            throw new Error(`HTTP ${response.status}`);
+          }
+        })
+        .catch((error) => {
+          attempts++;
+          if (attempts >= maxRetries) {
+            reject(
+              new Error(
+                `Preview server did not become ready after ${maxRetries} attempts (${maxRetries * retryDelay}ms)`
+              )
+            );
+          } else {
+            setTimeout(checkServer, retryDelay);
+          }
+        });
     };
 
-    checkPort(4173);
+    checkServer();
   });
 }
 
 function startPreviewServer() {
   return new Promise((resolve, reject) => {
-    console.log('Starting preview server...');
-    previewProcess = spawn('npm', ['run', 'preview'], {
+    console.log(`Starting preview server on port ${PORT}...`);
+    previewProcess = spawn('npm', ['run', 'preview', '--', '--port', PORT.toString(), '--strictPort'], {
       cwd: projectRoot,
       stdio: 'inherit',
-      shell: true,
     });
 
     previewProcess.on('error', reject);
+    previewProcess.on('close', (code) => {
+      if (code !== 0) {
+        reject(new Error(`Preview server exited with code ${code}`));
+      }
+    });
 
-    // Give the server time to start, then find which port it's on
-    setTimeout(() => {
-      findAvailablePort().then(resolve).catch(reject);
-    }, 3000);
+    waitForServerReady()
+      .then(resolve)
+      .catch(reject);
   });
 }
 
@@ -91,12 +100,11 @@ async function main() {
     await startPreviewServer();
     console.log('✓ Preview server ready\n');
 
-    // Step 3: Run prerender with the detected port
+    // Step 3: Run prerender with the fixed port
     console.log('=== Step 3: Prerendering pages ===');
-    const prerenderer = spawn('node', ['scripts/prerender.js', detectedPort.toString()], {
+    const prerenderer = spawn('node', ['scripts/prerender.js', PORT.toString()], {
       cwd: projectRoot,
       stdio: 'inherit',
-      shell: true,
     });
 
     await new Promise((resolve, reject) => {
