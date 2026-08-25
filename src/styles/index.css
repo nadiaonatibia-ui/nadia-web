@@ -42,11 +42,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .eyebrow-mono {
   font-family: 'IBM Plex Mono', monospace;
-  color: var(--coral);
+  color: var(--rojo);
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-size: 0.8rem;
   font-weight: 500;
+}
+
+/* Override: keep coral for hero eyebrow on dark background */
+.hero-section .eyebrow-mono {
+  color: var(--coral);
 }
 
 .btn {

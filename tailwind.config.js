@@ -14,6 +14,9 @@ export default {
         rosa: "#F29CC3",
         hueso: "#F3EFC2",
         "gray-warm": "#6B6B6B",
+        "teal-text": "#317968",
+        "rosa-text": "#935C7C",
+        "coral-text": "#A75742",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],

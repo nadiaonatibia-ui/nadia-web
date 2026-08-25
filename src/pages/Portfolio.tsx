@@ -387,7 +387,7 @@ export const Portfolio = ({ language }: PortfolioProps) => {
                     <ul className="space-y-1.5 mb-4">
                       {pc.bullets.map((b) => (
                         <li key={b} className="text-sm text-gray-warm flex gap-2">
-                          <span className="text-coral mt-0.5">·</span>
+                          <span className="text-rojo mt-0.5">·</span>
                           {b}
                         </li>
                       ))}
@@ -436,7 +436,7 @@ export const Portfolio = ({ language }: PortfolioProps) => {
               <div className="space-y-1.5 mb-6">
                 {projectContent[selectedProject.id][language].bullets.map((b) => (
                   <p key={b} className="text-sm text-gray-warm flex gap-2">
-                    <span className="text-coral">·</span>
+                    <span className="text-rojo">·</span>
                     {b}
                   </p>
                 ))}

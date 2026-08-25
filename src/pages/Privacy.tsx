@@ -276,7 +276,7 @@ export const Privacy = ({ language }: PrivacyProps) => {
       <section className="py-20 bg-crudo-dark text-center">
         <div className="container-wide max-w-2xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-4">{s.title}</h1>
-          <p className="text-coral text-sm">{s.lastUpdated}</p>
+          <p className="text-rojo text-sm">{s.lastUpdated}</p>
         </div>
       </section>
 

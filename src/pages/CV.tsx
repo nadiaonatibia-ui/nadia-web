@@ -840,6 +840,23 @@ export const CV = ({ language }: CVProps) => {
     return 'var(--vino)';
   };
 
+  const getExpTextColor = (organization: string, position?: string): string => {
+    // Same logic as getExpColor but returns darkened variants for text contrast
+    if (position?.includes('Manager')) return '#317968'; // teal-text
+    if (position?.includes('Productora') || position?.includes('Curadora')) return '#A75742'; // coral-text
+    if (position?.includes('Coordinadora Pedagógica') || position?.includes('Docencia')) return '#935C7C'; // rosa-text
+    if (position?.includes('Profesora') || position?.includes('Profesor')) return '#935C7C'; // rosa-text
+
+    if (organization.includes('Xixa')) return '#317968'; // teal-text
+    if (organization.includes('Docencia')) return '#935C7C'; // rosa-text
+    if (organization.includes('Escuela')) return '#935C7C'; // rosa-text
+    if (organization.includes('Festival')) return '#A75742'; // coral-text
+    if (organization.includes('FETI')) return '#A75742'; // coral-text
+    if (organization.includes('Pompapetriyasos')) return '#935C7C'; // rosa-text
+
+    return 'var(--vino)';
+  };
+
   const toggleExp = (idx: number) => {
     setExpandedExp((prev) =>
       prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx]
@@ -908,7 +925,7 @@ export const CV = ({ language }: CVProps) => {
                             </a>
                           ) : exp.organization}
                         </h3>
-                        <p className="text-base font-medium mt-1" style={{ color: expColor }}>
+                        <p className="text-base font-medium mt-1" style={{ color: getExpTextColor(exp.organization, exp.position) }}>
                           {exp.position}
                         </p>
                         <p className="text-sm text-gray-warm mt-1">{exp.location}</p>
@@ -956,7 +973,7 @@ export const CV = ({ language }: CVProps) => {
                                   </div>
                                   <span className="text-xs font-semibold text-gray-warm whitespace-nowrap">{role.years}</span>
                                 </div>
-                                <p className="text-sm font-medium text-ink mb-2" style={{ color: expColor }}>
+                                <p className="text-sm font-medium text-ink mb-2" style={{ color: getExpTextColor(exp.organization, exp.position) }}>
                                   {role.role}
                                 </p>
                                 <ul className="list-disc pl-5 space-y-1">
@@ -1010,7 +1027,7 @@ export const CV = ({ language }: CVProps) => {
                     </p>
                     <p className="text-gray-warm mt-1">{edu.degree}</p>
                   </div>
-                  <span className="text-sm font-semibold text-coral whitespace-nowrap">{edu.year || edu.years}</span>
+                  <span className="text-sm font-semibold text-coral-text whitespace-nowrap">{edu.year || edu.years}</span>
                 </div>
               ))}
             </div>
