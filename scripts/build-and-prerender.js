@@ -81,7 +81,7 @@ async function main() {
   try {
     // Step 1: Build
     console.log('\n=== Step 1: Building ===');
-    await runCommand('npm run build');
+    await runCommand('npm run build:dev');
     console.log('✓ Build complete\n');
 
     // Step 2: Start preview server
