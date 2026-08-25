@@ -61,17 +61,17 @@ export const metadata: Record<string, Record<Language, PageMetadata>> = {
   cv: {
     es: {
       title: 'CV | Nadia Oñatibia — Trayectoria Profesional',
-      description: 'Experiencia en gestión de proyectos europeos, mediación cultural, facilitación participativa. Formación: FLACSO, CLACSO. Idiomas: 5. Herramientas: Figma, Notion, IA.',
+      description: 'Experiencia en gestión de proyectos europeos, mediación cultural, facilitación participativa. Formación: FLACSO, CLACSO. Idiomas: 3 (español, inglés, catalán). Herramientas: Trello, Asana, Monday.com, Slack, Google Workspace, Microsoft Office, IA.',
       ogImage: '/images/hero-headshot.jpg',
     },
     en: {
       title: 'CV | Nadia Oñatibia — Professional Background',
-      description: 'Experience in European project management, cultural mediation, participatory facilitation. Education: FLACSO, CLACSO. Languages: 5. Tools: Figma, Notion, AI.',
+      description: 'Experience in European project management, cultural mediation, participatory facilitation. Education: FLACSO, CLACSO. Languages: 3 (Spanish, English, Catalan). Tools: Trello, Asana, Monday.com, Slack, Google Workspace, Microsoft Office, AI.',
       ogImage: '/images/hero-headshot.jpg',
     },
     ca: {
       title: 'CV | Nadia Oñatibia — Trajectòria Professional',
-      description: 'Experiència en gestió de projectes europeus, mediació cultural, facilitació participativa. Formació: FLACSO, CLACSO. Idiomes: 5. Eines: Figma, Notion, IA.',
+      description: 'Experiència en gestió de projectes europeus, mediació cultural, facilitació participativa. Formació: FLACSO, CLACSO. Idiomes: 3 (castellà, anglès, català). Eines: Trello, Asana, Monday.com, Slack, Google Workspace, Microsoft Office, IA.',
       ogImage: '/images/hero-headshot.jpg',
     },
   },
