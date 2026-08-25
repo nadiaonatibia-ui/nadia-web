@@ -8,13 +8,13 @@ const __dirname = path.dirname(__filename);
 
 const routes = [
   { path: '/', filename: 'index.html' },
-  { path: '/portfolio', filename: 'portfolio.html' },
-  { path: '/blog', filename: 'blog.html' },
-  { path: '/cv', filename: 'cv.html' },
-  { path: '/contact', filename: 'contact.html' },
-  { path: '/privacy', filename: 'privacy.html' },
-  { path: '/cookies', filename: 'cookies.html' },
-  { path: '/legal', filename: 'legal.html' },
+  { path: '/portfolio', filename: 'portfolio/index.html' },
+  { path: '/blog', filename: 'blog/index.html' },
+  { path: '/cv', filename: 'cv/index.html' },
+  { path: '/contact', filename: 'contact/index.html' },
+  { path: '/privacy', filename: 'privacy/index.html' },
+  { path: '/cookies', filename: 'cookies/index.html' },
+  { path: '/legal', filename: 'legal/index.html' },
 ];
 
 const PORT = process.env.PREVIEW_PORT || 4173;
