@@ -298,13 +298,14 @@ export const Home = ({ language }: HomeProps) => {
             <h1 className="text-6xl lg:text-8xl font-extrabold text-white leading-none tracking-tight mb-6">
               NADIA<br />OÑATIBIA
             </h1>
-            <p className="text-lg lg:text-xl text-white/70 max-w-lg leading-relaxed">
+            <p className="text-lg lg:text-xl max-w-lg leading-relaxed">
               {t.heroTagline.split(' · ').map((part: string, i: number) => (
                 <span key={i}>
-                  {i > 0 && <span className="mx-1 opacity-50">·</span>}
+                  {i > 0 && <span className="mx-1" style={{ color: '#AB6C83' }}>·</span>}
                   <button
                     className={`tagline-btn tagline-segment tagline-segment--${i}`}
                     onClick={() => scrollToCard(i)}
+                    style={{ color: '#F5F0E8' }}
                   >
                     {part}
                   </button>
