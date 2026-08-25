@@ -912,8 +912,7 @@ export const CV = ({ language }: CVProps) => {
                 return (
                   <div
                     key={idx}
-                    className="border-l-4 transition-colors"
-                    style={{ borderLeftColor: expColor }}
+                    className="border-l-4 border-vino transition-colors"
                   >
                     <button
                       onClick={() => toggleExp(idx)}
@@ -928,7 +927,7 @@ export const CV = ({ language }: CVProps) => {
                             </a>
                           ) : exp.organization}
                         </h3>
-                        <p className="text-base font-medium mt-1" style={{ color: getExpTextColor(exp.organization, exp.position) }}>
+                        <p className="text-base font-medium mt-1 text-ink">
                           {exp.position}
                         </p>
                         <p className="text-sm text-gray-warm mt-1">{exp.location}</p>
@@ -976,7 +975,7 @@ export const CV = ({ language }: CVProps) => {
                                   </div>
                                   <span className="text-xs font-semibold text-gray-warm whitespace-nowrap">{role.years}</span>
                                 </div>
-                                <p className="text-sm font-medium text-ink mb-2" style={{ color: getExpTextColor(exp.organization, exp.position) }}>
+                                <p className="text-sm font-medium text-ink mb-2">
                                   {role.role}
                                 </p>
                                 <ul className="list-disc pl-5 space-y-1">
