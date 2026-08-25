@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import type { Language } from '../../types';
+import { PageHead } from '../components/PageHead';
 
 interface HomeProps {
   language: Language;
@@ -284,7 +285,9 @@ export const Home = ({ language }: HomeProps) => {
   }, []);
 
   return (
-    <main>
+    <>
+      <PageHead page="home" language={language} />
+      <main>
       {/* ===== HERO — DARK/CINEMATIC ===== */}
       <section className="hero-section relative bg-crudo-dark min-h-[85vh] flex overflow-hidden">
         {/* Background gradient */}
@@ -442,6 +445,7 @@ export const Home = ({ language }: HomeProps) => {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 };

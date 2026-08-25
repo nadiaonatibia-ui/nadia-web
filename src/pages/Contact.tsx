@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Language } from '../../types';
 import { supabase } from '../lib/supabase';
+import { PageHead } from '../components/PageHead';
 
 interface ContactProps {
   language: Language;
@@ -101,7 +102,9 @@ export const Contact = ({ language }: ContactProps) => {
   };
 
   return (
-    <main className="min-h-screen bg-crudo">
+    <>
+      <PageHead page="contact" language={language} />
+      <main className="min-h-screen bg-crudo">
       {/* Header section */}
       <section className="py-20 bg-crudo-dark text-center">
         <div className="container-wide max-w-2xl mx-auto">
@@ -208,6 +211,7 @@ export const Contact = ({ language }: ContactProps) => {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 };

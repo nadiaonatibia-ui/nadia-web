@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import type { Language } from '../../types';
 import type { BlogPost } from '../../types';
 import { supabase } from '../lib/supabase';
+import { PageHead } from '../components/PageHead';
 
 interface BlogProps {
   language: Language;
@@ -251,7 +252,9 @@ export const Blog = ({ language }: BlogProps) => {
     );
 
   return (
-    <main className="min-h-screen bg-crudo">
+    <>
+      <PageHead page="blog" language={language} />
+      <main className="min-h-screen bg-crudo">
       {/* Header */}
       <section className="pt-8 pb-8 md:pt-12 md:pb-8">
         <div className="container-wide max-w-3xl mx-auto">
@@ -443,6 +446,7 @@ export const Blog = ({ language }: BlogProps) => {
           </div>
         </div>
       )}
-    </main>
+      </main>
+    </>
   );
 };

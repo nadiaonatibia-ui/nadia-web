@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Language } from '../../types';
+import { PageHead } from '../components/PageHead';
 
 interface CVProps { language: Language; }
 
@@ -864,7 +865,9 @@ export const CV = ({ language }: CVProps) => {
   };
 
   return (
-    <main className="min-h-screen bg-crudo">
+    <>
+      <PageHead page="cv" language={language} />
+      <main className="min-h-screen bg-crudo">
       {/* Header */}
       <section className="py-20 bg-crudo-dark text-center">
         <div className="container-wide max-w-2xl mx-auto">
@@ -1089,6 +1092,7 @@ export const CV = ({ language }: CVProps) => {
           </div>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   );
 };

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import type { Language } from '../../types';
+import { PageHead } from '../components/PageHead';
 
 interface PortfolioProps {
   language: Language;
@@ -340,7 +341,9 @@ export const Portfolio = ({ language }: PortfolioProps) => {
 
 
   return (
-    <main className="min-h-screen pt-8 bg-crudo">
+    <>
+      <PageHead page="portfolio" language={language} />
+      <main className="min-h-screen pt-8 bg-crudo">
       <section className="pt-8 pb-4 md:pt-12 md:pb-6">
         <div className="container-wide">
           <p className="eyebrow-mono mb-4">{labels.eyebrow}</p>
@@ -474,6 +477,7 @@ export const Portfolio = ({ language }: PortfolioProps) => {
           </div>
         </div>
       )}
-    </main>
+      </main>
+    </>
   );
 };

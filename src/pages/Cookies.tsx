@@ -1,4 +1,5 @@
 import type { Language } from '../../types';
+import { PageHead } from '../components/PageHead';
 
 interface CookiesProps {
   language: Language;
@@ -263,7 +264,9 @@ export const Cookies = ({ language }: CookiesProps) => {
   const s = sections[language];
 
   return (
-    <main className="min-h-screen bg-crudo">
+    <>
+      <PageHead page="cookies" language={language} />
+      <main className="min-h-screen bg-crudo">
       <section className="py-20 bg-crudo-dark text-center">
         <div className="container-wide max-w-2xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-4">{s.title}</h1>
@@ -368,6 +371,7 @@ export const Cookies = ({ language }: CookiesProps) => {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 };
