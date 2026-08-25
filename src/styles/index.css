@@ -443,13 +443,13 @@ button[aria-expanded="false"] ~ div[style*="grid-template-rows"] {
 .tag-sector {
   transition: background-color 0.25s ease;
 }
-.carousel-track .project-card:hover .tag-sector--migracion { background-color: var(--coral) !important; }
-.carousel-track .project-card:hover .tag-sector--discurso-odio { background-color: var(--rojo) !important; }
-.carousel-track .project-card:hover .tag-sector--patrimonio { background-color: var(--teal) !important; }
-.carousel-track .project-card:hover .tag-sector--genero { background-color: var(--rosa) !important; }
+.carousel-track .project-card:hover .tag-sector--migracion { background-color: var(--vino) !important; }
+.carousel-track .project-card:hover .tag-sector--discurso-odio { background-color: var(--vino) !important; }
+.carousel-track .project-card:hover .tag-sector--patrimonio { background-color: var(--vino) !important; }
+.carousel-track .project-card:hover .tag-sector--genero { background-color: var(--vino) !important; }
 .carousel-track .project-card:hover .tag-sector--inclusion55 { background-color: var(--vino) !important; }
-.carousel-track .project-card:hover .tag-sector--edi { background-color: var(--vino-2) !important; }
-.carousel-track .project-card:hover .tag-sector--empatia { background-color: var(--coral) !important; }
+.carousel-track .project-card:hover .tag-sector--edi { background-color: var(--vino) !important; }
+.carousel-track .project-card:hover .tag-sector--empatia { background-color: var(--vino) !important; }
 
 /* Tablet: 2 cards + peek */
 @media (max-width: 1024px) {
