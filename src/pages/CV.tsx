@@ -841,23 +841,6 @@ export const CV = ({ language }: CVProps) => {
     return 'var(--vino)';
   };
 
-  const getExpTextColor = (organization: string, position?: string): string => {
-    // Same logic as getExpColor but returns darkened variants for text contrast
-    if (position?.includes('Manager')) return '#317968'; // teal-text
-    if (position?.includes('Productora') || position?.includes('Curadora')) return '#A75742'; // coral-text
-    if (position?.includes('Coordinadora Pedagógica') || position?.includes('Docencia')) return '#935C7C'; // rosa-text
-    if (position?.includes('Profesora') || position?.includes('Profesor')) return '#935C7C'; // rosa-text
-
-    if (organization.includes('Xixa')) return '#317968'; // teal-text
-    if (organization.includes('Docencia')) return '#935C7C'; // rosa-text
-    if (organization.includes('Escuela')) return '#935C7C'; // rosa-text
-    if (organization.includes('Festival')) return '#A75742'; // coral-text
-    if (organization.includes('FETI')) return '#A75742'; // coral-text
-    if (organization.includes('Pompapetriyasos')) return '#935C7C'; // rosa-text
-
-    return 'var(--vino)';
-  };
-
   const toggleExp = (idx: number) => {
     setExpandedExp((prev) =>
       prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx]
