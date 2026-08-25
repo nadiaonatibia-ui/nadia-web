@@ -17,7 +17,8 @@ const routes = [
   { path: '/legal', filename: 'legal/index.html' },
 ];
 
-const PORT = process.env.PREVIEW_PORT || 4173;
+// Read port from command line argument (passed by build-and-prerender.js)
+const PORT = parseInt(process.argv[2], 10) || 4173;
 const BASE_URL = `http://localhost:${PORT}`;
 
 (async () => {
