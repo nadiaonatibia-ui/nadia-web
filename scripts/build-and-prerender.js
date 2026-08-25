@@ -30,16 +30,21 @@ function startPreviewServer() {
     });
 
     let isReady = false;
+    let portNumber = 4173;
 
     previewProcess.stdout.on('data', (data) => {
       const output = data.toString();
       console.log('[Preview]', output.trim());
-      if (
-        !isReady &&
-        (output.includes('localhost') || output.includes('ready in'))
-      ) {
-        isReady = true;
-        setTimeout(() => resolve(), 1000);
+      if (!isReady) {
+        // Extract port from output like "http://localhost:4173"
+        const match = output.match(/http:\/\/localhost:(\d+)/);
+        if (match) {
+          portNumber = parseInt(match[1], 10);
+          process.env.PREVIEW_PORT = portNumber.toString();
+          console.log(`[Build] Detected port: ${portNumber}`);
+          isReady = true;
+          setTimeout(() => resolve(), 1000);
+        }
       }
     });
 
@@ -53,6 +58,7 @@ function startPreviewServer() {
     setTimeout(() => {
       if (!isReady) {
         isReady = true;
+        process.env.PREVIEW_PORT = '4173';
         resolve();
       }
     }, 5000);
@@ -85,7 +91,24 @@ async function main() {
 
     // Step 3: Run prerender
     console.log('=== Step 3: Prerendering pages ===');
-    await runCommand('node scripts/prerender.js');
+    // Run prerender in the same process to inherit environment
+    const prerenderer = spawn('node', ['scripts/prerender.js'], {
+      cwd: projectRoot,
+      stdio: 'inherit',
+      shell: true,
+      env: { ...process.env, PREVIEW_PORT: process.env.PREVIEW_PORT || '4173' },
+    });
+
+    await new Promise((resolve, reject) => {
+      prerenderer.on('close', (code) => {
+        if (code === 0) {
+          resolve();
+        } else {
+          reject(new Error(`Prerender failed with exit code ${code}`));
+        }
+      });
+      prerenderer.on('error', reject);
+    });
     console.log('✓ Prerender complete\n');
 
     // Step 4: Stop preview server
