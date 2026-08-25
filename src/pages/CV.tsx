@@ -1066,7 +1066,7 @@ export const CV = ({ language }: CVProps) => {
 
           {/* Download */}
           <div className="text-center">
-            <a href="/documents/CV_Nadia_Onatibia.pdf" target="_blank" rel="noopener noreferrer" className="btn bg-vino text-white hover:bg-vino-2 font-medium">
+            <a href={`/documents/CV_Nadia_Onatibia_${language.toUpperCase()}.pdf`} target="_blank" rel="noopener noreferrer" className="btn bg-vino text-white hover:bg-vino-2 font-medium">
               {d.download}
             </a>
           </div>
