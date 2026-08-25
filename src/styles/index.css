@@ -236,16 +236,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* MODAL — per-role accent colors */
-.modal-number { color: var(--coral); }
+.modal-number { color: #A75742; } /* coral-text for WCAG AA contrast */
 .modal-accent-bar {
   border-left: 3px solid var(--vino);
   padding-left: 1.5rem;
 }
-.modal-role--0 .modal-number { color: var(--teal); }
+.modal-role--0 .modal-number { color: #317968; } /* teal-text for WCAG AA contrast */
 .modal-role--0 .modal-accent-bar { border-color: var(--teal); }
-.modal-role--1 .modal-number { color: var(--rosa); }
+.modal-role--1 .modal-number { color: #935C7C; } /* rosa-text for WCAG AA contrast */
 .modal-role--1 .modal-accent-bar { border-color: var(--rosa); }
-.modal-role--2 .modal-number { color: var(--coral); }
+.modal-role--2 .modal-number { color: #A75742; } /* coral-text for WCAG AA contrast */
 .modal-role--2 .modal-accent-bar { border-color: var(--coral); }
 
 @keyframes fadeIn {
