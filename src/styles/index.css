@@ -130,9 +130,9 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
-.role-card-number--0 { color: var(--teal); }
-.role-card-number--1 { color: var(--rosa); }
-.role-card-number--2 { color: var(--coral); }
+.role-card-number--0 { color: #7A1440; }
+.role-card-number--1 { color: #7A1440; }
+.role-card-number--2 { color: #7A1440; }
 .role-card-title {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
@@ -144,12 +144,12 @@ h1, h2, h3, h4, h5, h6 {
   transition: color 0.3s ease;
 }
 .role-card:hover .role-card-title {
-  color: var(--card-color);
+  color: #fff;
 }
 .role-card-cta {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.75rem;
-  color: var(--teal);
+  color: #D2491F;
   letter-spacing: 0.1em;
   margin-top: 0.75rem;
   opacity: 0;
