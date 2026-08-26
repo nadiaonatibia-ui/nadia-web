@@ -235,18 +235,18 @@ h1, h2, h3, h4, h5, h6 {
   outline-offset: 2px;
 }
 
-/* MODAL — per-role accent colors */
-.modal-number { color: #A75742; } /* coral-text for WCAG AA contrast */
+/* MODAL — rojo accent color (unified) */
+.modal-number { color: #D2491F; } /* rojo for WCAG AA contrast */
 .modal-accent-bar {
-  border-left: 3px solid var(--vino);
+  border-left: 3px solid #D2491F;
   padding-left: 1.5rem;
 }
-.modal-role--0 .modal-number { color: #317968; } /* teal-text for WCAG AA contrast */
-.modal-role--0 .modal-accent-bar { border-color: var(--teal); }
-.modal-role--1 .modal-number { color: #935C7C; } /* rosa-text for WCAG AA contrast */
-.modal-role--1 .modal-accent-bar { border-color: var(--rosa); }
-.modal-role--2 .modal-number { color: #A75742; } /* coral-text for WCAG AA contrast */
-.modal-role--2 .modal-accent-bar { border-color: var(--coral); }
+.modal-role--0 .modal-number { color: #D2491F; }
+.modal-role--0 .modal-accent-bar { border-color: #D2491F; }
+.modal-role--1 .modal-number { color: #D2491F; }
+.modal-role--1 .modal-accent-bar { border-color: #D2491F; }
+.modal-role--2 .modal-number { color: #D2491F; }
+.modal-role--2 .modal-accent-bar { border-color: #D2491F; }
 
 @keyframes fadeIn {
   from { opacity: 0; }

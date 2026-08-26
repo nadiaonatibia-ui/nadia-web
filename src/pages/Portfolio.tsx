@@ -395,7 +395,7 @@ export const Portfolio = ({ language }: PortfolioProps) => {
                         </li>
                       ))}
                     </ul>
-                    <span className="text-sm font-medium text-vino group-hover:text-coral transition-colors">
+                    <span className="text-sm font-medium text-ink group-hover:text-vino transition-colors">
                       {labels.details} →
                     </span>
                   </div>

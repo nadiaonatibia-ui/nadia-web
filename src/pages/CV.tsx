@@ -823,20 +823,8 @@ export const CV = ({ language }: CVProps) => {
   const d = cvData[language];
   const [expandedExp, setExpandedExp] = useState<number[]>([]); // All collapsed by default
 
-  const getExpColor = (organization: string, position?: string): string => {
-    // Check position first (more specific)
-    if (position?.includes('Manager')) return 'var(--teal)'; // PM
-    if (position?.includes('Productora') || position?.includes('Curadora')) return 'var(--coral)'; // Productora
-    if (position?.includes('Coordinadora Pedagógica') || position?.includes('Docencia')) return 'var(--rosa)'; // Facilitadora
-    if (position?.includes('Profesora') || position?.includes('Profesor')) return 'var(--rosa)'; // Facilitadora
-
-    // Check organization (less specific)
-    if (organization.includes('Xixa')) return 'var(--teal)'; // PM
-    if (organization.includes('Docencia')) return 'var(--rosa)'; // Facilitadora
-    if (organization.includes('Escuela')) return 'var(--rosa)'; // Facilitadora
-    if (organization.includes('Festival')) return 'var(--coral)'; // Productora
-    if (organization.includes('FETI')) return 'var(--coral)'; // Productora
-    if (organization.includes('Pompapetriyasos')) return 'var(--rosa)'; // Default for teaching roles
+  const getExpColor = (): string => {
+    return '#7A1440'; // vino — acento único para CV
 
     return 'var(--vino)';
   };
@@ -856,7 +844,7 @@ export const CV = ({ language }: CVProps) => {
         <div className="container-wide max-w-2xl mx-auto">
           <p className="eyebrow-mono mb-4">{d.eyebrow}</p>
           <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-4">{d.title}</h1>
-          <p className="text-coral text-lg">Nadia Oñatibia</p>
+          <p className="text-ink text-lg">Nadia Oñatibia</p>
         </div>
       </section>
 
@@ -889,7 +877,7 @@ export const CV = ({ language }: CVProps) => {
 
             <div className="space-y-6">
               {d.experiences.map((exp, idx) => {
-                const expColor = getExpColor(exp.organization, exp.position);
+                const expColor = getExpColor();
                 const isExpanded = expandedExp.includes(idx);
 
                 return (
@@ -1012,7 +1000,7 @@ export const CV = ({ language }: CVProps) => {
                     </p>
                     <p className="text-gray-warm mt-1">{edu.degree}</p>
                   </div>
-                  <span className="text-sm font-semibold text-coral-text whitespace-nowrap">{edu.year || edu.years}</span>
+                  <span className="text-sm font-semibold text-gray-warm whitespace-nowrap">{edu.year || edu.years}</span>
                 </div>
               ))}
             </div>

@@ -113,7 +113,7 @@ export const Contact = ({ language }: ContactProps) => {
           <p className="text-white/60 text-lg mb-8 max-w-xl mx-auto">{t.intro}</p>
           <a
             href="mailto:nadiaonatibia@gmail.com"
-            className="block text-2xl md:text-3xl font-semibold text-coral hover:text-white transition-colors mb-4"
+            className="block text-2xl md:text-3xl font-semibold text-ink hover:text-vino transition-colors mb-4"
           >
             nadiaonatibia@gmail.com
           </a>

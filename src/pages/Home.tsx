@@ -220,7 +220,7 @@ const content = {
 };
 
 const cardIds = ['card-pm', 'card-facilitadora', 'card-productora'];
-const cardColors = ['var(--teal)', 'var(--rosa)', 'var(--coral)'];
+const cardColors = ['#D2491F', '#D2491F', '#D2491F'];
 let scrolling = false;
 
 const scrollToCard = (index: number) => {
