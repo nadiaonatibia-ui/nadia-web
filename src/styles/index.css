@@ -62,12 +62,12 @@ h1, h2, h3, h4, h5, h6 {
   outline-offset: 2px;
 }
 
-/* ROLE CARDS — photo-first grid */
+/* ROLE CARDS — photo-first grid, full-bleed, square edges */
 .role-card {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  border-radius: 0.75rem;
+  border-radius: 0;
   aspect-ratio: 16/10;
 }
 .role-card-photo {
@@ -125,7 +125,7 @@ h1, h2, h3, h4, h5, h6 {
 .role-card-number {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.75rem;
-  color: var(--coral);
+  color: var(--vino);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
