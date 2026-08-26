@@ -125,14 +125,14 @@ h1, h2, h3, h4, h5, h6 {
 .role-card-number {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.75rem;
-  color: var(--coral);
+  color: var(--vino);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
-.role-card-number--0 { color: var(--teal); }
-.role-card-number--1 { color: var(--rosa); }
-.role-card-number--2 { color: var(--coral); }
+.role-card-number--0 { color: var(--vino); }
+.role-card-number--1 { color: var(--vino); }
+.role-card-number--2 { color: var(--vino); }
 .role-card-title {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
@@ -141,10 +141,6 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   letter-spacing: 0.02em;
   line-height: 1.1;
-  transition: color 0.3s ease;
-}
-.role-card:hover .role-card-title {
-  color: var(--card-color);
 }
 .role-card-cta {
   font-family: 'IBM Plex Mono', monospace;
