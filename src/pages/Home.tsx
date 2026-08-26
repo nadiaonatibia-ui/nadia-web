@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { annotate } from 'rough-notation';
 import type { Language } from '../../types';
 import { PageHead } from '../components/PageHead';
 
@@ -246,6 +247,7 @@ export const Home = ({ language }: HomeProps) => {
   const t = content[language];
   const registrosRef = useRef<HTMLElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  const taglineNotationsRef = useRef<ReturnType<typeof annotate>[]>([]);
 
   useEffect(() => {
     if (selectedRole !== null) {
@@ -282,6 +284,42 @@ export const Home = ({ language }: HomeProps) => {
     );
     observer.observe(section);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const buttons = document.querySelectorAll('.tagline-segment');
+    const notations = [] as ReturnType<typeof annotate>[];
+    const handlers: Array<{ el: Element; enter: () => void; leave: () => void }> = [];
+
+    buttons.forEach(button => {
+      const notation = annotate(button as HTMLElement, {
+        type: 'circle',
+        color: '#D2491F',
+        animate: false,
+      });
+      notations.push(notation);
+
+      const handleMouseEnter = () => notation.show();
+      const handleMouseLeave = () => notation.hide();
+
+      button.addEventListener('mouseenter', handleMouseEnter);
+      button.addEventListener('mouseleave', handleMouseLeave);
+
+      handlers.push({ el: button, enter: handleMouseEnter, leave: handleMouseLeave });
+    });
+
+    taglineNotationsRef.current = notations;
+
+    return () => {
+      handlers.forEach(({ el, enter, leave }) => {
+        el.removeEventListener('mouseenter', enter);
+        el.removeEventListener('mouseleave', leave);
+      });
+      notations.forEach(notation => {
+        notation.remove();
+      });
+      notations.length = 0;
+    };
   }, []);
 
   return (
@@ -363,14 +401,16 @@ export const Home = ({ language }: HomeProps) => {
       </section>
 
       {/* ===== TRES REGISTROS — PHOTO CARDS ===== */}
-      <section ref={registrosRef} className="section-padding bg-crudo">
-        <div className="container-wide">
-          <p className="eyebrow-mono mb-4 registros-reveal" style={{ transitionDelay: '0ms' }}>{t.rolesEyebrow}</p>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-ink mb-12 leading-tight registros-reveal" style={{ transitionDelay: '100ms' }}>
-            {t.rolesTitle}
-          </h2>
+      <section ref={registrosRef} className="bg-crudo">
+        <div className="container-wide px-0 md:px-1.5 py-12 md:py-20">
+          <div className="px-6 md:px-0">
+            <p className="eyebrow-mono mb-4 registros-reveal" style={{ transitionDelay: '0ms' }}>{t.rolesEyebrow}</p>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-ink mb-12 leading-tight registros-reveal" style={{ transitionDelay: '100ms' }}>
+              {t.rolesTitle}
+            </h2>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0" style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)', marginRight: 'calc(50% - 50vw)' }}>
             {t.roles.map((role, i) => (
               <div
                 key={role.number}
