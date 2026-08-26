@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { annotate } from 'rough-notation';
 import type { Language } from '../../types';
 import { PageHead } from '../components/PageHead';
 
@@ -246,6 +247,7 @@ export const Home = ({ language }: HomeProps) => {
   const t = content[language];
   const registrosRef = useRef<HTMLElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  const taglineNotationsRef = useRef<ReturnType<typeof annotate>[]>([]);
 
   useEffect(() => {
     if (selectedRole !== null) {
@@ -282,6 +284,42 @@ export const Home = ({ language }: HomeProps) => {
     );
     observer.observe(section);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const buttons = document.querySelectorAll('.tagline-segment');
+    const notations = [] as ReturnType<typeof annotate>[];
+    const handlers: Array<{ el: Element; enter: () => void; leave: () => void }> = [];
+
+    buttons.forEach(button => {
+      const notation = annotate(button as HTMLElement, {
+        type: 'circle',
+        color: '#AB6C83',
+        animate: false,
+      });
+      notations.push(notation);
+
+      const handleMouseEnter = () => notation.show();
+      const handleMouseLeave = () => notation.hide();
+
+      button.addEventListener('mouseenter', handleMouseEnter);
+      button.addEventListener('mouseleave', handleMouseLeave);
+
+      handlers.push({ el: button, enter: handleMouseEnter, leave: handleMouseLeave });
+    });
+
+    taglineNotationsRef.current = notations;
+
+    return () => {
+      handlers.forEach(({ el, enter, leave }) => {
+        el.removeEventListener('mouseenter', enter);
+        el.removeEventListener('mouseleave', leave);
+      });
+      notations.forEach(notation => {
+        notation.remove();
+      });
+      notations.length = 0;
+    };
   }, []);
 
   return (
