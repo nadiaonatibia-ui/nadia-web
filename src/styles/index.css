@@ -313,20 +313,7 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   transition: color 0.3s ease;
 }
-.tagline-segment::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  transition: width 0.3s ease;
-}
 .tagline-segment:hover { color: #fff; }
-.tagline-segment--0::after { background: #AB6C83; }
-.tagline-segment--1::after { background: #AB6C83; }
-.tagline-segment--2::after { background: #AB6C83; }
-.tagline-segment:hover::after { width: 100%; }
 .tagline-segment:focus-visible { outline: 1px solid currentColor; outline-offset: 2px; border-radius: 2px; }
 
 /* SPOTLIGHT CURSOR */

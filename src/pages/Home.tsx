@@ -294,7 +294,7 @@ export const Home = ({ language }: HomeProps) => {
     buttons.forEach(button => {
       const notation = annotate(button as HTMLElement, {
         type: 'circle',
-        color: '#AB6C83',
+        color: '#D2491F',
         animate: false,
       });
       notations.push(notation);
