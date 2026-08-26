@@ -372,7 +372,7 @@ export const Home = ({ language }: HomeProps) => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 w-full relative" style={{ marginLeft: 'calc((-100vw + 100%) / 2)', marginRight: 'calc((-100vw + 100%) / 2)' }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0" style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)', marginRight: 'calc(50% - 50vw)' }}>
             {t.roles.map((role, i) => (
               <div
                 key={role.number}
