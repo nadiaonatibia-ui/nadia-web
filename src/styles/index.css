@@ -62,12 +62,12 @@ h1, h2, h3, h4, h5, h6 {
   outline-offset: 2px;
 }
 
-/* ROLE CARDS — photo-first grid */
+/* ROLE CARDS — photo-first grid, full-bleed, square edges */
 .role-card {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  border-radius: 0.75rem;
+  border-radius: 0;
   aspect-ratio: 16/10;
 }
 .role-card-photo {
