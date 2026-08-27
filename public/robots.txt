@@ -3,4 +3,4 @@ Allow: /
 Disallow: /node_modules/
 Disallow: /.vercel/
 
-Sitemap: https://nadia-web-theta.vercel.app/sitemap.xml
+Sitemap: https://nadiaonatibia.vercel.app/sitemap.xml
