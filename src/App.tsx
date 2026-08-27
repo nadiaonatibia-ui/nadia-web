@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation, useParams, Outlet } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { Language } from '../types';
 import { useLanguage } from './hooks/useLanguage';
 import { Navbar } from './components/Navbar';
@@ -53,6 +53,15 @@ function LanguagePage({ Component }: { Component: React.ComponentType<{ language
 }
 
 function App() {
+  useEffect(() => {
+    const path = window.location.pathname;
+    const hasLangPrefix = /^\/(es|en|ca)(\/|$)/.test(path);
+    if (!hasLangPrefix) {
+      const newPath = path === '/' ? '/es/' : '/es' + path;
+      window.location.replace(newPath);
+    }
+  }, []);
+
   return (
     <Router>
       <Routes>

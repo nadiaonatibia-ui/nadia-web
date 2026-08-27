@@ -24,3 +24,5 @@ dist-ssr
 vite.config.js
 vite.config.d.ts
 .preview-port
+.vercel
+.env*
