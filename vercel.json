@@ -5,6 +5,6 @@
     { "source": "/((?!es|en|ca|sitemap|robots|favicon|apple|assets)(?!.*\\.).*)", "destination": "/es/$1", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/((?!.*\\.).*)", "destination": "/index.html" }
+    { "source": "/(es|en|ca)/((?!.*\\.).*)", "destination": "/index.html" }
   ]
 }
