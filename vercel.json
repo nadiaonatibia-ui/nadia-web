@@ -2,8 +2,7 @@
   "outputDirectory": "dist",
   "buildCommand": "npm run build",
   "redirects": [
-    { "source": "/((?!es|en|ca|sitemap|robots|favicon|apple|assets)(?!.*\\.).*)", "destination": "/es/:splat", "permanent": true },
-    { "source": "^/((?!es|en|ca).*?)/?$", "destination": "/es/:splat", "permanent": true }
+    { "source": "/((?!es|en|ca|sitemap|robots|favicon|apple|assets)(?!.*\\.).*)", "destination": "/es/$1", "permanent": true }
   ],
   "rewrites": [
     { "source": "/((?!.*\\.).*)", "destination": "/index.html" }
