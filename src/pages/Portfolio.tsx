@@ -196,6 +196,8 @@ export const Portfolio = ({ language }: PortfolioProps) => {
   const trackRef = useRef<HTMLDivElement>(null);
   const prevBtnRef = useRef<HTMLButtonElement>(null);
   const nextBtnRef = useRef<HTMLButtonElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement | null>(null);
   const labels = uiLabels[language];
   const selectedProject = projects.find((p) => p.id === selectedProjectId) || null;
 
@@ -339,6 +341,74 @@ export const Portfolio = ({ language }: PortfolioProps) => {
     };
   }, []);
 
+  // Focus management: when modal opens, focus first focusable element in modal
+  useEffect(() => {
+    if (selectedProject && modalRef.current) {
+      const focusableElements = modalRef.current.querySelectorAll(
+        'button, a, [tabindex]:not([tabindex="-1"])'
+      ) as NodeListOf<HTMLElement>;
+      const firstElement = focusableElements[0];
+      if (firstElement) {
+        setTimeout(() => firstElement.focus(), 0);
+      }
+      // Store the element that triggered the modal
+      triggerRef.current = document.activeElement as HTMLDivElement;
+    }
+  }, [selectedProject]);
+
+  // Handle Escape key and focus trap
+  useEffect(() => {
+    if (!selectedProject || !modalRef.current) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Close modal on Escape
+      if (e.key === 'Escape') {
+        setSelectedProjectId(null);
+        // Return focus to trigger
+        if (triggerRef.current) {
+          triggerRef.current.focus();
+        }
+        return;
+      }
+
+      // Focus trap: Tab key navigation within modal
+      if (e.key === 'Tab') {
+        const focusableElements = modalRef.current!.querySelectorAll(
+          'button, a, [tabindex]:not([tabindex="-1"])'
+        ) as NodeListOf<HTMLElement>;
+
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        const activeElement = document.activeElement as HTMLElement;
+
+        if (e.shiftKey) {
+          // Shift+Tab: go to previous element or wrap to last
+          if (activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          // Tab: go to next element or wrap to first
+          if (activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [selectedProject]);
+
+  // Return focus to trigger when modal closes
+  useEffect(() => {
+    if (!selectedProjectId && triggerRef.current) {
+      triggerRef.current.focus();
+    }
+  }, [selectedProjectId]);
 
   return (
     <>
@@ -418,9 +488,24 @@ export const Portfolio = ({ language }: PortfolioProps) => {
 
       {/* Project Modal */}
       {selectedProject && (
-        <div className="modal-overlay" onClick={() => setSelectedProjectId(null)}>
-          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelectedProjectId(null)}>
+        <div
+          className="modal-overlay"
+          onClick={() => setSelectedProjectId(null)}
+          role="presentation"
+        >
+          <div
+            ref={modalRef}
+            className="modal-card"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${selectedProject.title} project details`}
+          >
+            <button
+              className="modal-close"
+              onClick={() => setSelectedProjectId(null)}
+              aria-label="Close project details"
+            >
               ✕
             </button>
             {/* Modal header with full logo */}
