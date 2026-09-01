@@ -8,7 +8,7 @@ interface ContactProps {
 }
 
 export const Contact = ({ language }: ContactProps) => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', website_url: '' });
   const [consent, setConsent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -80,16 +80,34 @@ export const Contact = ({ language }: ContactProps) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
+    // Honeypot validation: if filled, reject silently but show success message
+    if (formData.website_url) {
+      setSubmitted(true);
+      setFormData({ name: '', email: '', message: '', website_url: '' });
+      setConsent(false);
+      setTimeout(() => setSubmitted(false), 5000);
+      setLoading(false);
+      return;
+    }
+
     try {
-      const { error } = await supabase.from('contact_messages').insert([formData]);
+      // Only insert the actual fields, not the honeypot
+      const { error } = await supabase.from('contact_messages').insert([{
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      }]);
       if (error) throw error;
       setSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', message: '', website_url: '' });
       setConsent(false);
       setTimeout(() => setSubmitted(false), 5000);
 
       // Send notification email (fire-and-forget, don't block user feedback)
-      supabase.functions.invoke('send-contact-email', { body: formData })
+      supabase.functions.invoke('send-contact-email', {
+        body: { name: formData.name, email: formData.email, message: formData.message },
+      })
         .catch((err) => {
           console.warn('Email notification failed (non-critical):', err);
         });
@@ -147,6 +165,17 @@ export const Contact = ({ language }: ContactProps) => {
                 {error && (
                   <div className="bg-red-50 text-red-700 p-4 rounded-lg text-sm">{error}</div>
                 )}
+                {/* Honeypot field - invisible to humans, catches bots */}
+                <input
+                  type="text"
+                  name="website_url"
+                  value={formData.website_url}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  style={{ position: 'absolute', left: '-9999px', opacity: 0 }}
+                  aria-hidden="true"
+                />
                 <div>
                   <label className="block text-sm font-medium mb-2 text-ink">{t.name}</label>
                   <input
