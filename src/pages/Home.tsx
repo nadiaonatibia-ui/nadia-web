@@ -419,7 +419,14 @@ export const Home = ({ language }: HomeProps) => {
                 style={{ transitionDelay: `${200 + i * 100}ms`, '--card-color': cardColors[i] } as React.CSSProperties}
                 onClick={() => setSelectedRole(i)}
               >
-                <img src={role.image} alt={role.title.replace('\n', ' ')} className="role-card-photo" />
+                <img
+                  src={role.image.replace('.jpg', '-380w.jpg')}
+                  srcSet={`${role.image.replace('.jpg', '-380w.jpg')} 380w, ${role.image.replace('.jpg', '-760w.jpg')} 760w`}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                  alt={role.title.replace('\n', ' ')}
+                  className="role-card-photo"
+                  loading="lazy"
+                />
                 <div className="role-card-overlay">
                   <span className={`role-card-number role-card-number--${i}`}>{role.number}</span>
                   <h3 className="role-card-title whitespace-pre-line">{role.title}</h3>
@@ -442,8 +449,11 @@ export const Home = ({ language }: HomeProps) => {
             {/* Modal header image */}
             <div className="modal-card-header">
               <img
-                src={t.roles[selectedRole].secondImage}
+                src={t.roles[selectedRole].secondImage.replace('.jpg', '-380w.jpg')}
+                srcSet={`${t.roles[selectedRole].secondImage.replace('.jpg', '-380w.jpg')} 380w, ${t.roles[selectedRole].secondImage.replace('.jpg', '-760w.jpg')} 760w`}
+                sizes="(max-width: 768px) 100vw, 90vw"
                 alt={t.roles[selectedRole].title.replace('\n', ' ')}
+                loading="lazy"
               />
               <div className="modal-card-header-overlay">
                 <div>
