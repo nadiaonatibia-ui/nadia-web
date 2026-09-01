@@ -106,7 +106,7 @@ const content = {
       {
         number: '01',
         title: 'Project\nManager',
-        image: '/images/pm-presentation.jpg',
+        image: '/images/pm-panel.jpg',
         secondImage: '/images/pm-panel.jpg',
         body: 'Planificación y coordinación de proyectos multi-partner bajo marcos europeos: Erasmus+, Creative Europe, CERV. Colaboración con administraciones públicas, fundaciones y consorcios de organizaciones asociadas, en proyectos de cooperación con Latinoamérica, Europa y África.\n\nResponsable de la gestión presupuestaria y de los informes narrativos y financieros ante los distintos financiadores, garantizando cumplimiento y trazabilidad documental. Cartera de proyectos en simultáneo, con equipos distribuidos en distintos países, manteniendo cronogramas y entregables alineados entre continentes.\n\nOrganización y exposición en congresos y kick-offs. Seguimiento de tareas con metodologías ágiles (Kanban, Scrum), procesos de MEL —monitoreo, evaluación y aprendizaje— interno y externo, planes de comunicación de proyecto e informes de riesgo.',
         cta: 'Explorar →',
@@ -114,7 +114,7 @@ const content = {
       {
         number: '02',
         title: 'Facilitadora\nArts-Based',
-        image: '/images/facilitadora-teatro.jpg',
+        image: '/images/facilitadora-beyond-gender.jpg',
         secondImage: '/images/facilitadora-beyond-gender.jpg',
         body: 'Diseño y facilitación de procesos participativos con metodologías arts-based: teatro comunitario, teatro del oprimido, teatro fórum, entre otras. Trabajo interdisciplinario en duplas con otras disciplinas —música, artes plásticas y visuales— según las necesidades del proyecto.\n\nTalleres puntuales y procesos sostenidos en el tiempo, con todas las franjas etarias —niñeces, adolescencias, adultos, personas mayores de 55— en contextos escolares, extracurriculares y de formación docente. Diseño de currículas, handbooks y guías de aprendizaje.\n\nProducción de los resultados que cada proceso requiera: muestras, instalaciones performáticas, cortometrajes. Aplicado tanto en contextos de vulnerabilidad como en entornos menos adversos.',
         cta: 'Explorar →',
@@ -122,7 +122,7 @@ const content = {
       {
         number: '03',
         title: 'Productora\nCultural',
-        image: '/images/productora-patheatry.jpg',
+        image: '/images/productora-collage.jpg',
         secondImage: '/images/productora-collage.jpg',
         body: 'Curaduría de artes escénicas y performativas. Logística y coordinación multi-sede de programación cultural: contratación y coordinación de artistas y equipos técnicos, gestión de proveedores, montaje in situ y coordinación de ensayos.\n\nProducción de contenido en distintos formatos —presencial, digital, editorial—: guión, edición audiovisual, SEO y analítica de contenido, con optimización de flujos de producción mediante herramientas de IA.\n\nDe un taller de una tarde a un festival internacional o un congreso con múltiples stakeholders.',
         cta: 'Explorar →',
@@ -149,7 +149,7 @@ const content = {
       {
         number: '01',
         title: 'Project\nManager',
-        image: '/images/pm-presentation.jpg',
+        image: '/images/pm-panel.jpg',
         secondImage: '/images/pm-panel.jpg',
         body: 'Planning and coordination of multi-partner projects under European frameworks: Erasmus+, Creative Europe, CERV. Collaboration with public administrations, foundations and consortia of partner organisations, on cooperation projects across Latin America, Europe and Africa.\n\nResponsible for budget management and for narrative and financial reporting to funders, ensuring compliance and documentary traceability. A portfolio of simultaneous projects, with teams distributed across different countries, keeping timelines and deliverables aligned across continents.\n\nOrganisation of and speaking at conferences and kick-offs. Task tracking with agile methodologies (Kanban, Scrum), internal and external MEL (monitoring, evaluation and learning) processes, project communication plans and risk reports.',
         cta: 'Explore →',
@@ -157,7 +157,7 @@ const content = {
       {
         number: '02',
         title: 'Facilitator\nArts-Based',
-        image: '/images/facilitadora-teatro.jpg',
+        image: '/images/facilitadora-beyond-gender.jpg',
         secondImage: '/images/facilitadora-beyond-gender.jpg',
         body: 'Design and facilitation of participatory processes using arts-based methodologies: Theatre of the Oppressed, Forum Theatre, Community Theatre, among others. Interdisciplinary work in pairs with other disciplines —music, visual and plastic arts— depending on the needs of the project.\n\nOne-off workshops and sustained long-term processes, across all age groups —childhood, adolescence, adults, people over 55— in school, extracurricular and teacher-training settings. Design of curricula, handbooks and learning guides.\n\nProduction of whatever outcome each process calls for: exhibitions, performative installations, short films. Applied both in contexts of vulnerability and in less adverse settings.',
         cta: 'Explore →',
@@ -165,7 +165,7 @@ const content = {
       {
         number: '03',
         title: 'Cultural\nProducer',
-        image: '/images/productora-patheatry.jpg',
+        image: '/images/productora-collage.jpg',
         secondImage: '/images/productora-collage.jpg',
         body: 'Curation of performing and performative arts. Multi-site logistics and coordination of cultural programming: hiring and coordinating artists and technical teams, supplier management, on-site setup and rehearsal coordination.\n\nContent production across formats —in-person, digital, editorial—: scriptwriting, video editing, SEO and content analytics, with production workflows optimised through AI tools.\n\nFrom a one-afternoon workshop to an international festival or a conference with multiple stakeholders.',
         cta: 'Explore →',
@@ -192,7 +192,7 @@ const content = {
       {
         number: '01',
         title: 'Project\nManager',
-        image: '/images/pm-presentation.jpg',
+        image: '/images/pm-panel.jpg',
         secondImage: '/images/pm-panel.jpg',
         body: "Planificació i coordinació de projectes multi-partner sota marcs europeus: Erasmus+, Creative Europe, CERV. Col·laboració amb administracions públiques, fundacions i consorcis d'organitzacions associades, en projectes de cooperació amb l'Amèrica Llatina, Europa i l'Àfrica.\n\nResponsable de la gestió pressupostària i dels informes narratius i financers davant els diferents finançadors, garantint el compliment i la traçabilitat documental. Cartera de projectes en simultani, amb equips distribuïts en diferents països, mantenint cronogrames i lliurables alineats entre continents.\n\nOrganització i exposició en congressos i kick-offs. Seguiment de tasques amb metodologies àgils (Kanban, Scrum), processos de MEL —seguiment, avaluació i aprenentatge— intern i extern, plans de comunicació de projecte i informes de risc.",
         cta: 'Explorar →',
@@ -200,7 +200,7 @@ const content = {
       {
         number: '02',
         title: 'Facilitadora\nArts-Based',
-        image: '/images/facilitadora-teatro.jpg',
+        image: '/images/facilitadora-beyond-gender.jpg',
         secondImage: '/images/facilitadora-beyond-gender.jpg',
         body: "Disseny i facilitació de processos participatius amb metodologies arts-based: teatre comunitari, teatre de l'oprimit, teatre fòrum, entre d'altres. Treball interdisciplinari en parelles amb altres disciplines —música, arts plàstiques i visuals— segons les necessitats del projecte.\n\nTallers puntuals i processos sostinguts en el temps, amb totes les franges d'edat —infàncies, adolescències, adults, persones grans de 55— en contextos escolars, extraescolars i de formació docent. Disseny de currículums, manuals i guies d'aprenentatge.\n\nProducció dels resultats que cada procés requereixi: mostres, instal·lacions performàtiques, curtmetratges. Aplicat tant en contextos de vulnerabilitat com en entorns menys adversos.",
         cta: 'Explorar →',
@@ -208,7 +208,7 @@ const content = {
       {
         number: '03',
         title: 'Productora\nCultural',
-        image: '/images/productora-patheatry.jpg',
+        image: '/images/productora-collage.jpg',
         secondImage: '/images/productora-collage.jpg',
         body: "Curadoria d'arts escèniques i performatives. Logística i coordinació multiseu de programació cultural: contractació i coordinació d'artistes i equips tècnics, gestió de proveïdors, muntatge in situ i coordinació d'assajos.\n\nProducció de continguts en diferents formats —presencial, digital, editorial—: guió, edició audiovisual, SEO i analítica de continguts, amb optimització de fluxos de producció mitjançant eines d'IA.\n\nD'un taller d'una tarda a un festival internacional o un congrés amb múltiples stakeholders.",
         cta: 'Explorar →',
