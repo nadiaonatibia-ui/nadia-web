@@ -351,8 +351,6 @@ export const Portfolio = ({ language }: PortfolioProps) => {
       if (firstElement) {
         setTimeout(() => firstElement.focus(), 0);
       }
-      // Store the element that triggered the modal
-      triggerRef.current = document.activeElement as HTMLDivElement;
     }
   }, [selectedProject]);
 
@@ -442,7 +440,11 @@ export const Portfolio = ({ language }: PortfolioProps) => {
                     key={project.id}
                     data-sector={project.sectorKey}
                     className="project-card group cursor-pointer rounded-xl overflow-hidden bg-white border border-ink/5 transition-all duration-300 flex-shrink-0"
-                    onClick={() => setSelectedProjectId(project.id)}
+                    tabIndex={0}
+                    onClick={(e) => {
+                      triggerRef.current = e.currentTarget as HTMLDivElement;
+                      setSelectedProjectId(project.id);
+                    }}
                   >
                   {/* Project logo as full cover */}
                   <div className="h-48 relative overflow-hidden bg-white">
