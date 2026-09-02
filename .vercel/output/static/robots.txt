@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /node_modules/
-Disallow: /.vercel/
-
-Sitemap: https://nadiaonatibia.vercel.app/sitemap.xml
