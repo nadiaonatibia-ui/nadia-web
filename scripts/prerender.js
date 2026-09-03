@@ -26,6 +26,19 @@ const SITE_URL = (process.env.SITE_URL || 'https://nadiaonatibia.vercel.app').re
 // Idioma que ven los crawlers (el sitio arranca en ES por defecto).
 const CRAWLER_LANG = 'es'
 
+// JSON-LD (schema.org Person) — solo para Home. Igual que canonical/og:url,
+// tiene que estar en el HTML estático: los crawlers que lo leen no ejecutan JS.
+const PERSON_JSON_LD = `<script type="application/ld+json">${JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Nadia Oñatibia',
+  jobTitle: 'Project Manager',
+  url: SITE_URL,
+  sameAs: ['https://www.linkedin.com/in/nadiao%C3%B1atibia/'],
+  worksFor: { '@type': 'Organization', name: 'La Xixa Teatre' },
+  address: { '@type': 'PostalAddress', addressLocality: 'Barcelona', addressCountry: 'ES' },
+})}</script>`
+
 const routes = [
   { path: '/', key: 'home', filename: 'index.html' },
   { path: '/portfolio', key: 'portfolio', filename: 'portfolio/index.html' },
@@ -148,7 +161,7 @@ async function main() {
       continue
     }
 
-    const head = buildHead(meta, route.path)
+    const head = buildHead(meta, route.path) + (route.key === 'home' ? PERSON_JSON_LD : '')
     const html = stripExistingMeta(template).replace(/<\/head>/i, head + '</head>')
 
     const filePath = path.join(distDir, route.filename)
