@@ -7,7 +7,9 @@ Contiene las reglas fijas. No hace falta repetir nada de esto en cada instrucci�
 Portfolio profesional multiidioma (ES/EN/CA) de Nadia Oñatibia — Senior Project
 Manager en gestión cultural y cooperación europea, Barcelona.
 5 páginas: Home · Portfolio · CV · Blog · Contact.
-Producción: https://nadia-web-theta.vercel.app
+Producción: https://nadiaonatibia.vercel.app (dominio canónico — usado en robots.txt,
+sitemap.xml y Legal.tsx). nadia-web-theta.vercel.app se mantiene activo como alias
+secundario por historial de links ya compartidos, pero no es el canónico.
 
 ## STACK (no cambiar sin acuerdo explícito)
 - React 18 + TypeScript + Vite

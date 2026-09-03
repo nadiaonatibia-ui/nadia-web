@@ -23,7 +23,7 @@ const sections = {
     website: {
       title: 'Datos del Sitio Web',
       lines: [
-        'Dominio: nadia-web-theta.vercel.app (temporal)',
+        'Dominio: nadiaonatibia.vercel.app',
         'Hosting: Vercel (USA/EU)',
         'Datos del servidor: https://vercel.com',
       ],
@@ -121,7 +121,7 @@ const sections = {
     website: {
       title: 'Website Data',
       lines: [
-        'Domain: nadia-web-theta.vercel.app (temporary)',
+        'Domain: nadiaonatibia.vercel.app',
         'Hosting: Vercel (USA/EU)',
         'Server information: https://vercel.com',
       ],
@@ -219,7 +219,7 @@ const sections = {
     website: {
       title: 'Dades del Lloc Web',
       lines: [
-        'Domini: nadia-web-theta.vercel.app (temporal)',
+        'Domini: nadiaonatibia.vercel.app',
         'Hosting: Vercel (USA/EU)',
         'Informació del servidor: https://vercel.com',
       ],
